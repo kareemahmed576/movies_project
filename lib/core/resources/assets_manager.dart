@@ -22,20 +22,26 @@ abstract class AssetsManager {
   static const String googleLogo = "assets/images/google_icon.svg";
   static const String heartIcon = "assets/images/heart_icon.svg";
   static const String historyIcon = "assets/images/history_icon.svg";
-  static const String homeIcon = "assets/images/home_icon.svg";
   static const String backArrowIcon = "assets/images/back_arrow_icon.svg";
   static const String emailIcon = "assets/images/email_icon.svg";
-  static const String exploreIcon = "assets/images/explore_icon.svg";
   static const String eyeOffIcon = "assets/images/eye_off_icon.svg";
   static const String eyeOnIcon = "assets/images/eye_on_icon.svg";
   static const String nameIcon = "assets/images/name_icon.svg";
   static const String passwordIcon = "assets/images/password_icon.svg";
   static const String phoneIcon = "assets/images/phone_icon.svg";
   static const String playIcon = "assets/images/play_icon.svg";
-  static const String profileIcon = "assets/images/profile_icon.svg";
   static const String rateIcon = "assets/images/rate_icon.svg";
   static const String saveIcon = "assets/images/save_icon.svg";
   static const String searchIcon = "assets/images/search_icon.svg";
   static const String watchIcon = "assets/images/watch_icon.svg";
   static const String watchListIcon = "assets/images/watch_list_icon.svg";
+  static const String searchUnSelected = "assets/images/search.svg";
+  static const String searchSelected = "assets/images/search selected.svg";
+  static const String homeSelected = "assets/images/home selected.svg";
+  static const String homeUnSelected = "assets/images/home.svg";
+  static const String profileSelected = "assets/images/profile selected.svg";
+  static const String profileUnSelected = "assets/images/profile_icon.svg";
+  static const String exploreSelected = "assets/images/explore selected.svg";
+  static const String exploreUnSelected = "assets/images/explore_icon.svg";
+
 }

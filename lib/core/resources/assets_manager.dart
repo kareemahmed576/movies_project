@@ -32,7 +32,6 @@ abstract class AssetsManager {
   static const String playIcon = "assets/images/play_icon.svg";
   static const String rateIcon = "assets/images/rate_icon.svg";
   static const String saveIcon = "assets/images/save_icon.svg";
-  static const String searchIcon = "assets/images/search_icon.svg";
   static const String watchIcon = "assets/images/watch_icon.svg";
   static const String watchListIcon = "assets/images/watch_list_icon.svg";
   static const String searchUnSelected = "assets/images/search.svg";

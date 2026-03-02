@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(AssetsManager.searchUnSelected,width: 23.w,height: 23.h,),
-                    activeIcon: SvgPicture.asset(AssetsManager.searchSelected,width: 23.h,height: 23.h,),
+                    activeIcon: SvgPicture.asset(AssetsManager.searchSelected,width: 23.w,height: 23.h,),
                     label: "search",
                   ),
                   BottomNavigationBarItem(

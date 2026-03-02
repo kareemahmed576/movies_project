@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_project/core/resources/color_manager.dart';
 
 class AppTheme {
-  static final darkTheme = ThemeData(
+  static final ThemeData darkTheme = ThemeData(
 
     colorScheme: ColorScheme.dark(
       primary: ColorManager.darkBlack,

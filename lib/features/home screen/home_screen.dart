@@ -45,23 +45,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: ColorManager.darkGray,
                 items: [
                   BottomNavigationBarItem(
-                    icon: SvgPicture.asset(AssetsManager.homeUnSelected,width: 23,height: 23,),
-                    activeIcon: SvgPicture.asset(AssetsManager.homeSelected,width: 23,height: 23,),
+                    icon: SvgPicture.asset(AssetsManager.homeUnSelected,width: 23.w,height: 23.h,),
+                    activeIcon: SvgPicture.asset(AssetsManager.homeSelected,width: 23.w,height: 23.h,),
                     label: "Home",
                   ),
                   BottomNavigationBarItem(
-                    icon: SvgPicture.asset(AssetsManager.searchUnSelected,width: 23,height: 23,),
-                    activeIcon: SvgPicture.asset(AssetsManager.searchSelected,width: 23,height: 23,),
+                    icon: SvgPicture.asset(AssetsManager.searchUnSelected,width: 23.w,height: 23.h,),
+                    activeIcon: SvgPicture.asset(AssetsManager.searchSelected,width: 23.h,height: 23.h,),
                     label: "search",
                   ),
                   BottomNavigationBarItem(
-                    icon: SvgPicture.asset(AssetsManager.exploreUnSelected,width: 23,height: 23,),
-                    activeIcon: SvgPicture.asset(AssetsManager.exploreSelected,width: 23,height: 23,),
+                    icon: SvgPicture.asset(AssetsManager.exploreUnSelected,width: 23.w,height: 23.h,),
+                    activeIcon: SvgPicture.asset(AssetsManager.exploreSelected,width: 23.w,height: 23.h,),
                     label: "explore",
                   ),
                   BottomNavigationBarItem(
-                    icon: SvgPicture.asset(AssetsManager.profileUnSelected,width: 23,height: 23,),
-                    activeIcon: SvgPicture.asset(AssetsManager.profileSelected,width: 23,height: 23,),
+                    icon: SvgPicture.asset(AssetsManager.profileUnSelected,width: 23.w,height: 23.h,),
+                    activeIcon: SvgPicture.asset(AssetsManager.profileSelected,width: 23.w,height: 23.h,),
                     label: "profile",
                   ),
                 ],

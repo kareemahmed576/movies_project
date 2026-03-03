@@ -31,6 +31,11 @@ class AppTheme {
           fontWeight: FontWeight.w400,
           color: ColorManager.white
       ),
+      titleMedium: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
+          color: ColorManager.darkBlack
+      ),
 
     )
 

@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
+        themeMode:ThemeMode.dark,
         theme: AppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
         initialRoute: RoutesManager.onBoardingRoute,

@@ -4,10 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
 import 'package:movies_project/features/onboarding/data/model/onboarding_list.dart';
-import 'package:movies_project/features/onboarding/presentation/widget/custom_button_page_controller.dart';
+import 'package:movies_project/core/reusable%20widget/custom_button.dart';
 import 'package:movies_project/features/onboarding/presentation/widget/onboarding_item.dart';
-
-import '../../../../core/resources/color_manager.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -16,7 +14,8 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   PageController controller = PageController();
-  int currentIndex=0;
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           Expanded(
             child: PageView.builder(
-              physics:NeverScrollableScrollPhysics(),
+              physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => OnboardingItem(
                 onboardingData: OnboardingList.onboarding[index],
                 index: index,
@@ -33,33 +32,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               controller: controller,
               onPageChanged: (value) {
                 setState(() {
-                  currentIndex=value ;
+                  currentIndex = value;
                 });
               },
             ),
           ),
-          CustomButtonPageController(
+          CustomButton(
+            color: Theme.of(context).colorScheme.tertiary,
             title: currentIndex == 0
                 ? StringsManager.exploreNow.tr()
                 : currentIndex == 5
                 ? StringsManager.finish.tr()
                 : StringsManager.next.tr(),
-            pages: () {
-              if(currentIndex!=5){
-                controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-              }
-              else{
-                Navigator.pushReplacementNamed(context, RoutesManager.loginsRoute);
+            onClick: () {
+              if (currentIndex != 5) {
+                controller.nextPage(
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+              } else {
+                Navigator.pushReplacementNamed(
+                  context,
+                  RoutesManager.loginsRoute,
+                );
               }
             },
           ),
-          SizedBox(height: 16.h,),
+          SizedBox(height: 16.h),
           ?currentIndex == 0
               ? null
-              : CustomButtonPageController(
+              : CustomButton(
+                  color: Theme.of(context).colorScheme.tertiary,
                   title: StringsManager.back.tr(),
-                  pages: () {
-                    controller.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                  onClick: () {
+                    controller.previousPage(
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                    );
                   },
                 ),
           SizedBox(height: 20.h),

@@ -20,6 +20,8 @@ abstract class AssetsManager {
   static const String avatar7 = "assets/images/avatar7.png";
   static const String avatar8 = "assets/images/avatar8.png";
   static const String avatar9 = "assets/images/avatar9.png";
+  static const String egpLogo = "assets/images/egp_logo.png";
+  static const String usaLogo = "assets/images/usa_logo.png";
   static const String googleLogo = "assets/Icons/google_icon.svg";
   static const String heartIcon = "assets/Icons/heart_icon.svg";
   static const String historyIcon = "assets/Icons/history_icon.svg";

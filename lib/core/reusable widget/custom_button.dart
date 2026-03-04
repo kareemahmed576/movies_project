@@ -14,26 +14,23 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: REdgeInsets.only(right: 16,left: 16),
-      child: ElevatedButton(
-        onPressed: onClick,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          padding: REdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.r),
-          ),
+    return  ElevatedButton(
+      onPressed: onClick,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        padding: REdgeInsets.all(16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.r),
         ),
-        child: Row(
-          spacing: 11,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ?prefixIcon!=null?SvgPicture.asset(prefixIcon??""):null,
-            Text(title.tr(),style: Theme.of(context).textTheme.titleMedium,)
-          ],
-        ),
-      )
+      ),
+      child: Row(
+        spacing: 11,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ?prefixIcon!=null?SvgPicture.asset(prefixIcon??""):null,
+          Text(title.tr(),style: Theme.of(context).textTheme.titleMedium,)
+        ],
+      ),
     );
   }
 }

@@ -31,10 +31,20 @@ class AppTheme {
           fontWeight: FontWeight.w400,
           color: ColorManager.white
       ),
+      labelSmall: TextStyle(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w400,
+          color: ColorManager.white
+      ),
       titleMedium: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,
           color: ColorManager.darkBlack
+      ),
+      titleSmall: TextStyle(
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w900,
+          color: ColorManager.white
       ),
 
     )

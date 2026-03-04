@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/app_theme.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/features/auth/presentation/screen/login_screen.dart';
+import 'package:movies_project/features/auth/sign_up_screen/presentation/screen/signup_screen.dart';
 import 'package:movies_project/features/home%20screen/home_screen.dart';
 import 'package:movies_project/features/onboarding/presentation/screen/onboarding_screen.dart';
 
@@ -36,11 +37,12 @@ class MyApp extends StatelessWidget {
         themeMode:ThemeMode.dark,
         theme: AppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
-        initialRoute: RoutesManager.onBoardingRoute,
+        initialRoute: RoutesManager.signupRoute,
         routes: {
           RoutesManager.homeRoute:(_)=>HomeScreen(),
           RoutesManager.onBoardingRoute:(_)=>OnboardingScreen(),
-          RoutesManager.loginsRoute:(_)=>LoginScreen()
+          RoutesManager.loginsRoute:(_)=>LoginScreen(),
+          RoutesManager.signupRoute:(_)=>SignupScreen(),
         },
       ),
     );

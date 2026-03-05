@@ -10,7 +10,7 @@ class MoviesGridview extends StatelessWidget {
   int crossAxisSpacing;
   int movieCardContainerWidth;
   int movieCardContainerHeight;
-
+  ScrollPhysics? scrollPhysics;
   MoviesGridview({
     required this.itemCount,
     required this.crossAxisCount,
@@ -18,6 +18,7 @@ class MoviesGridview extends StatelessWidget {
     required this.crossAxisSpacing,
     required this.movieCardContainerWidth,
     required this.movieCardContainerHeight,
+    this.scrollPhysics,
   });
 
   @override
@@ -30,6 +31,7 @@ class MoviesGridview extends StatelessWidget {
         crossAxisSpacing: crossAxisSpacing.w,
         childAspectRatio: 0.8,
       ),
+      physics: scrollPhysics,
       itemCount: itemCount,
       itemBuilder: (context, index) => MovieCard(
         movie: ConstantsManager.movies[index],

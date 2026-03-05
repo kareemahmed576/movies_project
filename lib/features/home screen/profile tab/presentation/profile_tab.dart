@@ -20,15 +20,17 @@ class ProfileTab extends StatelessWidget {
               state is WatchListState
                   ? SizedBox(height: 0.5.sh, child: WatchListScreen())
                   : Padding(
-                    padding: REdgeInsets.only(top: 24, left: 16, right: 16),
-                    child: MoviesGridview(
-                    itemCount: ConstantsManager.movies.length,
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    movieCardContainerWidth: 122,
-                    movieCardContainerHeight: 180),
-                  ),
+                      padding: REdgeInsets.only(top: 24, left: 16, right: 16),
+                      child: MoviesGridview(
+                        itemCount: ConstantsManager.movies.length,
+                        scrollPhysics: NeverScrollableScrollPhysics(),
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
+                        movieCardContainerWidth: 122,
+                        movieCardContainerHeight: 180,
+                      ),
+                    ),
             ],
           ),
         );

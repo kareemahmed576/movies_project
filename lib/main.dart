@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
               providers: [BlocProvider(create: (context) => ProfileCubit())],
               child: HomeScreen(),
             ),
-          RoutesManager.homeRoute:(_)=>HomeScreen(),
           RoutesManager.onBoardingRoute:(_)=>OnboardingScreen(),
           RoutesManager.loginsRoute:(_)=>LoginScreen(),
           RoutesManager.signupRoute:(_)=>SignupScreen(),

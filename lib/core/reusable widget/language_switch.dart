@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
 
 class LanguageSwitch extends StatefulWidget {
-  const LanguageSwitch({super.key});
+  String language;
+   LanguageSwitch(this.language);
 
   @override
   State<LanguageSwitch> createState() => _LanguageSwitchState();
@@ -31,37 +33,47 @@ class _LanguageSwitchState extends State<LanguageSwitch> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: 36.w,
-                height: 36.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                child: Padding(
-                  padding: REdgeInsets.all(4.0),
-                  child: ClipOval(
-                    child: Image.asset(
-                      AssetsManager.usaLogo,
-                      fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  context.setLocale(Locale("en"));
+                },
+                child: Container(
+                  width: 36.w,
+                  height: 36.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.language=="en"?Theme.of(context).colorScheme.tertiary:Colors.transparent,
+                  ),
+                  child: Padding(
+                    padding: REdgeInsets.all(4.0),
+                    child: ClipOval(
+                      child: Image.asset(
+                        AssetsManager.usaLogo,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
               ),
 
-              Container(
-                width: 36.w,
-                height: 36.h,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent,
-                ),
-                child: Padding(
-                  padding: REdgeInsets.all(4.0),
-                  child: ClipOval(
-                    child: Image.asset(
-                      AssetsManager.egpLogo,
-                      fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  context.setLocale(Locale("ar"));
+                },
+                child: Container(
+                  width: 36.w,
+                  height: 36.h,
+                  decoration:  BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.language=="ar"?Theme.of(context).colorScheme.tertiary:Colors.transparent,
+                  ),
+                  child: Padding(
+                    padding: REdgeInsets.all(4.0),
+                    child: ClipOval(
+                      child: Image.asset(
+                        AssetsManager.egpLogo,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

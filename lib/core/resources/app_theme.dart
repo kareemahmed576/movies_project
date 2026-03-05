@@ -17,14 +17,19 @@ class AppTheme {
     textTheme: TextTheme(
 
       bodyLarge: TextStyle(
-        fontSize: 24.sp,
-        fontWeight: FontWeight.w700,
-        color: ColorManager.white
+          fontSize: 24.sp,
+          fontWeight: FontWeight.w700,
+          color: ColorManager.white
+      ),
+      bodyMedium: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w700,
+          color: ColorManager.white
       ),
       displayLarge: TextStyle(
-        fontSize: 36.sp,
-        fontWeight: FontWeight.w700,
-        color: ColorManager.white
+          fontSize: 36.sp,
+          fontWeight: FontWeight.w700,
+          color: ColorManager.white
       ),
       labelMedium: TextStyle(
           fontSize: 20.sp,
@@ -46,7 +51,17 @@ class AppTheme {
           fontWeight: FontWeight.w900,
           color: ColorManager.white
       ),
+      displaySmall: TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+        color: ColorManager.gold
+      )
 
+    ),
+    dividerTheme: DividerThemeData(
+      color: ColorManager.gold,
+      endIndent: 25,
+      indent: 20,
     )
 
   );

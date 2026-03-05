@@ -6,7 +6,7 @@ abstract class AssetsManager {
   static const String onboarding4 = "assets/images/onboarding4.jpg";
   static const String onboarding5 = "assets/images/onboarding5.jpg";
   static const String onboarding6 = "assets/images/onboarding6.jpg";
-  static const String moviesLogo = "assets/images/movies_logo.png";
+  static const String moviesLogo = "assets/images/moviesLogo.png";
   static const String availableNow = "assets/images/available_now.png";
   static const String watchNow = "assets/images/watch_now.png";
   static const String forgotPassword = "assets/images/forgot_password.png";
@@ -46,4 +46,6 @@ abstract class AssetsManager {
   static const String profileUnSelected = "assets/Icons/profile_icon.svg";
   static const String exploreSelected = "assets/Icons/explore selected.svg";
   static const String exploreUnSelected = "assets/Icons/explore_icon.svg";
+  static const String logoutIcon= "assets/Icons/log-out.svg";
+
 }

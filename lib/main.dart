@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/app_theme.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/features/home%20screen/home_screen.dart';
+import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profile_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,15 +19,20 @@ class MyApp extends StatelessWidget {
       designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        themeMode:ThemeMode.dark,
-        theme: AppTheme.darkTheme,
-        debugShowCheckedModeBanner: false,
-        initialRoute: RoutesManager.homeRoute,
-        routes: {
-          RoutesManager.homeRoute:(_)=>HomeScreen()
-        },
-      ),
+      builder: (context, child) {
+        return MaterialApp(
+          themeMode: ThemeMode.dark,
+          theme: AppTheme.darkTheme,
+          debugShowCheckedModeBanner: false,
+          initialRoute: RoutesManager.homeRoute,
+          routes: {
+            RoutesManager.homeRoute: (_) => MultiBlocProvider(
+              providers: [BlocProvider(create: (context) => ProfileCubit())],
+              child: HomeScreen(),
+            ),
+          },
+        );
+      },
     );
   }
 }

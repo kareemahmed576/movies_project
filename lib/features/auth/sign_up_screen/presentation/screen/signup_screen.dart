@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
 import 'package:movies_project/core/reusable%20widget/custom_button.dart';
 import 'package:movies_project/core/reusable%20widget/custom_text_form_field.dart';
@@ -107,17 +108,22 @@ class _SignupScreenState extends State<SignupScreen> {
                       onPressed: (){
                         
                       },
-                      child: Text(
-                        StringsManager.login.tr(),
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: Theme.of(context).colorScheme.tertiary,
+                      child: InkWell(
+                        onTap: () => Navigator.pushNamed(context, RoutesManager.loginsRoute),
+                        child: Text(
+                          StringsManager.login.tr(),
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.tertiary,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 12.h),
-                LanguageSwitch(),
+                LanguageSwitch(
+                  context.locale.languageCode
+                ),
               ],
             ),
           ),

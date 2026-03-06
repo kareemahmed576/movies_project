@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               } else {
                 Navigator.pushReplacementNamed(
                   context,
-                  RoutesManager.homeRoute,
+                  RoutesManager.loginsRoute,
                 );
               }
             },

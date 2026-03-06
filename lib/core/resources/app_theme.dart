@@ -52,7 +52,17 @@ class AppTheme {
           fontWeight: FontWeight.w900,
           color: ColorManager.white
       ),
+      displaySmall: TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+        color: ColorManager.gold
+      )
 
+    ),
+    dividerTheme: DividerThemeData(
+      color: ColorManager.gold,
+      endIndent: 25,
+      indent: 20,
     )
 
   );

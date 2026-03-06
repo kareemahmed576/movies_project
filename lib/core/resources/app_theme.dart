@@ -10,6 +10,7 @@ class AppTheme {
       primary: ColorManager.darkBlack,
       onPrimary: ColorManager.white,
       tertiary: ColorManager.gold,
+      onTertiary: ColorManager.lightGray,
       onSecondary: ColorManager.darkGray,
       onSecondaryContainer: ColorManager.red
     ),

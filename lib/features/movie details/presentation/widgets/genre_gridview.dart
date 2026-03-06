@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/constants_manager.dart';
-import '../../../../../core/reusable widget/movie_card.dart';
+import 'package:movies_project/features/movie%20details/presentation/widgets/genre_view.dart';
 
-class MoviesGridview extends StatelessWidget {
+class GenreGridview extends StatelessWidget {
   int itemCount;
   int crossAxisCount;
   int mainAxisSpacing;
   int crossAxisSpacing;
-  int movieCardContainerWidth;
-  int movieCardContainerHeight;
   ScrollPhysics? scrollPhysics;
 
-  MoviesGridview({
+  GenreGridview({
     required this.itemCount,
     required this.crossAxisCount,
     required this.mainAxisSpacing,
     required this.crossAxisSpacing,
-    required this.movieCardContainerWidth,
-    required this.movieCardContainerHeight,
     this.scrollPhysics,
   });
 
@@ -31,15 +27,12 @@ class MoviesGridview extends StatelessWidget {
         crossAxisCount: crossAxisCount,
         mainAxisSpacing: mainAxisSpacing.h,
         crossAxisSpacing: crossAxisSpacing.w,
-        childAspectRatio: 0.8,
+        childAspectRatio: 2.5,
       ),
       physics: scrollPhysics,
       itemCount: itemCount,
-      itemBuilder: (context, index) => MovieCard(
-        movie: ConstantsManager.movies[index],
-        containerWidth: movieCardContainerWidth,
-        containerHeight: movieCardContainerHeight,
-      ),
+      itemBuilder: (context, index) =>
+          GenreView(title: ConstantsManager.genres[index]),
     );
   }
 }

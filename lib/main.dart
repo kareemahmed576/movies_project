@@ -7,20 +7,21 @@ import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/features/auth/sign_up_screen/presentation/screen/signup_screen.dart';
 import 'package:movies_project/features/home%20screen/home_screen.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profile_cubit.dart';
+import 'package:movies_project/features/movie%20details/data/movie_details_model.dart';
+import 'package:movies_project/features/movie%20details/presentation/screen/movie_details_screen.dart';
 import 'package:movies_project/features/onboarding/presentation/screen/onboarding_screen.dart';
-
+import 'features/home screen/profile tab/model/movieModel.dart';
 import 'features/auth/login screen/presentation/screen/login_screen.dart';
 
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
-      supportedLocales: [
-        Locale("en"),
-        Locale("ar"),
-      ], path: 'assets/translations',
-      fallbackLocale: Locale("en"),
-      startLocale: Locale("en"),
+      supportedLocales: const [Locale("en"), Locale("ar")],
+      path: 'assets/translations',
+      fallbackLocale: const Locale("en"),
+      startLocale: const Locale("en"),
       child: const MyApp()));
 }
 
@@ -35,12 +36,35 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
-           localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
           themeMode: ThemeMode.dark,
           theme: AppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case RoutesManager.homeRoute:
+                return MaterialPageRoute(
+                  builder: (_) => MultiBlocProvider(
+                    providers: [BlocProvider(create: (context) => ProfileCubit())],
+                    child:  HomeScreen(),
+                  ),
+                );
+              case RoutesManager.onBoardingRoute:
+                return MaterialPageRoute(builder: (_) => OnboardingScreen());
+              case RoutesManager.loginsRoute:
+                return MaterialPageRoute(builder: (_) => LoginScreen());
+              case RoutesManager.signupRoute:
+                return MaterialPageRoute(builder: (_) => SignupScreen());
+              case RoutesManager.movieDetailsRoute:
+                final movie = settings.arguments as MovieModel;
+                return MaterialPageRoute(
+                  builder: (_) => MovieDetailsScreen(movie),
+                );
+              default:
+                return null;
+            }
           initialRoute: RoutesManager.loginsRoute,
           routes: {
             RoutesManager.homeRoute: (_) => MultiBlocProvider(
@@ -51,6 +75,7 @@ class MyApp extends StatelessWidget {
           RoutesManager.loginsRoute:(_)=>LoginScreen(),
           RoutesManager.signupRoute:(_)=>SignupScreen(),
           },
+          initialRoute: RoutesManager.homeRoute,
         );
       },
     );

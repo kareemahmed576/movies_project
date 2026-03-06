@@ -93,6 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   title: StringsManager.createAccount.tr(),
                   onClick: () {},
                   color: Theme.of(context).colorScheme.tertiary,
+                  textStyle: Theme.of(context).textTheme.titleMedium!,
                 ),
                 SizedBox(height: 18.h),
                 Row(

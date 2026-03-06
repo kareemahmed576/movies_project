@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: (settings) => _generateRoute(settings),
-          initialRoute: RoutesManager.homeRoute,
+          initialRoute: RoutesManager.onBoardingRoute,
         );
       },
     );

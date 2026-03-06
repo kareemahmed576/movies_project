@@ -5,6 +5,8 @@ import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/core/resources/color_manager.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
 
+import '../resources/routes_manager.dart';
+
 class MovieCard extends StatelessWidget {
   MovieModel movie;
   int containerWidth;
@@ -20,7 +22,11 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-
+        Navigator.pushNamed(
+          context,
+          RoutesManager.movieDetailsRoute,
+          arguments: movie,
+        );
       },
       child: Container(
         clipBehavior: Clip.antiAlias,

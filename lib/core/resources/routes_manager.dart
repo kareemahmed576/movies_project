@@ -3,4 +3,5 @@ abstract class RoutesManager {
   static const String onBoardingRoute="onboarding";
   static const String loginsRoute="login";
   static const String signupRoute="signup";
+  static const String movieDetailsRoute="movieDetails";
 }

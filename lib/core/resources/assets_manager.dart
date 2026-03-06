@@ -32,7 +32,14 @@ abstract class AssetsManager {
   static const String nameIcon = "assets/Icons/name_icon.svg";
   static const String passwordIcon = "assets/Icons/password_icon.svg";
   static const String phoneIcon = "assets/Icons/phone_icon.svg";
-  static const String playIcon = "assets/Icons/play_icon.svg";
+  static const String playIcon = "assets/images/play_icon.png";
+  static const String screenshot1 = "assets/images/screenshot1.png";
+  static const String screenshot2 = "assets/images/screenshot2.png";
+  static const String screenshot3 = "assets/images/screenshot3.png";
+  static const String actor1 = "assets/images/actor1.png";
+  static const String actor2 = "assets/images/actor2.png";
+  static const String actor3 = "assets/images/actor3.png";
+  static const String actor4 = "assets/images/actor4.png";
   static const String rateIcon = "assets/Icons/rate_icon.svg";
   static const String saveIcon = "assets/Icons/save_icon.svg";
   static const String searchIcon = "assets/Icons/search_icon.svg";

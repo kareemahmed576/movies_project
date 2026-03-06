@@ -7,7 +7,6 @@ import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/features/auth/sign_up_screen/presentation/screen/signup_screen.dart';
 import 'package:movies_project/features/home%20screen/home_screen.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profile_cubit.dart';
-import 'package:movies_project/features/movie%20details/data/movie_details_model.dart';
 import 'package:movies_project/features/movie%20details/presentation/screen/movie_details_screen.dart';
 import 'package:movies_project/features/onboarding/presentation/screen/onboarding_screen.dart';
 import 'features/home screen/profile tab/model/movieModel.dart';
@@ -42,42 +41,49 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.dark,
           theme: AppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
-          onGenerateRoute: (settings) {
-            switch (settings.name) {
-              case RoutesManager.homeRoute:
-                return MaterialPageRoute(
-                  builder: (_) => MultiBlocProvider(
-                    providers: [BlocProvider(create: (context) => ProfileCubit())],
-                    child:  HomeScreen(),
-                  ),
-                );
-              case RoutesManager.onBoardingRoute:
-                return MaterialPageRoute(builder: (_) => OnboardingScreen());
-              case RoutesManager.loginsRoute:
-                return MaterialPageRoute(builder: (_) => LoginScreen());
-              case RoutesManager.signupRoute:
-                return MaterialPageRoute(builder: (_) => SignupScreen());
-              case RoutesManager.movieDetailsRoute:
-                final movie = settings.arguments as MovieModel;
-                return MaterialPageRoute(
-                  builder: (_) => MovieDetailsScreen(movie),
-                );
-              default:
-                return null;
-            }
-          initialRoute: RoutesManager.loginsRoute,
-          routes: {
-            RoutesManager.homeRoute: (_) => MultiBlocProvider(
-              providers: [BlocProvider(create: (context) => ProfileCubit())],
-              child: HomeScreen(),
-            ),
-          RoutesManager.onBoardingRoute:(_)=>OnboardingScreen(),
-          RoutesManager.loginsRoute:(_)=>LoginScreen(),
-          RoutesManager.signupRoute:(_)=>SignupScreen(),
-          },
-          initialRoute: RoutesManager.homeRoute,
+          onGenerateRoute: (settings) => _generateRoute(settings),
+          initialRoute: RoutesManager.onBoardingRoute,
         );
       },
+    );
+  }
+
+  Route<dynamic>? _generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case RoutesManager.homeRoute:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => ProfileCubit(),
+            child:  HomeScreen(),
+          ),
+        );
+
+      case RoutesManager.movieDetailsRoute:
+        final movie = settings.arguments;
+        if (movie is MovieModel) {
+          return MaterialPageRoute(
+            builder: (_) => MovieDetailsScreen(movie),
+          );
+        }
+        return _errorRoute();
+
+      case RoutesManager.onBoardingRoute:
+        return MaterialPageRoute(builder: (_) => OnboardingScreen());
+      case RoutesManager.loginsRoute:
+        return MaterialPageRoute(builder: (_) => LoginScreen());
+      case RoutesManager.signupRoute:
+        return MaterialPageRoute(builder: (_) => SignupScreen());
+
+      default:
+        return _errorRoute();
+    }
+  }
+
+  Route<dynamic> _errorRoute() {
+    return MaterialPageRoute(
+      builder: (_) => const Scaffold(
+        body: Center(child: Text('Route not found')),
+      ),
     );
   }
 }

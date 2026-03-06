@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
 import 'package:movies_project/core/reusable%20widget/custom_text_form_field.dart';
-import 'package:movies_project/features/home%20screen/profile%20tab/presentation/widgets/history_list_screen.dart';
 
 class SearchTab extends StatelessWidget {
 

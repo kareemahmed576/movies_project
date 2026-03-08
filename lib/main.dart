@@ -11,6 +11,8 @@ import 'package:movies_project/features/movie%20details/presentation/screen/movi
 import 'package:movies_project/features/onboarding/presentation/screen/onboarding_screen.dart';
 import 'features/home screen/profile tab/model/movieModel.dart';
 import 'features/auth/login screen/presentation/screen/login_screen.dart';
+import 'features/update_profile/Cubit/selected_avatar_cubit.dart';
+import 'features/update_profile/update_profile.dart';
 
 
 void main() async {
@@ -34,15 +36,20 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          themeMode: ThemeMode.dark,
-          theme: AppTheme.darkTheme,
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: (settings) => _generateRoute(settings),
-          initialRoute: RoutesManager.onBoardingRoute,
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => SelectedAvatarCubit()),
+          ],
+          child: MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            themeMode: ThemeMode.dark,
+            theme: AppTheme.darkTheme,
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: (settings) => _generateRoute(settings),
+            initialRoute: RoutesManager.onBoardingRoute,
+          ),
         );
       },
     );
@@ -73,6 +80,10 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case RoutesManager.signupRoute:
         return MaterialPageRoute(builder: (_) => SignupScreen());
+      case RoutesManager.updateProfileRoute:
+        return MaterialPageRoute(
+          builder: (_) => const UpdateProfile(),
+        );
 
       default:
         return _errorRoute();

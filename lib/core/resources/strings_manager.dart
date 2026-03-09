@@ -49,4 +49,5 @@ abstract final class StringsManager {
   static const String resetPassword = 'resetPassword';
   static const String deleteAccount = 'deleteAccount';
   static const String updateData = 'updateData';
+  static const String noInternet = 'No internet connection';
 }

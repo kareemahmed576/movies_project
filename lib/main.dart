@@ -13,7 +13,7 @@ import 'package:movies_project/features/onboarding/presentation/screen/onboardin
 import 'core/DI/di.dart';
 import 'features/home screen/profile tab/model/movieModel.dart';
 import 'features/auth/login screen/presentation/screen/login_screen.dart';
-import 'firebase_options.dart';
+// import 'firebase_options.dart';
 import 'features/update_profile/Cubit/selected_avatar_cubit.dart';
 import 'features/update_profile/update_profile.dart';
 
@@ -21,7 +21,7 @@ import 'features/update_profile/update_profile.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    // options: DefaultFirebaseOptions.currentPlatform,
   );
   configureDependencies();
   await EasyLocalization.ensureInitialized();
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.darkTheme,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: (settings) => _generateRoute(settings),
-            initialRoute: RoutesManager.onBoardingRoute,
+            initialRoute: RoutesManager.homeRoute,
           ),
         );
       },

@@ -8,14 +8,14 @@ class CustomTextFormField extends StatefulWidget {
   final String hintText;
   final String iconPath;
   final bool isPassword;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
 
   const CustomTextFormField({
     super.key,
     required this.hintText,
     required this.iconPath,
-    required this.controller,
+     this.controller,
     this.isPassword = false,
     this.validator,
   });

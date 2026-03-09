@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../model/user_model.dart';
 
 abstract interface class SignUpRemoteDataSource {
-  Future<UserCredential> signUp({
+  Future<UserModel> signUp({
     required String email,
     required String password,
     required String name,

@@ -48,5 +48,12 @@
   "pickAvatar": "Pick Avatar",
   "resetPassword": "Reset Password",
   "deleteAccount": "Delete Account",
-  "updateData": "Update Data"
+  "updateData": "Update Data",
+  "loadingMessage": "Loading",
+  "ok": "Ok",
+  "weakPasswordMessage" : "The Password Provided is Too week.",
+  "emailAlreadyInUse" : "The Account Already exists for that Email.",
+  "userNotFound": "No User Found For That Email.",
+  "wrongPassword": "Wrong Password Provided For That User.",
+  "resetPasswordMessage": "Mail Sent Successfully, Please Check Your Email."
 }

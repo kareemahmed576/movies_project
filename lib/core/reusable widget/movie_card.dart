@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/color_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
 
 import '../resources/routes_manager.dart';

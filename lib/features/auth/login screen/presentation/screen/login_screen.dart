@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_project/core/resources/color_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/core/reusable%20widget/custom_button.dart';
 import 'package:movies_project/core/reusable%20widget/language_switch.dart';

@@ -7,7 +7,7 @@ import 'package:movies_project/features/home%20screen/home%20tab/presentation/ho
 import 'package:movies_project/features/home%20screen/profile%20tab/presentation/profile_tab.dart';
 import 'package:movies_project/features/home%20screen/search%20tab/presentation/search_tab.dart';
 
-import '../../core/resources/color_manager.dart';
+import '../../core/resources/colors_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

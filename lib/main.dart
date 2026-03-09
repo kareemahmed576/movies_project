@@ -10,6 +10,7 @@ import 'package:movies_project/features/home%20screen/home_screen.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profile_cubit.dart';
 import 'package:movies_project/features/movie%20details/presentation/screen/movie_details_screen.dart';
 import 'package:movies_project/features/onboarding/presentation/screen/onboarding_screen.dart';
+import 'features/auth/forget_password_screen/forget_password_screen.dart';
 import 'core/DI/di.dart';
 import 'features/home screen/profile tab/model/movieModel.dart';
 import 'features/auth/login screen/presentation/screen/login_screen.dart';
@@ -91,7 +92,10 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(
           builder: (_) => const UpdateProfile(),
         );
-
+        case RoutesManager.forgetPasswordRoute:
+        return MaterialPageRoute(
+          builder: (_) => const ForgetPasswordScreen(),
+        );
       default:
         return _errorRoute();
     }

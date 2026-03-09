@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_project/core/resources/color_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
 
 class AppTheme {
   static final ThemeData darkTheme = ThemeData(
@@ -10,6 +10,7 @@ class AppTheme {
       primary: ColorManager.darkBlack,
       onPrimary: ColorManager.white,
       tertiary: ColorManager.gold,
+      onTertiary: ColorManager.lightGray,
       onSecondary: ColorManager.darkGray,
       onSecondaryContainer: ColorManager.red
     ),
@@ -17,14 +18,19 @@ class AppTheme {
     textTheme: TextTheme(
 
       bodyLarge: TextStyle(
-        fontSize: 24.sp,
-        fontWeight: FontWeight.w700,
-        color: ColorManager.white
+          fontSize: 24.sp,
+          fontWeight: FontWeight.w700,
+          color: ColorManager.white
+      ),
+      bodyMedium: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w700,
+          color: ColorManager.white
       ),
       displayLarge: TextStyle(
-        fontSize: 36.sp,
-        fontWeight: FontWeight.w700,
-        color: ColorManager.white
+          fontSize: 36.sp,
+          fontWeight: FontWeight.w700,
+          color: ColorManager.white
       ),
       labelMedium: TextStyle(
           fontSize: 20.sp,
@@ -46,7 +52,17 @@ class AppTheme {
           fontWeight: FontWeight.w900,
           color: ColorManager.white
       ),
+      displaySmall: TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+        color: ColorManager.gold
+      )
 
+    ),
+    dividerTheme: DividerThemeData(
+      color: ColorManager.gold,
+      endIndent: 25,
+      indent: 20,
     )
 
   );

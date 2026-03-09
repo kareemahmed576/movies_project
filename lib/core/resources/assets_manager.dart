@@ -6,7 +6,7 @@ abstract class AssetsManager {
   static const String onboarding4 = "assets/images/onboarding4.jpg";
   static const String onboarding5 = "assets/images/onboarding5.jpg";
   static const String onboarding6 = "assets/images/onboarding6.jpg";
-  static const String moviesLogo = "assets/images/movies_logo.png";
+  static const String moviesLogo = "assets/images/moviesLogo.png";
   static const String availableNow = "assets/images/available_now.png";
   static const String watchNow = "assets/images/watch_now.png";
   static const String forgotPassword = "assets/images/forgot_password.png";
@@ -32,7 +32,14 @@ abstract class AssetsManager {
   static const String nameIcon = "assets/Icons/name_icon.svg";
   static const String passwordIcon = "assets/Icons/password_icon.svg";
   static const String phoneIcon = "assets/Icons/phone_icon.svg";
-  static const String playIcon = "assets/Icons/play_icon.svg";
+  static const String playIcon = "assets/images/play_icon.png";
+  static const String screenshot1 = "assets/images/screenshot1.png";
+  static const String screenshot2 = "assets/images/screenshot2.png";
+  static const String screenshot3 = "assets/images/screenshot3.png";
+  static const String actor1 = "assets/images/actor1.png";
+  static const String actor2 = "assets/images/actor2.png";
+  static const String actor3 = "assets/images/actor3.png";
+  static const String actor4 = "assets/images/actor4.png";
   static const String rateIcon = "assets/Icons/rate_icon.svg";
   static const String saveIcon = "assets/Icons/save_icon.svg";
   static const String searchIcon = "assets/Icons/search_icon.svg";
@@ -46,4 +53,6 @@ abstract class AssetsManager {
   static const String profileUnSelected = "assets/Icons/profile_icon.svg";
   static const String exploreSelected = "assets/Icons/explore selected.svg";
   static const String exploreUnSelected = "assets/Icons/explore_icon.svg";
+  static const String logoutIcon= "assets/Icons/log_out.svg";
+
 }

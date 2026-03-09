@@ -38,6 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           CustomButton(
+          textStyle: Theme.of(context).textTheme.titleMedium!,
             color: Theme.of(context).colorScheme.tertiary,
             title: currentIndex == 0
                 ? StringsManager.exploreNow.tr()
@@ -53,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               } else {
                 Navigator.pushReplacementNamed(
                   context,
-                  RoutesManager.homeRoute,
+                  RoutesManager.loginsRoute,
                 );
               }
             },
@@ -62,6 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ?currentIndex == 0
               ? null
               : CustomButton(
+                  textStyle: Theme.of(context).textTheme.titleMedium!,
                   color: Theme.of(context).colorScheme.tertiary,
                   title: StringsManager.back.tr(),
                   onClick: () {

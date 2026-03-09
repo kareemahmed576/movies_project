@@ -49,4 +49,11 @@ abstract final class StringsManager {
   static const String resetPassword = 'resetPassword';
   static const String deleteAccount = 'deleteAccount';
   static const String updateData = 'updateData';
+  static const String loadingMessage = 'loadingMessage';
+  static const String ok = 'ok';
+  static const String weakPasswordMessage = 'weakPasswordMessage';
+  static const String emailAlreadyInUse = 'emailAlreadyInUse';
+  static const String userNotFound = 'userNotFound';
+  static const String wrongPassword = 'wrongPassword';
+  static const String resetPasswordMessage = 'resetPasswordMessage';
 }

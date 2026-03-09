@@ -1,9 +1,7 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/sign_up_repo.dart';
-import '../data sources/sign_up_remote_data_source.dart';
+import '../data sources/remote/sign_up_remote_data_source.dart';
 
 @LazySingleton(as: SignUpRepo)
 class SignUpRepoImpl implements SignUpRepo {
@@ -28,13 +26,7 @@ class SignUpRepoImpl implements SignUpRepo {
         avatar: avatar,
       );
 
-      return (UserEntity(
-        id: result.user!.uid,
-        email: email,
-        name: name,
-        phone: phone,
-        avatar: avatar,
-      ));
+      return result;
     } on FirebaseAuthException catch (e) {
       return (e.message ?? 'Failed to Sign Up');
     } catch (e) {

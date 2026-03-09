@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/di/di.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
+import 'package:movies_project/core/resources/dialog_utils.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
+import 'package:movies_project/core/resources/validations.dart';
 import 'package:movies_project/core/reusable%20widget/custom_button.dart';
 import 'package:movies_project/core/reusable%20widget/custom_text_form_field.dart';
 import 'package:movies_project/core/reusable%20widget/language_switch.dart';
@@ -28,6 +30,7 @@ class _SignupScreenState extends State<SignupScreen> {
   late TextEditingController confirmPasswordController;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String selectedAvatar = "";
 
   @override
   void initState() {
@@ -57,17 +60,23 @@ class _SignupScreenState extends State<SignupScreen> {
         appBar: AppBar(backgroundColor: Colors.transparent),
         body: BlocConsumer<SignupCubit, SignupState>(
           listener: (context, state) {
-            if (state is SignupSuccess) {
+            if (state is SignupLoading) {
+              DialogUtils.showLoadingDialog(context: context);
+            } else if (state is SignupSuccess) {
+              Navigator.pop(context);
+              DialogUtils.showToast(
+                context: context,
+                message: "Account Created Successfully",
+              );
               Navigator.pushReplacementNamed(
                 context,
                 RoutesManager.loginsRoute,
               );
             } else if (state is SignupError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Colors.red,
-                ),
+              Navigator.pop(context);
+              DialogUtils.showMessageDialog(
+                context: context,
+                message: state.message,
               );
             }
           },
@@ -80,7 +89,14 @@ class _SignupScreenState extends State<SignupScreen> {
                     key: formKey,
                     child: Column(
                       children: [
-                        SizedBox(height: 180.h, child: AvatarList()),
+                        SizedBox(
+                          height: 180.h,
+                          child: AvatarList(
+                            onAvatarSelected: (avatar) {
+                              selectedAvatar = avatar;
+                            },
+                          ),
+                        ),
                         SizedBox(height: 10.h),
                         Center(
                           child: Text(
@@ -93,12 +109,14 @@ class _SignupScreenState extends State<SignupScreen> {
                           controller: nameController,
                           hintText: StringsManager.name.tr(),
                           iconPath: AssetsManager.nameIcon,
+                          validator: Validations.validateName,
                         ),
                         SizedBox(height: 24.h),
                         CustomTextFormField(
                           controller: emailController,
                           hintText: StringsManager.email.tr(),
                           iconPath: AssetsManager.emailIcon,
+                          validator: Validations.validateEmail,
                         ),
                         SizedBox(height: 24.h),
                         CustomTextFormField(
@@ -106,6 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           hintText: StringsManager.password.tr(),
                           iconPath: AssetsManager.passwordIcon,
                           isPassword: true,
+                          validator: Validations.validatePassword,
                         ),
                         SizedBox(height: 24.h),
                         CustomTextFormField(
@@ -113,34 +132,35 @@ class _SignupScreenState extends State<SignupScreen> {
                           hintText: StringsManager.confirmPassword.tr(),
                           iconPath: AssetsManager.passwordIcon,
                           isPassword: true,
+                          validator: (value) => Validations.validateConfirmPass(
+                            value,
+                            passwordController.text,
+                          ),
                         ),
                         SizedBox(height: 24.h),
                         CustomTextFormField(
                           controller: phoneController,
                           hintText: StringsManager.phoneNumber.tr(),
                           iconPath: AssetsManager.phoneIcon,
+                          validator: Validations.validatePhone,
                         ),
                         SizedBox(height: 24.h),
-                        state is SignupLoading
-                            ? const CircularProgressIndicator()
-                            : CustomButton(
-                                title: StringsManager.createAccount.tr(),
-                                onClick: () {
-                                  if (formKey.currentState!.validate()) {
-                                    context.read<SignupCubit>().register(
-                                      name: nameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                      phone: phoneController.text,
-                                      avatar: "default_avatar_url",
-                                    );
-                                  }
-                                },
-                                color: Theme.of(context).colorScheme.tertiary,
-                                textStyle: Theme.of(
-                                  context,
-                                ).textTheme.titleMedium!,
-                              ),
+                        CustomButton(
+                          title: StringsManager.createAccount.tr(),
+                          onClick: () {
+                            if (formKey.currentState!.validate()) {
+                              context.read<SignupCubit>().register(
+                                name: nameController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                                phone: phoneController.text,
+                                avatar: selectedAvatar,
+                              );
+                            }
+                          },
+                          color: Theme.of(context).colorScheme.tertiary,
+                          textStyle: Theme.of(context).textTheme.titleMedium!,
+                        ),
                         SizedBox(height: 18.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -159,12 +179,14 @@ class _SignupScreenState extends State<SignupScreen> {
                               },
                               child: Text(
                                 StringsManager.login.tr(),
-                                style: Theme.of(context).textTheme.titleSmall
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
                                     ?.copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.tertiary,
-                                    ),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .tertiary,
+                                ),
                               ),
                             ),
                           ],

@@ -8,8 +8,7 @@ import 'package:movies_project/features/home%20screen/profile%20tab/presentation
 import 'package:movies_project/features/update_profile/Cubit/selected_avatar_cubit.dart';
 
 import '../../../../../core/resources/assets_manager.dart';
-import '../../../../../core/resources/color_manager.dart';
-import '../../../../../core/resources/routes_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});

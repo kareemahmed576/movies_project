@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movies_project/core/resources/constants_manager.dart';
 import 'package:movies_project/core/reusable%20widget/avatar_item.dart';
 
-import '../../../../../core/resources/color_manager.dart';
-
 class AvatarList extends StatefulWidget {
-  const AvatarList({super.key});
+  final Function(String) onAvatarSelected;
+  const AvatarList({super.key, required this.onAvatarSelected});
 
   @override
   State<AvatarList> createState() => _AvatarListState();
@@ -19,6 +18,15 @@ class _AvatarListState extends State<AvatarList> {
   int selectedIndex = 1;
 
   @override
+  void initState() {
+    super.initState();
+    // Notify initial avatar selection
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onAvatarSelected(ConstantsManager.avatars[selectedIndex]);
+    });
+  }
+
+  @override
   void dispose() {
     controller.dispose();
     super.dispose();
@@ -26,13 +34,13 @@ class _AvatarListState extends State<AvatarList> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return PageView.builder(
       controller: controller,
       onPageChanged: (index) {
         setState(() {
           selectedIndex = index;
         });
+        widget.onAvatarSelected(ConstantsManager.avatars[index]);
       },
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => AvatarItem(

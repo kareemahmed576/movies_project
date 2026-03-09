@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,14 +11,20 @@ import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profil
 import 'package:movies_project/features/movie%20details/presentation/screen/movie_details_screen.dart';
 import 'package:movies_project/features/onboarding/presentation/screen/onboarding_screen.dart';
 import 'features/auth/forget_password_screen/forget_password_screen.dart';
+import 'core/DI/di.dart';
 import 'features/home screen/profile tab/model/movieModel.dart';
 import 'features/auth/login screen/presentation/screen/login_screen.dart';
+import 'firebase_options.dart';
 import 'features/update_profile/Cubit/selected_avatar_cubit.dart';
 import 'features/update_profile/update_profile.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  configureDependencies();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
       supportedLocales: const [Locale("en"), Locale("ar")],

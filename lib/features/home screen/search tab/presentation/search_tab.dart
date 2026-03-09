@@ -5,8 +5,26 @@ import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
 import 'package:movies_project/core/reusable%20widget/custom_text_form_field.dart';
 
-class SearchTab extends StatelessWidget {
+class SearchTab extends StatefulWidget {
 
+  @override
+  State<SearchTab> createState() => _SearchTabState();
+}
+
+class _SearchTabState extends State<SearchTab> {
+  late TextEditingController searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +35,7 @@ class SearchTab extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                CustomTextFormField(hintText: StringsManager.search.tr(), iconPath: AssetsManager.searchIcon),
+                CustomTextFormField(hintText: StringsManager.search.tr(), iconPath: AssetsManager.searchIcon,controller: searchController,),
                 SizedBox(height: 0.7.sh,child: Center(child: Image.asset(AssetsManager.empty)))
               ],
             ),

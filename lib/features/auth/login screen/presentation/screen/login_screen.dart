@@ -1,16 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/color_manager.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/core/reusable%20widget/custom_button.dart';
 import 'package:movies_project/core/reusable%20widget/language_switch.dart';
-
 import '../../../../../core/resources/assets_manager.dart';
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../../../core/reusable widget/custom_text_form_field.dart';
-import '../../../sign_up_screen/presentation/widgets/avatarList.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -55,11 +52,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 69.h),
                   CustomTextFormField(
+                    controller: emailController,
                     hintText: StringsManager.email.tr(),
                     iconPath: AssetsManager.emailIcon,
                   ),
                   SizedBox(height: 22.h),
                   CustomTextFormField(
+                    controller: passwordController,
                     hintText: StringsManager.password.tr(),
                     iconPath: AssetsManager.passwordIcon,
                     isPassword: true,

@@ -5,14 +5,19 @@ import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/core/resources/color_manager.dart';
 
 class CustomTextFormField extends StatefulWidget {
-  String hintText;
-  String iconPath;
-  bool isPassword;
+  final String hintText;
+  final String iconPath;
+  final bool isPassword;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
 
-  CustomTextFormField({
+  const CustomTextFormField({
+    super.key,
     required this.hintText,
     required this.iconPath,
+    required this.controller,
     this.isPassword = false,
+    this.validator,
   });
 
   @override
@@ -20,7 +25,6 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-
   late bool obscureText;
 
   @override
@@ -32,6 +36,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
+      validator: widget.validator,
       style: Theme.of(context).textTheme.labelSmall,
       cursorColor: ColorManager.white,
       obscureText: obscureText,
@@ -53,22 +59,22 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
         suffixIcon: widget.isPassword
             ? GestureDetector(
-          onTap: () {
-            setState(() {
-              obscureText = !obscureText;
-            });
-          },
-          child: UnconstrainedBox(
-            child: SvgPicture.asset(
-              obscureText
-                  ? AssetsManager.eyeOffIcon
-                  : AssetsManager.eyeOnIcon,
-              width: 30.w,
-              height: 30.h,
-              fit: BoxFit.contain,
-            ),
-          ),
-        )
+                onTap: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
+                child: UnconstrainedBox(
+                  child: SvgPicture.asset(
+                    obscureText
+                        ? AssetsManager.eyeOffIcon
+                        : AssetsManager.eyeOnIcon,
+                    width: 30.w,
+                    height: 30.h,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              )
             : null,
       ),
     );

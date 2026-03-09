@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,12 +10,20 @@ import 'package:movies_project/features/home%20screen/home_screen.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profile_cubit.dart';
 import 'package:movies_project/features/movie%20details/presentation/screen/movie_details_screen.dart';
 import 'package:movies_project/features/onboarding/presentation/screen/onboarding_screen.dart';
+import 'core/DI/di.dart';
 import 'features/home screen/profile tab/model/movieModel.dart';
 import 'features/auth/login screen/presentation/screen/login_screen.dart';
+import 'firebase_options.dart';
+import 'features/update_profile/Cubit/selected_avatar_cubit.dart';
+import 'features/update_profile/update_profile.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  configureDependencies();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
       supportedLocales: const [Locale("en"), Locale("ar")],
@@ -34,15 +43,20 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          themeMode: ThemeMode.dark,
-          theme: AppTheme.darkTheme,
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: (settings) => _generateRoute(settings),
-          initialRoute: RoutesManager.homeRoute,
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => SelectedAvatarCubit()),
+          ],
+          child: MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            themeMode: ThemeMode.dark,
+            theme: AppTheme.darkTheme,
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: (settings) => _generateRoute(settings),
+            initialRoute: RoutesManager.onBoardingRoute,
+          ),
         );
       },
     );
@@ -73,6 +87,10 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case RoutesManager.signupRoute:
         return MaterialPageRoute(builder: (_) => SignupScreen());
+      case RoutesManager.updateProfileRoute:
+        return MaterialPageRoute(
+          builder: (_) => const UpdateProfile(),
+        );
 
       default:
         return _errorRoute();

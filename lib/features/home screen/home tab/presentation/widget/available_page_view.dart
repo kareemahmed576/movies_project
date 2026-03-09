@@ -9,7 +9,7 @@ import 'package:movies_project/features/home%20screen/home%20tab/presentation/vi
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/view%20model/movie_view_model.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/widget/custom_movie_card.dart';
 
-import '../../../../../core/resources/color_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
 
 class AvailablePageView extends StatefulWidget {
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies_project/core/resources/color_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
+
+import '../../../core/resources/colors_manager.dart';
 
 class UpdateAppBar extends StatelessWidget implements PreferredSizeWidget {
   const UpdateAppBar({super.key});

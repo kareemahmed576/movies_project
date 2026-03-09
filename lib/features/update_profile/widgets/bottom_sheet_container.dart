@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/color_manager.dart';
 
+import '../../../core/resources/colors_manager.dart';
 import '../Cubit/selected_avatar_cubit.dart';
 import 'bottom_sheet_item.dart';
 

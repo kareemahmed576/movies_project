@@ -44,5 +44,13 @@ abstract class ConstantsManager {
     "Animation",
     "Biography",
   ];
+  static const List<String> images = [
+    AssetsManager.onboarding2,
+    AssetsManager.onboarding2,
+    AssetsManager.onboarding3,
+    AssetsManager.onboarding4,
+    AssetsManager.onboarding5,
+    AssetsManager.onboarding6,
+  ];
 
 }

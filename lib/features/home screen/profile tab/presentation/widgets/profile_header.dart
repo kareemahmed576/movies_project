@@ -5,37 +5,42 @@ import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profil
 import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profile_state.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/presentation/widgets/Custom_profile_btn.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/presentation/widgets/Custom_tab.dart';
+import 'package:movies_project/features/update_profile/Cubit/selected_avatar_cubit.dart';
 
 import '../../../../../core/resources/assets_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
 
 class ProfileHeader extends StatelessWidget {
-  ProfileHeader({super.key});
-
-  double availableWidth = 1.sw - 48.w;
-  late double finalWidth = availableWidth / 2;
+  const ProfileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double availableWidth = 1.sw - 48.w;
+    double finalWidth = availableWidth / 2;
+
     return Container(
       color: ColorManager.darkGray,
       child: Padding(
-        padding: REdgeInsets.only(top: 52, left: 24, right: 24 ),
+        padding: REdgeInsets.only(top: 52, left: 24, right: 24),
         child: Column(
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    AssetsManager.avatar8,
-                    width: 118.w,
-                    height: 118.h,
-                    fit: BoxFit.cover,
-                  ),
+                BlocBuilder<SelectedAvatarCubit, String>(
+                  builder: (context, state) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        state,
+                        width: 118.w,
+                        height: 118.h,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -47,7 +52,7 @@ class ProfileHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -75,20 +80,24 @@ class ProfileHeader extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomProfileBtn(
-                      text: "Edit Profile",
-                      onclick: () {
-                        // handle Edit Profile
-                        // create edit profile screen
-                        // Mohamed Hamed will handle it
-                      }),
+                    text: "Edit Profile",
+                    onclick: () {
+                      Navigator.pushNamed(
+                        context,
+                        RoutesManager.updateProfileRoute,
+                      );
+                    },
+                  ),
                 ),
                 SizedBox(width: 10.w),
                 CustomProfileBtn(
-                    text: "Exit",
-                    onclick: () {
-                      // handle Exit btn
-                      // Mohamed Hamed will handle it
-                      }, icon: true),
+                  text: "Exit",
+                  onclick: () {
+                    // handle Exit btn
+                    // Mohamed Hamed will handle it
+                  },
+                  icon: true,
+                ),
               ],
             ),
             SizedBox(height: 20.h),
@@ -124,7 +133,7 @@ class ProfileHeader extends StatelessWidget {
                         ? Alignment.centerLeft
                         : Alignment.centerRight,
                     child: AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
                       height: 3,
                       width: finalWidth,

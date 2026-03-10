@@ -20,7 +20,7 @@ class CustomProfileBtn extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: icon == null ? ColorManager.gold : ColorManager.red,
+          backgroundColor: icon == null ? ColorsManager.gold : ColorsManager.red,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16)
           )
@@ -40,7 +40,7 @@ class CustomProfileBtn extends StatelessWidget {
               SvgPicture.asset(
                 AssetsManager.logoutIcon,
                 colorFilter: ColorFilter.mode(
-                  ColorManager.white,
+                  ColorsManager.white,
                   BlendMode.srcIn,
                 ),
               ),

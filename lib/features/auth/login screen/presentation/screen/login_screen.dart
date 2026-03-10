@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           StringsManager.createOne.tr(),
                           style: Theme.of(context).textTheme.titleSmall
-                              ?.copyWith(color: ColorManager.gold),
+                              ?.copyWith(color: ColorsManager.gold),
                         ),
                       ),
                     ],

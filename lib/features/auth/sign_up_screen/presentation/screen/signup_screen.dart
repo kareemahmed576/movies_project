@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/di/di.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
 import 'package:movies_project/core/resources/dialog_utils.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
@@ -63,21 +64,12 @@ class _SignupScreenState extends State<SignupScreen> {
             if (state is SignupLoading) {
               DialogUtils.showLoadingDialog(context: context);
             } else if (state is SignupSuccess) {
-              Navigator.pop(context);
-              DialogUtils.showToast(
-                context: context,
-                message: "Account Created Successfully",
-              );
-              Navigator.pushReplacementNamed(
-                context,
-                RoutesManager.loginsRoute,
-              );
+              Navigator.of(context).pop();
+              DialogUtils.showToast(context: context, message: "Account Created Successfully",color: ColorsManager.green);
+              Navigator.pushReplacementNamed(context, RoutesManager.loginsRoute);
             } else if (state is SignupError) {
-              Navigator.pop(context);
-              DialogUtils.showMessageDialog(
-                context: context,
-                message: state.message,
-              );
+              Navigator.of(context, rootNavigator: true).pop();
+              DialogUtils.showMessageDialog(context: context, message: state.message);
             }
           },
           builder: (context, state) {
@@ -92,17 +84,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(
                           height: 180.h,
                           child: AvatarList(
-                            onAvatarSelected: (avatar) {
-                              selectedAvatar = avatar;
-                            },
+                            onAvatarSelected: (avatar) => selectedAvatar = avatar,
                           ),
                         ),
                         SizedBox(height: 10.h),
                         Center(
-                          child: Text(
-                            StringsManager.avatar.tr(),
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
+                          child: Text(StringsManager.avatar.tr(), style: Theme.of(context).textTheme.labelSmall),
                         ),
                         SizedBox(height: 12.h),
                         CustomTextFormField(
@@ -132,10 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           hintText: StringsManager.confirmPassword.tr(),
                           iconPath: AssetsManager.passwordIcon,
                           isPassword: true,
-                          validator: (value) => Validations.validateConfirmPass(
-                            value,
-                            passwordController.text,
-                          ),
+                          validator: (value) => Validations.validateConfirmPass(value, passwordController.text),
                         ),
                         SizedBox(height: 24.h),
                         CustomTextFormField(
@@ -147,8 +131,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(height: 24.h),
                         CustomButton(
                           title: StringsManager.createAccount.tr(),
-                          onClick: () {
+                          onClick: state is SignupLoading
+                              ? () {}
+                              : () {
                             if (formKey.currentState!.validate()) {
+                              if (selectedAvatar.isEmpty) {
+                                DialogUtils.showToast(context: context, message: "Please select an avatar first",color: ColorsManager.red);
+                                return;
+                              }
                               context.read<SignupCubit>().register(
                                 name: nameController.text,
                                 email: emailController.text,
@@ -158,36 +148,18 @@ class _SignupScreenState extends State<SignupScreen> {
                               );
                             }
                           },
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: state is SignupLoading ? Colors.grey : Theme.of(context).colorScheme.tertiary,
                           textStyle: Theme.of(context).textTheme.titleMedium!,
                         ),
                         SizedBox(height: 18.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              StringsManager.alreadyHaveAccount.tr(),
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
+                            Text(StringsManager.alreadyHaveAccount.tr(), style: Theme.of(context).textTheme.titleSmall),
                             SizedBox(width: 5.w),
                             TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  RoutesManager.loginsRoute,
-                                );
-                              },
-                              child: Text(
-                                StringsManager.login.tr(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .tertiary,
-                                ),
-                              ),
+                              onPressed: () => Navigator.pushNamed(context, RoutesManager.loginsRoute),
+                              child: Text(StringsManager.login.tr(), style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Theme.of(context).colorScheme.tertiary)),
                             ),
                           ],
                         ),

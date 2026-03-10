@@ -20,10 +20,10 @@ class OnboardingItem extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             gradient: index==0?LinearGradient(colors: [
-              ColorManager.darkBlack,
-              ColorManager.darkBlack.withValues(alpha: 0.91),
-              ColorManager.darkBlack.withValues(alpha: 0.50),
-              ColorManager.darkBlack.withValues(alpha: 0),
+              ColorsManager.darkBlack,
+              ColorsManager.darkBlack.withValues(alpha: 0.91),
+              ColorsManager.darkBlack.withValues(alpha: 0.50),
+              ColorsManager.darkBlack.withValues(alpha: 0),
             ],begin: Alignment.bottomCenter,
               end: Alignment.topCenter
             ):null,

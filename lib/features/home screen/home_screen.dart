@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
-                backgroundColor: ColorManager.darkGray,
+                backgroundColor: ColorsManager.darkGray,
                 items: [
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(AssetsManager.homeUnSelected,width: 23.w,height: 23.h,),

@@ -7,12 +7,12 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
 
     colorScheme: ColorScheme.dark(
-      primary: ColorManager.darkBlack,
-      onPrimary: ColorManager.white,
-      tertiary: ColorManager.gold,
-      onTertiary: ColorManager.lightGray,
-      onSecondary: ColorManager.darkGray,
-      onSecondaryContainer: ColorManager.red
+      primary: ColorsManager.darkBlack,
+      onPrimary: ColorsManager.white,
+      tertiary: ColorsManager.gold,
+      onTertiary: ColorsManager.lightGray,
+      onSecondary: ColorsManager.darkGray,
+      onSecondaryContainer: ColorsManager.red
     ),
 
     textTheme: TextTheme(
@@ -20,47 +20,47 @@ class AppTheme {
       bodyLarge: TextStyle(
           fontSize: 24.sp,
           fontWeight: FontWeight.w700,
-          color: ColorManager.white
+          color: ColorsManager.white
       ),
       bodyMedium: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w700,
-          color: ColorManager.white
+          color: ColorsManager.white
       ),
       displayLarge: TextStyle(
           fontSize: 36.sp,
           fontWeight: FontWeight.w700,
-          color: ColorManager.white
+          color: ColorsManager.white
       ),
       labelMedium: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w400,
-          color: ColorManager.white
+          color: ColorsManager.white
       ),
       labelSmall: TextStyle(
           fontSize: 18.sp,
           fontWeight: FontWeight.w400,
-          color: ColorManager.white
+          color: ColorsManager.white
       ),
       titleMedium: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,
-          color: ColorManager.darkBlack
+          color: ColorsManager.darkBlack
       ),
       titleSmall: TextStyle(
           fontSize: 16.sp,
           fontWeight: FontWeight.w900,
-          color: ColorManager.white
+          color: ColorsManager.white
       ),
       displaySmall: TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
-        color: ColorManager.gold
+        color: ColorsManager.gold
       )
 
     ),
     dividerTheme: DividerThemeData(
-      color: ColorManager.gold,
+      color: ColorsManager.gold,
       endIndent: 25,
       indent: 20,
     )

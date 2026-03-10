@@ -39,12 +39,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       controller: widget.controller,
       validator: widget.validator,
       style: Theme.of(context).textTheme.labelSmall,
-      cursorColor: ColorManager.white,
+      cursorColor: ColorsManager.white,
       obscureText: obscureText,
       decoration: InputDecoration(
         hintText: widget.hintText,
         filled: true,
-        fillColor: ColorManager.darkGray,
+        fillColor: ColorsManager.darkGray,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide.none,

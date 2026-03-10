@@ -18,7 +18,7 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorManager.darkGray,
+      color: ColorsManager.darkGray,
       child: Padding(
         padding: REdgeInsets.only(top: 52, left: 24, right: 24 ),
         child: Column(
@@ -129,7 +129,7 @@ class ProfileHeader extends StatelessWidget {
                       height: 3,
                       width: finalWidth,
                       decoration: BoxDecoration(
-                        color: ColorManager.gold,
+                        color: ColorsManager.gold,
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),

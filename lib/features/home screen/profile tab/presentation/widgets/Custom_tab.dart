@@ -18,7 +18,7 @@ class CustomTab extends StatelessWidget {
         children: [
           SvgPicture.asset(
             image,
-            colorFilter: ColorFilter.mode(ColorManager.gold, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(ColorsManager.gold, BlendMode.srcIn),
           ),
           Padding(
             padding: REdgeInsets.only(top: 8),

@@ -49,7 +49,7 @@ class ExploreTab extends StatelessWidget {
                     ),
                     MoviesGridview(
                       itemCount: ConstantsManager.movies.length,
-                      crossAxisCount: 2,
+                      crossAxisCount: 1,
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 16,
                       movieCardContainerWidth: 190,

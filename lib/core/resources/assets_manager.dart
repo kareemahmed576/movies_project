@@ -54,5 +54,6 @@ abstract class AssetsManager {
   static const String exploreSelected = "assets/Icons/explore selected.svg";
   static const String exploreUnSelected = "assets/Icons/explore_icon.svg";
   static const String logoutIcon= "assets/Icons/log_out.svg";
+  static const String userLogo= "assets/Icons/User.svg";
 
 }

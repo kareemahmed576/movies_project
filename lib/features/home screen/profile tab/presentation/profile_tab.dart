@@ -7,6 +7,7 @@ import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profil
 import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profile_state.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/presentation/widgets/profile_header.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/presentation/widgets/watch_list_screen.dart';
+import 'package:movies_project/features/update_profile/Cubit/selected_avatar_cubit.dart';
 
 class ProfileTab extends StatelessWidget {
   @override

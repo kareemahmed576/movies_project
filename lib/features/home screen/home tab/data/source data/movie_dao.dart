@@ -4,4 +4,6 @@ import 'package:movies_project/features/home%20screen/home%20tab/data/model/movi
 abstract interface class MovieDao {
 
  Future<BaseResponse<MovieAvalibaleModel>> fetchMovies();
+ Future<BaseResponse<MovieAvalibaleModel>> fetchSections(List<String?> gense);
+
 }

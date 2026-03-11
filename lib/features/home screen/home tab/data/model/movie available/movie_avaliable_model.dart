@@ -176,7 +176,7 @@ class Movies {
 
   MovieAvailableEntitiyReq toEntity() {
     return MovieAvailableEntitiyReq(
-        id: id, imagePath: largeCoverImage, urlImagePath: url,rating: rating);
+        id: id, imagePath: largeCoverImage, urlImagePath: url,rating: rating,gense: genres);
   }
 }
 

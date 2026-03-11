@@ -27,4 +27,21 @@ class MovieRepoImpl  implements MovieRepo{
       }
   }
 
+  @override
+  Future<BaseResponse<MovieAvailableEntity>> fetchSections(List<String?> gense)async {
+    bool isConnected=await InternetConnector.checkConnection();
+    if(isConnected){
+      var response= await movieDao.fetchSections(gense);
+      switch(response){
+
+        case SuccessState<MovieAvalibaleModel>():
+          return SuccessState(response.response.toEntity());
+        case ErrorState<MovieAvalibaleModel>():
+          return ErrorState(response.error);
+      }
+    }else{
+      return ErrorState(StringsManager.noInternet);
+    }
+  }
+
 }

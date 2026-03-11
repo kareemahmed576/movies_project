@@ -61,4 +61,8 @@
   "backToLogin": "العودة إلى تسجيل الدخول",
   "success": "نجاح",
   "error": "خطأ"
+  "Action": "أكشن",
+  "Adventure": "مغامرات",
+  "Horror":"رعب",
+  "Drama": "دراما"
 }

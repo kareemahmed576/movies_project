@@ -62,4 +62,8 @@
   "backToLogin": "Back to Login",
   "success": "Success",
   "error": "Error"
+  "Action": "Action",
+  "Adventure": "Adventure",
+  "Horror":"Horror",
+  "Drama": "Drama"
 }

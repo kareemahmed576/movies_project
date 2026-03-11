@@ -51,6 +51,12 @@ import '../../features/home%20screen/home%20tab/domain/repository/movie_repo.dar
     as _i1013;
 import '../../features/home%20screen/home%20tab/domain/useCases/movie_available_use_case.dart'
     as _i983;
+import '../../features/home%20screen/home%20tab/domain/useCases/section_use_case.dart'
+    as _i968;
+import '../../features/home%20screen/home%20tab/presentation/view%20model/movie_view_model.dart'
+    as _i589;
+import '../../features/home%20screen/home%20tab/presentation/view%20model/section_view_model.dart'
+    as _i33;
 import '../../features/home%20screen/home%20tab/presentation/view%20model/movie_view_model.dart'
     as _i589;
 
@@ -102,6 +108,15 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i983.MovieAvailableUseCase>(
       () => _i983.MovieAvailableUseCase(gh<_i1013.MovieRepo>()),
+    );
+    gh.factory<_i968.SectionUseCase>(
+      () => _i968.SectionUseCase(gh<_i1013.MovieRepo>()),
+    );
+    gh.factory<_i589.MovieViewModel>(
+      () => _i589.MovieViewModel(gh<_i983.MovieAvailableUseCase>()),
+    );
+    gh.factory<_i33.SectionViewModel>(
+      () => _i33.SectionViewModel(gh<_i968.SectionUseCase>()),
     );
     gh.factory<_i589.MovieViewModel>(
       () => _i589.MovieViewModel(gh<_i983.MovieAvailableUseCase>()),

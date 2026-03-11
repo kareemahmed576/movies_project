@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:movies_project/core/resources/base_response.dart';
+
 import 'package:movies_project/features/home%20screen/home%20tab/data/model/movie%20available/movie_avaliable_model.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -13,4 +12,6 @@ abstract class MovieAvailable {
   factory MovieAvailable(Dio dio) = _MovieAvailable;
   @GET("/api/v2/list_movies.json")
  Future<MovieAvalibaleModel> getAvailableMovies(@Query("limit") int limit );
+  @GET("/api/v2/list_movies.json")
+  Future<MovieAvalibaleModel> getSectionsMovies(@Query("genre") List<String?> genre );
 }

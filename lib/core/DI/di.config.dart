@@ -13,6 +13,18 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/auth/forget_password_screen/data/data_sources/remote/forget_password_remote_data_source.dart'
+    as _i603;
+import '../../features/auth/forget_password_screen/data/data_sources/remote/forget_password_remote_data_source_impl.dart'
+    as _i1050;
+import '../../features/auth/forget_password_screen/data/repositories/forget_password_repo_impl.dart'
+    as _i495;
+import '../../features/auth/forget_password_screen/domain/repositories/forget_password_repo.dart'
+    as _i913;
+import '../../features/auth/forget_password_screen/domain/use_case/forget_password_use_case.dart'
+    as _i1063;
+import '../../features/auth/forget_password_screen/presentation/Cubit/forget_password_cubit.dart'
+    as _i349;
 import '../../features/auth/sign_up_screen/data/data%20sources/remote/sign_up_remote_data_source.dart'
     as _i11;
 import '../../features/auth/sign_up_screen/data/data%20sources/remote/sign_up_remote_data_source_impl.dart'
@@ -51,6 +63,9 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioImpl = _$DioImpl();
     gh.factory<_i361.Dio>(() => dioImpl.DioImplement());
+    gh.lazySingleton<_i603.ForgetPasswordRemoteDataSource>(
+      () => _i1050.ForgetPasswordRemoteDataSourceImpl(),
+    );
     gh.lazySingleton<_i11.SignUpRemoteDataSource>(
       () => _i981.SignUpRemoteDataSourceImpl(),
     );
@@ -62,11 +77,22 @@ extension GetItInjectableX on _i174.GetIt {
         remoteDataSource: gh<_i11.SignUpRemoteDataSource>(),
       ),
     );
+    gh.lazySingleton<_i913.ForgetPasswordRepo>(
+      () => _i495.ForgetPasswordRepoImpl(
+        remoteDataSource: gh<_i603.ForgetPasswordRemoteDataSource>(),
+      ),
+    );
     gh.factory<_i344.MovieDao>(
       () => _i392.MovieAvaliableApiImpl(gh<_i25.MovieAvailable>()),
     );
+    gh.factory<_i1063.ForgetPasswordUseCase>(
+      () => _i1063.ForgetPasswordUseCase(gh<_i913.ForgetPasswordRepo>()),
+    );
     gh.factory<_i564.SignUpUseCase>(
       () => _i564.SignUpUseCase(gh<_i312.SignUpRepo>()),
+    );
+    gh.factory<_i349.ForgetPasswordCubit>(
+      () => _i349.ForgetPasswordCubit(gh<_i1063.ForgetPasswordUseCase>()),
     );
     gh.factory<_i901.SignupCubit>(
       () => _i901.SignupCubit(gh<_i564.SignUpUseCase>()),

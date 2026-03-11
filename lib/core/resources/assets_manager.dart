@@ -10,6 +10,7 @@ abstract class AssetsManager {
   static const String availableNow = "assets/images/available_now.png";
   static const String watchNow = "assets/images/watch_now.png";
   static const String forgotPassword = "assets/images/forgot_password.png";
+  static const String forgotPasswordImage = "assets/images/forgot_password.png";
   static const String empty = "assets/images/empty.png";
   static const String avatar1 = "assets/images/avatar1.png";
   static const String avatar2 = "assets/images/avatar2.png";

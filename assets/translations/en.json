@@ -55,5 +55,9 @@
   "emailAlreadyInUse" : "The Account Already exists for that Email.",
   "userNotFound": "No User Found For That Email.",
   "wrongPassword": "Wrong Password Provided For That User.",
-  "resetPasswordMessage": "Mail Sent Successfully, Please Check Your Email."
+  "resetPasswordMessage": "Mail Sent Successfully, Please Check Your Email.",
+  "Action": "Action",
+  "Adventure": "Adventure",
+  "Horror":"Horror",
+  "Drama": "Drama"
 }

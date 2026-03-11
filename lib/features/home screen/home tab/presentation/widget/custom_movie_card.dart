@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/core/resources/colors_manager.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
-import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
 
 import '../../../../../core/resources/routes_manager.dart';
 

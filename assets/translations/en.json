@@ -56,6 +56,12 @@
   "userNotFound": "No User Found For That Email.",
   "wrongPassword": "Wrong Password Provided For That User.",
   "resetPasswordMessage": "Mail Sent Successfully, Please Check Your Email.",
+  "enterEmailResetPassword": "Enter your email address and we'll send you a link to reset your password.",
+  "sendResetLink": "Send Reset Link",
+  "resetEmailSent": "You will receive a password reset link shortly Check Your Email",
+  "backToLogin": "Back to Login",
+  "success": "Success",
+  "error": "Error"
   "Action": "Action",
   "Adventure": "Adventure",
   "Horror":"Horror",

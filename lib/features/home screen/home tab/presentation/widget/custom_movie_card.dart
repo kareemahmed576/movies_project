@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/colors_manager.dart';
+import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
 
-import '../resources/routes_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/routes_manager.dart';
 
-class MovieCard extends StatelessWidget {
-  MovieModel movie;
+
+class CustomMovieCard extends StatelessWidget {
+  MovieModel? movieModel;
+  MovieAvailableEntitiyReq movie;
   int containerWidth;
   int containerHeight;
 
-  MovieCard({
+  CustomMovieCard({
     required this.movie,
     required this.containerWidth,
     required this.containerHeight,
@@ -25,7 +28,7 @@ class MovieCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           RoutesManager.movieDetailsRoute,
-          arguments: movie,
+          // arguments: movieModel,
         );
       },
       child: Container(
@@ -33,7 +36,7 @@ class MovieCard extends StatelessWidget {
 
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
-          image: DecorationImage(image: AssetImage(movie.image),fit: BoxFit.cover),
+          image: DecorationImage(image: NetworkImage(movie.imagePath??""),fit: BoxFit.cover),
         ),
         width: containerWidth.w,
         height: containerHeight.h,
@@ -52,7 +55,7 @@ class MovieCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      movie.rate.toString(),
+                      movie.rating.toString(),
                       style: Theme.of(
                         context,
                       ).textTheme.labelMedium!.copyWith(fontSize: 16),

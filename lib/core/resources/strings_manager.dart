@@ -56,4 +56,5 @@ abstract final class StringsManager {
   static const String userNotFound = 'userNotFound';
   static const String wrongPassword = 'wrongPassword';
   static const String resetPasswordMessage = 'resetPasswordMessage';
+  static const String noInternet = 'No internet connection';
 }

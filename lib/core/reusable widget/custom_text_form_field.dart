@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/color_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final String hintText;
   final String iconPath;
   final bool isPassword;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
 
   const CustomTextFormField({
     super.key,
     required this.hintText,
     required this.iconPath,
-    required this.controller,
+     this.controller,
     this.isPassword = false,
     this.validator,
   });

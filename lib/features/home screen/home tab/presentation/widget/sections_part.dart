@@ -15,7 +15,8 @@ import '../view model/movie_states.dart';
 
   class SectionsPart extends StatelessWidget {
     MovieAvailableEntitiyReq? movie;
-     SectionsPart({this.movie});
+    String? title;
+     SectionsPart({this.title,this.movie});
 
     @override
     Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ import '../view model/movie_states.dart';
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(movie!.gense.toString()),
+                  Text(title??""),
                   TextButton(
                     onPressed: () {},
                     child: Text(

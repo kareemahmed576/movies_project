@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/di/di.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/color_manager.dart';
 import 'package:movies_project/core/resources/dialog_utils.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
@@ -15,6 +14,8 @@ import 'package:movies_project/core/reusable%20widget/language_switch.dart';
 import 'package:movies_project/features/auth/sign_up_screen/presentation/manager/signup_cubit.dart';
 import 'package:movies_project/features/auth/sign_up_screen/presentation/manager/signup_state.dart';
 import 'package:movies_project/features/auth/sign_up_screen/presentation/widgets/avatarList.dart';
+
+import '../../../../../core/resources/colors_manager.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

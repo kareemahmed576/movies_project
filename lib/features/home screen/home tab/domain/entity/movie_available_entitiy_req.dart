@@ -3,5 +3,6 @@ class MovieAvailableEntitiyReq {
   String? imagePath;
   String? urlImagePath;
   double? rating;
-  MovieAvailableEntitiyReq({ this.id,  this.imagePath,  this.urlImagePath, this.rating});
+  List<String>? gense;
+  MovieAvailableEntitiyReq({ this.id,  this.imagePath,  this.urlImagePath, this.rating,this.gense});
 }

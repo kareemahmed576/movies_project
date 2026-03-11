@@ -13,7 +13,7 @@ class LoadingDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onPrimary,),
           ),
           SizedBox(height: 10,),
           Text(StringsManager.loadingMessage.tr()),

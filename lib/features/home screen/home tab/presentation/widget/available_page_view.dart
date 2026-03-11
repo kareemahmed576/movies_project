@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/DI/di.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/constants_manager.dart';
 import 'package:movies_project/core/reusable%20widget/movie_card.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/view%20model/movie_states.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/view%20model/movie_view_model.dart';

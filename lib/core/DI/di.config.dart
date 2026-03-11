@@ -45,6 +45,8 @@ import '../../features/home%20screen/home%20tab/presentation/view%20model/movie_
     as _i589;
 import '../../features/home%20screen/home%20tab/presentation/view%20model/section_view_model.dart'
     as _i33;
+import '../../features/home%20screen/home%20tab/presentation/view%20model/movie_view_model.dart'
+    as _i589;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -89,6 +91,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i33.SectionViewModel>(
       () => _i33.SectionViewModel(gh<_i968.SectionUseCase>()),
+    );
+    gh.factory<_i589.MovieViewModel>(
+      () => _i589.MovieViewModel(gh<_i983.MovieAvailableUseCase>()),
     );
     return this;
   }

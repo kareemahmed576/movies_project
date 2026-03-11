@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movies_project/features/auth/sign_up_screen/presentation/manager/signup_state.dart';
-import '../../domain/entities/user_entity.dart';
+import '../../../../../core/resources/result.dart';
+import '../manager/signup_state.dart';
 import '../../domain/use case/use_case.dart';
 
 @injectable
@@ -28,10 +28,11 @@ class SignupCubit extends Cubit<SignupState> {
       avatar: avatar,
     );
 
-    if (result is UserEntity) {
-      emit(SignupSuccess(result));
-    } else if (result is String) {
-      emit(SignupError(result));
+    switch (result) {
+      case Success(data: final user):
+        emit(SignupSuccess(user));
+      case Failure(exception: final message):
+        emit(SignupError(message));
     }
   }
 }

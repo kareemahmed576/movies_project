@@ -28,13 +28,14 @@ class DialogUtils {
   static void showToast({
     required BuildContext context,
     required String message,
+    required Color color,
   }) {
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: color,
       textColor: Colors.white,
       fontSize: 16.0,
     );

@@ -1,18 +1,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_project/core/resources/colors_manager.dart';
+import 'package:movies_project/core/resources/color_manager.dart';
 
 class AppTheme {
   static final ThemeData darkTheme = ThemeData(
 
     colorScheme: ColorScheme.dark(
-      primary: ColorsManager.darkBlack,
-      onPrimary: ColorsManager.white,
-      tertiary: ColorsManager.gold,
-      onTertiary: ColorsManager.lightGray,
-      onSecondary: ColorsManager.darkGray,
-      onSecondaryContainer: ColorsManager.red
+      primary: ColorManager.darkBlack,
+      onPrimary: ColorManager.white,
+      tertiary: ColorManager.gold,
+      onTertiary: ColorManager.lightGray,
+      onSecondary: ColorManager.darkGray,
+      onSecondaryContainer: ColorManager.red
     ),
 
     textTheme: TextTheme(
@@ -20,47 +20,47 @@ class AppTheme {
       bodyLarge: TextStyle(
           fontSize: 24.sp,
           fontWeight: FontWeight.w700,
-          color: ColorsManager.white
+          color: ColorManager.white
       ),
       bodyMedium: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w700,
-          color: ColorsManager.white
+          color: ColorManager.white
       ),
       displayLarge: TextStyle(
           fontSize: 36.sp,
           fontWeight: FontWeight.w700,
-          color: ColorsManager.white
+          color: ColorManager.white
       ),
       labelMedium: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w400,
-          color: ColorsManager.white
+          color: ColorManager.white
       ),
       labelSmall: TextStyle(
           fontSize: 18.sp,
           fontWeight: FontWeight.w400,
-          color: ColorsManager.white
+          color: ColorManager.white
       ),
       titleMedium: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,
-          color: ColorsManager.darkBlack
+          color: ColorManager.darkBlack
       ),
       titleSmall: TextStyle(
           fontSize: 16.sp,
           fontWeight: FontWeight.w900,
-          color: ColorsManager.white
+          color: ColorManager.white
       ),
       displaySmall: TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
-        color: ColorsManager.gold
+        color: ColorManager.gold
       )
 
     ),
     dividerTheme: DividerThemeData(
-      color: ColorsManager.gold,
+      color: ColorManager.gold,
       endIndent: 25,
       indent: 20,
     )

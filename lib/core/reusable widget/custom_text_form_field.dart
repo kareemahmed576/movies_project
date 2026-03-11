@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/colors_manager.dart';
+import 'package:movies_project/core/resources/color_manager.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final String hintText;
@@ -39,12 +39,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       controller: widget.controller,
       validator: widget.validator,
       style: Theme.of(context).textTheme.labelSmall,
-      cursorColor: ColorsManager.white,
+      cursorColor: ColorManager.white,
       obscureText: obscureText,
       decoration: InputDecoration(
         hintText: widget.hintText,
         filled: true,
-        fillColor: ColorsManager.darkGray,
+        fillColor: ColorManager.darkGray,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide.none,

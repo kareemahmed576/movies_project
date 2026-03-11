@@ -7,7 +7,7 @@ import 'package:movies_project/features/home%20screen/profile%20tab/presentation
 import 'package:movies_project/features/home%20screen/profile%20tab/presentation/widgets/Custom_tab.dart';
 
 import '../../../../../core/resources/assets_manager.dart';
-import '../../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/color_manager.dart';
 
 class ProfileHeader extends StatelessWidget {
   ProfileHeader({super.key});
@@ -18,7 +18,7 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorsManager.darkGray,
+      color: ColorManager.darkGray,
       child: Padding(
         padding: REdgeInsets.only(top: 52, left: 24, right: 24 ),
         child: Column(
@@ -129,7 +129,7 @@ class ProfileHeader extends StatelessWidget {
                       height: 3,
                       width: finalWidth,
                       decoration: BoxDecoration(
-                        color: ColorsManager.gold,
+                        color: ColorManager.gold,
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),

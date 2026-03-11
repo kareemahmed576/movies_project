@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/colors_manager.dart';
+import 'package:movies_project/core/resources/color_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
 import 'package:movies_project/features/onboarding/data/model/onboarding_data.dart';
 
@@ -20,10 +20,10 @@ class OnboardingItem extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             gradient: index==0?LinearGradient(colors: [
-              ColorsManager.darkBlack,
-              ColorsManager.darkBlack.withValues(alpha: 0.91),
-              ColorsManager.darkBlack.withValues(alpha: 0.50),
-              ColorsManager.darkBlack.withValues(alpha: 0),
+              ColorManager.darkBlack,
+              ColorManager.darkBlack.withValues(alpha: 0.91),
+              ColorManager.darkBlack.withValues(alpha: 0.50),
+              ColorManager.darkBlack.withValues(alpha: 0),
             ],begin: Alignment.bottomCenter,
               end: Alignment.topCenter
             ):null,

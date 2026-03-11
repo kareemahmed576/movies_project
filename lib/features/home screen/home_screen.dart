@@ -7,7 +7,7 @@ import 'package:movies_project/features/home%20screen/home%20tab/presentation/sc
 import 'package:movies_project/features/home%20screen/profile%20tab/presentation/profile_tab.dart';
 import 'package:movies_project/features/home%20screen/search%20tab/presentation/search_tab.dart';
 
-import '../../core/resources/colors_manager.dart';
+import '../../core/resources/color_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
-                backgroundColor: ColorsManager.darkGray,
+                backgroundColor: ColorManager.darkGray,
                 items: [
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(AssetsManager.homeUnSelected,width: 23.w,height: 23.h,),

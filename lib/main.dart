@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case RoutesManager.updateProfileRoute:
         return MaterialPageRoute(
-          builder: (_) => const UpdateProfile(),
+          builder: (_) =>  UpdateProfile(),
         );
 
       default:

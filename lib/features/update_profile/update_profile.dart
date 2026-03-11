@@ -13,7 +13,9 @@ import '../../core/resources/assets_manager.dart';
 import 'Cubit/selected_avatar_cubit.dart';
 
 class UpdateProfile extends StatelessWidget {
-  const UpdateProfile({super.key});
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +59,13 @@ class UpdateProfile extends StatelessWidget {
                 CustomTextFormField(
                   hintText: "John Safwat",
                   iconPath: AssetsManager.userLogo,
+                  controller: nameController,
                 ),
                 SizedBox(height: 20.h),
                 CustomTextFormField(
                   hintText: "01289379303",
                   iconPath: AssetsManager.phoneIcon,
+                  controller: phoneController,
                 ),
                 SizedBox(height: 20.h),
                 Align(

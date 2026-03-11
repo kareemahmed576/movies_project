@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/di/di.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/colors_manager.dart';
+import 'package:movies_project/core/resources/color_manager.dart';
 import 'package:movies_project/core/resources/dialog_utils.dart';
 import 'package:movies_project/core/resources/routes_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
@@ -65,7 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
               DialogUtils.showLoadingDialog(context: context);
             } else if (state is SignupSuccess) {
               Navigator.of(context).pop();
-              DialogUtils.showToast(context: context, message: "Account Created Successfully",color: ColorsManager.green);
+              DialogUtils.showToast(context: context, message: "Account Created Successfully",color: ColorManager.green);
               Navigator.pushReplacementNamed(context, RoutesManager.loginsRoute);
             } else if (state is SignupError) {
               Navigator.of(context, rootNavigator: true).pop();
@@ -136,7 +136,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               : () {
                             if (formKey.currentState!.validate()) {
                               if (selectedAvatar.isEmpty) {
-                                DialogUtils.showToast(context: context, message: "Please select an avatar first",color: ColorsManager.red);
+                                DialogUtils.showToast(context: context, message: "Please select an avatar first",color: ColorManager.red);
                                 return;
                               }
                               context.read<SignupCubit>().register(

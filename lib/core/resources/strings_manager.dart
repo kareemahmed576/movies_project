@@ -28,6 +28,7 @@ abstract final class StringsManager {
   static const String createOne = 'createOne';
   static const String createAccount = 'createAccount';
   static const String loginWithGoogle = 'loginWithGoogle';
+  static const String signWithGoogle = 'signWithGoogle';
   static const String register = 'register';
   static const String avatar = 'avatar';
   static const String or = 'or';

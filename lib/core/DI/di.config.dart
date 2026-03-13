@@ -68,8 +68,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i564.SignUpUseCase>(
       () => _i564.SignUpUseCase(gh<_i312.SignUpRepo>()),
     );
+    gh.factory<_i564.GoogleSignInUseCase>(
+      () => _i564.GoogleSignInUseCase(gh<_i312.SignUpRepo>()),
+    );
     gh.factory<_i901.SignupCubit>(
-      () => _i901.SignupCubit(gh<_i564.SignUpUseCase>()),
+      () => _i901.SignupCubit(
+        gh<_i564.SignUpUseCase>(),
+        gh<_i564.GoogleSignInUseCase>(),
+      ),
     );
     gh.factory<_i1013.MovieRepo>(
       () => _i481.MovieRepoImpl(gh<_i344.MovieDao>()),

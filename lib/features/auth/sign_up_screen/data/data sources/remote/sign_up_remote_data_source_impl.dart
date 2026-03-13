@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart' as google_auth;
 import 'package:injectable/injectable.dart';
 import '../../model/user_model.dart';
 import 'sign_up_remote_data_source.dart';
@@ -34,6 +35,44 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
         .collection('users')
         .doc(userModel.uId)
         .set(userModel.toJson());
+
+    return userModel;
+  }
+
+  @override
+  Future<UserModel> signInWithGoogle() async {
+    final google_auth.GoogleSignIn googleSignIn = google_auth.GoogleSignIn(
+      serverClientId: "126978282132-f52cl6s5jtntuho1ulp9pj3dctnmvdci.apps.googleusercontent.com",
+    );
+
+    final google_auth.GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+    if (googleUser == null) {
+      throw Exception("Sign in canceled");
+    }
+
+    final google_auth.GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+
+    final userCredential = await _auth.signInWithCredential(credential);
+    final user = userCredential.user!;
+
+    final userModel = UserModel(
+      uId: user.uid,
+      name: user.displayName ?? "No Name",
+      email: user.email ?? "",
+      phone: user.phoneNumber ?? "",
+      avatar: user.photoURL ?? "",
+    );
+
+    await _firestore
+        .collection('users')
+        .doc(user.uid)
+        .set(userModel.toJson(), SetOptions(merge: true));
 
     return userModel;
   }

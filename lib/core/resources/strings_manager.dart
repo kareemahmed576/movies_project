@@ -58,4 +58,14 @@ abstract final class StringsManager {
   static const String wrongPassword = 'wrongPassword';
   static const String resetPasswordMessage = 'resetPasswordMessage';
   static const String noInternet = 'No internet connection';
+  static const String enterEmailResetPassword = 'enterEmailResetPassword';
+  static const String sendResetLink = 'sendResetLink';
+  static const String resetEmailSent = 'resetEmailSent';
+  static const String backToLogin = 'backToLogin';
+  static const String success = 'success';
+  static const String error = 'error';
+  static const String action = 'Action';
+  static const String Adventure = 'Adventure';
+  static const String Horror = 'Horror';
+  static const String Drama = 'Drama';
 }

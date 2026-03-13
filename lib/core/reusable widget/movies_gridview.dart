@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/constants_manager.dart';
+import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entity.dart';
 import '../../../../../core/reusable widget/movie_card.dart';
 
 class MoviesGridview extends StatelessWidget {

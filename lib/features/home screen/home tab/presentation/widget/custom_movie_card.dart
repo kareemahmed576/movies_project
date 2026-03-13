@@ -1,16 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
-import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
 
-import '../../../../../core/resources/colors_manager.dart';
 import '../../../../../core/resources/routes_manager.dart';
 
-
 class CustomMovieCard extends StatelessWidget {
-  MovieModel? movieModel;
   MovieAvailableEntitiyReq movie;
   int containerWidth;
   int containerHeight;
@@ -28,20 +26,28 @@ class CustomMovieCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           RoutesManager.movieDetailsRoute,
-          // arguments: movieModel,
+          arguments: movie,
         );
       },
       child: Container(
-        clipBehavior: Clip.antiAlias,
-
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.r),
-          image: DecorationImage(image: NetworkImage(movie.imagePath??""),fit: BoxFit.cover),
-        ),
         width: containerWidth.w,
         height: containerHeight.h,
         child: Stack(
           children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16.r),
+              child: CachedNetworkImage(
+                imageUrl: movie.imagePath ?? "",
+                width: containerWidth.w,
+                height: containerHeight.h,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) =>
+                    Icon(Icons.error),
+              ),
+            ),
+
             Padding(
               padding: REdgeInsets.only(left: 8, top: 12),
               child: Container(

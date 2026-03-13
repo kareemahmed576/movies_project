@@ -35,4 +35,17 @@ class SignUpRepoImpl implements SignUpRepo {
       return Failure('Try Again');
     }
   }
+
+  Future<Result<UserEntity>> signInWithGoogle() async {
+    try {
+      final result = await remoteDataSource.signInWithGoogle();
+      return Success(result);
+    } on FirebaseAuthException catch (e) {
+      return Failure(e.message ?? 'Google Sign-In failed');
+    } on Exception catch (e) {
+      return Failure(e.toString());
+    } catch (e) {
+      return Failure('Try Again');
+    }
+  }
 }

@@ -9,4 +9,5 @@ abstract interface class SignUpRepo {
     required String phone,
     required String avatar,
   });
+  Future<Result<UserEntity>> signInWithGoogle();
 }

@@ -10,9 +10,11 @@ class CustomTextFormField extends StatefulWidget {
   final bool isPassword;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final String? Function(String)? onChange;
 
   const CustomTextFormField({
     super.key,
+    this.onChange,
     required this.hintText,
     required this.iconPath,
      this.controller,
@@ -36,6 +38,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChange,
       controller: widget.controller,
       validator: widget.validator,
       style: Theme.of(context).textTheme.labelSmall,

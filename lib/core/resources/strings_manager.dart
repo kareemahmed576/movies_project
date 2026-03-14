@@ -68,4 +68,5 @@ abstract final class StringsManager {
   static const String Adventure = 'Adventure';
   static const String Horror = 'Horror';
   static const String Drama = 'Drama';
+  static const String tryAgain = 'try again';
 }

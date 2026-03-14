@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
         final movie = settings.arguments;
         if (movie is MovieModel) {
           return MaterialPageRoute(
-            builder: (_) => MovieDetailsScreen(movie),
+            builder: (_) => MovieDetailsScreen(),
           );
         }
         return _errorRoute();

@@ -4,7 +4,7 @@ import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/core/resources/constants_manager.dart';
 import 'package:movies_project/core/reusable%20widget/movie_card.dart';
 
-import '../../../../../core/resources/color_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
 
 class AvailablePageView extends StatefulWidget {
   @override

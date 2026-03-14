@@ -107,16 +107,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i344.MovieDao>(
       () => _i392.MovieAvaliableApiImpl(gh<_i25.MovieAvailable>()),
     );
-    gh.factory<_i221.SearchRepo>(
-      () => _i223.SearchRepoImpl(gh<_i165.SearchDao>()),
     gh.factory<_i1063.ForgetPasswordUseCase>(
       () => _i1063.ForgetPasswordUseCase(gh<_i913.ForgetPasswordRepo>()),
+    );
+    gh.factory<_i221.SearchRepo>(
+      () => _i223.SearchRepoImpl(gh<_i165.SearchDao>()),
     );
     gh.factory<_i564.SignUpUseCase>(
       () => _i564.SignUpUseCase(gh<_i312.SignUpRepo>()),
     );
     gh.factory<_i564.GoogleSignInUseCase>(
       () => _i564.GoogleSignInUseCase(gh<_i312.SignUpRepo>()),
+    );
     gh.factory<_i349.ForgetPasswordCubit>(
       () => _i349.ForgetPasswordCubit(gh<_i1063.ForgetPasswordUseCase>()),
     );

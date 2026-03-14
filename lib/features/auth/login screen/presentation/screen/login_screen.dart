@@ -68,7 +68,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          // handle forget password
+                           Navigator.pushNamed(context, RoutesManager.forgetPasswordRoute);
+                        },
                         child: Text(
                           StringsManager.forgetPassword.tr(),
                           style: Theme.of(context).textTheme.displaySmall,

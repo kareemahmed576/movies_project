@@ -28,6 +28,7 @@ abstract final class StringsManager {
   static const String createOne = 'createOne';
   static const String createAccount = 'createAccount';
   static const String loginWithGoogle = 'loginWithGoogle';
+  static const String signWithGoogle = 'signWithGoogle';
   static const String register = 'register';
   static const String avatar = 'avatar';
   static const String or = 'or';
@@ -56,4 +57,16 @@ abstract final class StringsManager {
   static const String userNotFound = 'userNotFound';
   static const String wrongPassword = 'wrongPassword';
   static const String resetPasswordMessage = 'resetPasswordMessage';
+  static const String noInternet = 'No internet connection';
+  static const String enterEmailResetPassword = 'enterEmailResetPassword';
+  static const String sendResetLink = 'sendResetLink';
+  static const String resetEmailSent = 'resetEmailSent';
+  static const String backToLogin = 'backToLogin';
+  static const String success = 'success';
+  static const String error = 'error';
+  static const String action = 'Action';
+  static const String Adventure = 'Adventure';
+  static const String Horror = 'Horror';
+  static const String Drama = 'Drama';
+  static const String tryAgain = 'try again';
 }

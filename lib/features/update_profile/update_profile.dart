@@ -82,12 +82,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   controller: nameController,
                   hintText: "John Safwat",
                   iconPath: AssetsManager.userLogo,
+                  controller: nameController,
                 ),
                 SizedBox(height: 20.h),
                 CustomTextFormField(
                   controller: phoneController,
                   hintText: "01289379303",
                   iconPath: AssetsManager.phoneIcon,
+                  controller: phoneController,
                 ),
                 SizedBox(height: 20.h),
                 Align(

@@ -45,8 +45,20 @@ import '../../features/home%20screen/home%20tab/presentation/view%20model/movie_
     as _i589;
 import '../../features/home%20screen/home%20tab/presentation/view%20model/section_view_model.dart'
     as _i33;
-import '../../features/home%20screen/home%20tab/presentation/view%20model/movie_view_model.dart'
-    as _i589;
+import '../../features/home%20screen/search%20tab/data/Api/search_api.dart'
+    as _i89;
+import '../../features/home%20screen/search%20tab/data/data_source/search_dao.dart'
+    as _i165;
+import '../../features/home%20screen/search%20tab/data/data_source_impl/Search_api_impl.dart'
+    as _i510;
+import '../../features/home%20screen/search%20tab/data/repository_Impl/search_repo_impl.dart'
+    as _i223;
+import '../../features/home%20screen/search%20tab/domain/repository/search_repo.dart'
+    as _i221;
+import '../../features/home%20screen/search%20tab/domain/use_case/search_use_case.dart'
+    as _i1008;
+import '../../features/home%20screen/search%20tab/presentation/view_model/search_view_model.dart'
+    as _i215;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -63,6 +75,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i25.MovieAvailable>(
       () => _i25.MovieAvailable(gh<_i361.Dio>()),
     );
+    gh.singleton<_i89.SearchApi>(() => _i89.SearchApi(gh<_i361.Dio>()));
+    gh.factory<_i165.SearchDao>(
+      () => _i510.SearchApiImpl(gh<_i89.SearchApi>()),
+    );
     gh.lazySingleton<_i312.SignUpRepo>(
       () => _i911.SignUpRepoImpl(
         remoteDataSource: gh<_i11.SignUpRemoteDataSource>(),
@@ -70,6 +86,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i344.MovieDao>(
       () => _i392.MovieAvaliableApiImpl(gh<_i25.MovieAvailable>()),
+    );
+    gh.factory<_i221.SearchRepo>(
+      () => _i223.SearchRepoImpl(gh<_i165.SearchDao>()),
     );
     gh.factory<_i564.SignUpUseCase>(
       () => _i564.SignUpUseCase(gh<_i312.SignUpRepo>()),
@@ -79,6 +98,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1013.MovieRepo>(
       () => _i481.MovieRepoImpl(gh<_i344.MovieDao>()),
+    );
+    gh.singleton<_i1008.SearchUseCase>(
+      () => _i1008.SearchUseCase(gh<_i221.SearchRepo>()),
+    );
+    gh.factory<_i215.SearchViewModel>(
+      () => _i215.SearchViewModel(gh<_i1008.SearchUseCase>()),
     );
     gh.factory<_i983.MovieAvailableUseCase>(
       () => _i983.MovieAvailableUseCase(gh<_i1013.MovieRepo>()),
@@ -91,9 +116,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i33.SectionViewModel>(
       () => _i33.SectionViewModel(gh<_i968.SectionUseCase>()),
-    );
-    gh.factory<_i589.MovieViewModel>(
-      () => _i589.MovieViewModel(gh<_i983.MovieAvailableUseCase>()),
     );
     return this;
   }

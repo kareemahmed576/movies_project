@@ -1,16 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
 import 'package:movies_project/core/reusable%20widget/custom_button.dart';
+import 'package:movies_project/features/movie%20details/presentation/manager/movie_details_view_model.dart';
+import 'package:movies_project/features/movie%20details/presentation/manager/movie_details_states.dart';
 import 'package:movies_project/features/movie%20details/presentation/widgets/custom_container.dart';
 import 'package:movies_project/features/movie%20details/presentation/widgets/genre_gridview.dart';
+import '../../../home screen/home tab/domain/entity/movie_available_entitiy_req.dart';
+import '../../domain/entities/movie_details_entity.dart';
 
-class MovieDetailsScreen extends StatelessWidget {
-  const MovieDetailsScreen({super.key});
+class MovieDetailsScreen extends StatefulWidget {
+  final MovieDetailsEntity movie;
 
+  const MovieDetailsScreen(this.movie, {super.key});
+
+  @override
+  State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
+}
+
+class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +53,9 @@ class MovieDetailsScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surface,
                     image: DecorationImage(
-                      image: AssetImage(AssetsManager.onboarding5),
+                      image: widget.movie.imagePath != null && widget.movie.imagePath!.startsWith('http')
+                          ? NetworkImage(widget.movie.imagePath!)
+                          : AssetImage(AssetsManager.onboarding4) as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -50,7 +64,7 @@ class MovieDetailsScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+                        Theme.of(context).colorScheme.primary.withAlpha(50),
                         Theme.of(context).colorScheme.primary,
                       ],
                       begin: Alignment.topCenter,
@@ -68,16 +82,17 @@ class MovieDetailsScreen extends StatelessWidget {
                       Padding(
                         padding: REdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          "Movie Title",
+                          widget.movie.title.toString(),
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.titleLarge,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        "2024",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onTertiary,
+                      Padding(
+                        padding: REdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          widget.movie.year.toString(),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.displayMedium
                         ),
                       ),
                     ],
@@ -89,6 +104,7 @@ class MovieDetailsScreen extends StatelessWidget {
           Padding(
             padding: REdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomButton(
                   textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -113,35 +129,44 @@ class MovieDetailsScreen extends StatelessWidget {
                     Expanded(
                       child: CustomContainer(
                         icon: AssetsManager.rateIcon,
-                        value: "0.0",
+                        value: widget.movie.rating?.toString() ?? "0.0",
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 16.h),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(StringsManager.summary.tr()),
+                Text(
+                  StringsManager.summary.tr(),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: 8.h),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(
-                    "Movie summary will appear here once the data is loaded.",
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
+                Text(
+                  widget.movie.summary.toString(),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 SizedBox(height: 16.h),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(StringsManager.genres.tr()),
+                Text(
+                  StringsManager.similar.tr(),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                SizedBox(height: 8.h),
-                GenreGridview(
-                  itemCount: 3,
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 11,
-                  crossAxisSpacing: 16,
+                SizedBox(height: 16.h),
+                BlocBuilder<MovieDetailsViewModel, MovieDetailsStates>(
+                  builder: (context, state) {
+                    if (state is SimilarMoviesLoadingState) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is SimilarMoviesErrorState) {
+                      return Center(child: Text(state.message));
+                    } else if (state is SimilarMoviesSuccessState) {
+                      return GenreGridview(
+                        movies: state.similarMovies,
+                        itemCount: state.similarMovies.length,
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 11,
+                        crossAxisSpacing: 16,
+                      );
+                    }
+                    return const SizedBox();
+                  },
                 ),
                 SizedBox(height: 24.h),
               ],

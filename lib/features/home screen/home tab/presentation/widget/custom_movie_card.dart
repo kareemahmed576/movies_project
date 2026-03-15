@@ -7,9 +7,10 @@ import 'package:movies_project/core/resources/colors_manager.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
 
 import '../../../../../core/resources/routes_manager.dart';
+import '../../../../movie details/domain/entities/movie_details_entity.dart';
 
 class CustomMovieCard extends StatelessWidget {
-  MovieAvailableEntitiyReq movie;
+  MovieDetailsEntity movie;
   int containerWidth;
   int containerHeight;
 

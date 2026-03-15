@@ -9,12 +9,13 @@ import 'package:movies_project/features/home%20screen/home%20tab/presentation/wi
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/widget/sections_part.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../movie details/domain/entities/movie_details_entity.dart';
+
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Provide a single SectionViewModel for all sections
     return BlocProvider(
       create: (_) => getIt<SectionViewModel>(),
       child: SingleChildScrollView(
@@ -22,22 +23,21 @@ class HomeTab extends StatelessWidget {
           children: [
             AvailablePageView(),
 
-            // Each section now uses the shared SectionViewModel
             SectionsPart(
-              movie: MovieAvailableEntitiyReq(gense: ["Horror"]),
+              movie: MovieDetailsEntity(genres: ["Horror"]),
               title: StringsManager.Horror.tr(),
             ),
             SectionsPart(
-              movie: MovieAvailableEntitiyReq(gense: ["Action"]),
+              movie: MovieDetailsEntity(genres: ["Action"]),
               title: StringsManager.action.tr(),
             ),
             SectionsPart(
-              movie: MovieAvailableEntitiyReq(gense: ["Adventure"]),
+              movie: MovieDetailsEntity(genres: ["Adventure"]),
               title: StringsManager.Adventure.tr(),
             ),
             SectionsPart(
-              movie: MovieAvailableEntitiyReq(gense: ["Drama"]),
-              title: StringsManager.Drama .tr(),
+              movie: MovieDetailsEntity(genres: ["Drama"]),
+              title: StringsManager.Drama.tr(),
             ),
           ],
         ),

@@ -13,19 +13,15 @@ import 'package:movies_project/features/onboarding/presentation/screen/onboardin
 import 'core/reusable widget/my_bloc_observer.dart';
 import 'features/auth/forget_password_screen/forget_password_screen.dart';
 import 'core/DI/di.dart';
-import 'features/home screen/profile tab/model/movieModel.dart';
 import 'features/auth/login screen/presentation/screen/login_screen.dart';
-// import 'firebase_options.dart';
+import 'features/movie details/domain/entities/movie_details_entity.dart';
+import 'features/movie details/presentation/manager/movie_details_view_model.dart';
 import 'features/update_profile/Cubit/selected_avatar_cubit.dart';
 import 'features/update_profile/update_profile.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
   configureDependencies();
   await EasyLocalization.ensureInitialized();
   Bloc.observer = MyBlocObserver();
@@ -72,15 +68,21 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => ProfileCubit(),
-            child:  HomeScreen(),
+            child: HomeScreen(),
           ),
         );
 
       case RoutesManager.movieDetailsRoute:
         final movie = settings.arguments;
-        if (movie is MovieModel) {
+        if (movie is MovieDetailsEntity) {
           return MaterialPageRoute(
-            builder: (_) => MovieDetailsScreen(),
+            builder: (_) => BlocProvider(
+              create: (context) => getIt<MovieDetailsViewModel>()
+                ..getSimilarMovies(
+                  List<String?>.from(movie.genres ?? []),
+                ),
+              child: MovieDetailsScreen(movie),
+            ),
           );
         }
         return _errorRoute();
@@ -93,9 +95,9 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case RoutesManager.updateProfileRoute:
         return MaterialPageRoute(
-          builder: (_) =>  UpdateProfile(),
+          builder: (_) => UpdateProfile(),
         );
-        case RoutesManager.forgetPasswordRoute:
+      case RoutesManager.forgetPasswordRoute:
         return MaterialPageRoute(
           builder: (_) => const ForgetPasswordScreen(),
         );

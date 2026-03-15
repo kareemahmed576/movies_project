@@ -71,6 +71,14 @@ import '../../features/home%20screen/search%20tab/domain/use_case/search_use_cas
     as _i1008;
 import '../../features/home%20screen/search%20tab/presentation/view_model/search_view_model.dart'
     as _i215;
+import '../../features/movie%20details/data/repositories/movie_details_repo_impl.dart'
+    as _i257;
+import '../../features/movie%20details/domain/repositories/movie_details_repo.dart'
+    as _i725;
+import '../../features/movie%20details/domain/use%20case/get_similar_movies_use_case.dart'
+    as _i161;
+import '../../features/movie%20details/presentation/manager/movie_details_view_model.dart'
+    as _i958;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -119,8 +127,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i564.GoogleSignInUseCase>(
       () => _i564.GoogleSignInUseCase(gh<_i312.SignUpRepo>()),
     );
+    gh.factory<_i725.MovieDetailsRepo>(
+      () => _i257.MovieDetailsRepoImpl(gh<_i344.MovieDao>()),
+    );
     gh.factory<_i349.ForgetPasswordCubit>(
       () => _i349.ForgetPasswordCubit(gh<_i1063.ForgetPasswordUseCase>()),
+    );
+    gh.factory<_i161.GetSimilarMoviesUseCase>(
+      () => _i161.GetSimilarMoviesUseCase(gh<_i725.MovieDetailsRepo>()),
     );
     gh.factory<_i901.SignupCubit>(
       () => _i901.SignupCubit(
@@ -133,6 +147,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i1008.SearchUseCase>(
       () => _i1008.SearchUseCase(gh<_i221.SearchRepo>()),
+    );
+    gh.factory<_i958.MovieDetailsViewModel>(
+      () => _i958.MovieDetailsViewModel(gh<_i161.GetSimilarMoviesUseCase>()),
     );
     gh.factory<_i215.SearchViewModel>(
       () => _i215.SearchViewModel(gh<_i1008.SearchUseCase>()),

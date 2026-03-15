@@ -99,6 +99,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i25.MovieAvailable(gh<_i361.Dio>()),
     );
     gh.singleton<_i89.SearchApi>(() => _i89.SearchApi(gh<_i361.Dio>()));
+    gh.factory<_i344.MovieDao>(
+      () => _i392.MovieDaoImpl(gh<_i25.MovieAvailable>()),
+    );
     gh.factory<_i165.SearchDao>(
       () => _i510.SearchApiImpl(gh<_i89.SearchApi>()),
     );
@@ -107,13 +110,19 @@ extension GetItInjectableX on _i174.GetIt {
         remoteDataSource: gh<_i11.SignUpRemoteDataSource>(),
       ),
     );
+    gh.factory<_i725.MovieDetailsRepo>(
+      () => _i257.MovieDetailsRepoImpl(gh<_i344.MovieDao>()),
+    );
+    gh.factory<_i161.GetSimilarMoviesUseCase>(
+      () => _i161.GetSimilarMoviesUseCase(gh<_i725.MovieDetailsRepo>()),
+    );
+    gh.factory<_i1013.MovieRepo>(
+      () => _i481.MovieRepoImpl(gh<_i344.MovieDao>()),
+    );
     gh.lazySingleton<_i913.ForgetPasswordRepo>(
       () => _i495.ForgetPasswordRepoImpl(
         remoteDataSource: gh<_i603.ForgetPasswordRemoteDataSource>(),
       ),
-    );
-    gh.factory<_i344.MovieDao>(
-      () => _i392.MovieAvaliableApiImpl(gh<_i25.MovieAvailable>()),
     );
     gh.factory<_i1063.ForgetPasswordUseCase>(
       () => _i1063.ForgetPasswordUseCase(gh<_i913.ForgetPasswordRepo>()),
@@ -121,38 +130,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i221.SearchRepo>(
       () => _i223.SearchRepoImpl(gh<_i165.SearchDao>()),
     );
+    gh.factory<_i958.MovieDetailsViewModel>(
+      () => _i958.MovieDetailsViewModel(gh<_i161.GetSimilarMoviesUseCase>()),
+    );
     gh.factory<_i564.SignUpUseCase>(
       () => _i564.SignUpUseCase(gh<_i312.SignUpRepo>()),
     );
     gh.factory<_i564.GoogleSignInUseCase>(
       () => _i564.GoogleSignInUseCase(gh<_i312.SignUpRepo>()),
     );
-    gh.factory<_i725.MovieDetailsRepo>(
-      () => _i257.MovieDetailsRepoImpl(gh<_i344.MovieDao>()),
-    );
     gh.factory<_i349.ForgetPasswordCubit>(
       () => _i349.ForgetPasswordCubit(gh<_i1063.ForgetPasswordUseCase>()),
-    );
-    gh.factory<_i161.GetSimilarMoviesUseCase>(
-      () => _i161.GetSimilarMoviesUseCase(gh<_i725.MovieDetailsRepo>()),
-    );
-    gh.factory<_i901.SignupCubit>(
-      () => _i901.SignupCubit(
-        gh<_i564.SignUpUseCase>(),
-        gh<_i564.GoogleSignInUseCase>(),
-      ),
-    );
-    gh.factory<_i1013.MovieRepo>(
-      () => _i481.MovieRepoImpl(gh<_i344.MovieDao>()),
-    );
-    gh.singleton<_i1008.SearchUseCase>(
-      () => _i1008.SearchUseCase(gh<_i221.SearchRepo>()),
-    );
-    gh.factory<_i958.MovieDetailsViewModel>(
-      () => _i958.MovieDetailsViewModel(gh<_i161.GetSimilarMoviesUseCase>()),
-    );
-    gh.factory<_i215.SearchViewModel>(
-      () => _i215.SearchViewModel(gh<_i1008.SearchUseCase>()),
     );
     gh.factory<_i983.MovieAvailableUseCase>(
       () => _i983.MovieAvailableUseCase(gh<_i1013.MovieRepo>()),
@@ -160,11 +148,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i968.SectionUseCase>(
       () => _i968.SectionUseCase(gh<_i1013.MovieRepo>()),
     );
+    gh.factory<_i901.SignupCubit>(
+      () => _i901.SignupCubit(
+        gh<_i564.SignUpUseCase>(),
+        gh<_i564.GoogleSignInUseCase>(),
+      ),
+    );
+    gh.singleton<_i1008.SearchUseCase>(
+      () => _i1008.SearchUseCase(gh<_i221.SearchRepo>()),
+    );
     gh.factory<_i589.MovieViewModel>(
       () => _i589.MovieViewModel(gh<_i983.MovieAvailableUseCase>()),
     );
     gh.factory<_i33.SectionViewModel>(
       () => _i33.SectionViewModel(gh<_i968.SectionUseCase>()),
+    );
+    gh.factory<_i215.SearchViewModel>(
+      () => _i215.SearchViewModel(gh<_i1008.SearchUseCase>()),
     );
     return this;
   }

@@ -14,10 +14,11 @@ class MovieDetailsRepoImpl implements MovieDetailsRepo {
   MovieDetailsRepoImpl(this.movieDao);
 
   @override
-  Future<BaseResponse<List<MovieDetailsEntity>>> fetchSimilarMovies(List<String?> genres) async {
+  Future<BaseResponse<List<MovieDetailsEntity>>> fetchSimilarMovies(int movieId) async {
     bool isConnected = await InternetConnector.checkConnection();
     if (isConnected) {
-      var response = await movieDao.fetchSections(genres);
+      var response = await movieDao.fetchSimilarMovies(movieId);
+
       if (response is SuccessState<MovieAvalibaleModel>) {
         var detailsList = response.response.data?.movies
             ?.map((m) => m.toMovieDetailsEntity())

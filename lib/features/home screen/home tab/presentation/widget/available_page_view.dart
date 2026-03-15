@@ -82,7 +82,7 @@ class _AvailablePageViewState extends State<AvailablePageView> {
                           case MovieLoadingState():
                             return Container(
                               height: 380.h,
-                              child: Center(child: CircularProgressIndicator()),
+                              child: Center(child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onPrimary,)),
                             );
                           case MovieErrorState():
                             return Container(

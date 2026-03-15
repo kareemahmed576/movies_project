@@ -17,7 +17,11 @@ class MovieRepoImpl implements MovieRepo {
   Future<BaseResponse<MovieAvailableEntity>> fetchMovies() async {
     bool isConnected = await InternetConnector.checkConnection();
     if (isConnected) {
-      var response = await movieDao.fetchMovies();
+      var response = await movieDao.fetchMovies(
+        limit: 20,
+        sortBy: 'download_count',
+        orderBy: 'desc',
+      );
       if (response is SuccessState<MovieAvalibaleModel>) {
         return SuccessState(response.response.toEntity());
       } else if (response is ErrorState<MovieAvalibaleModel>) {
@@ -32,6 +36,20 @@ class MovieRepoImpl implements MovieRepo {
     bool isConnected = await InternetConnector.checkConnection();
     if (isConnected) {
       var response = await movieDao.fetchSections(gense);
+      if (response is SuccessState<MovieAvalibaleModel>) {
+        return SuccessState(response.response.toEntity());
+      } else if (response is ErrorState<MovieAvalibaleModel>) {
+        return ErrorState(response.error);
+      }
+    }
+    return ErrorState(StringsManager.noInternet);
+  }
+
+  @override
+  Future<BaseResponse<MovieAvailableEntity>> fetchSimilarMovies(int movieId) async {
+    bool isConnected = await InternetConnector.checkConnection();
+    if (isConnected) {
+      var response = await movieDao.fetchSimilarMovies(movieId);
       if (response is SuccessState<MovieAvalibaleModel>) {
         return SuccessState(response.response.toEntity());
       } else if (response is ErrorState<MovieAvalibaleModel>) {

@@ -9,7 +9,7 @@ class GetSimilarMoviesUseCase {
 
   GetSimilarMoviesUseCase(this.repository);
 
-  Future<BaseResponse<List<MovieDetailsEntity>>> call(List<String?> genres) {
-    return repository.fetchSimilarMovies(genres);
+  Future<BaseResponse<List<MovieDetailsEntity>>> call(int movieId) {
+    return repository.fetchSimilarMovies(movieId);
   }
 }

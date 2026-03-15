@@ -10,6 +10,7 @@ import 'package:movies_project/features/movie%20details/presentation/manager/mov
 import 'package:movies_project/features/movie%20details/presentation/manager/movie_details_states.dart';
 import 'package:movies_project/features/movie%20details/presentation/widgets/custom_container.dart';
 import 'package:movies_project/features/movie%20details/presentation/widgets/genre_gridview.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../home screen/home tab/domain/entity/movie_available_entitiy_req.dart';
 import '../../domain/entities/movie_details_entity.dart';
 
@@ -72,7 +73,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     ),
                   ),
                 ),
-                Center(child: Image.asset(AssetsManager.playIcon)),
+                Center(
+                  child: GestureDetector(
+                    onTap: () => _launchTrailer(widget.movie.trailerUrl),
+                    child: Image.asset(AssetsManager.playIcon),
+                  ),
+                ),
                 Positioned(
                   bottom: 8.h,
                   left: 0,
@@ -175,5 +181,20 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ],
       ),
     );
+  }
+  Future<void> _launchTrailer(String? url) async {
+    if (url == null || url.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Trailer not available")),
+      );
+      return;
+    }
+
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Could not launch trailer")),
+      );
+    }
   }
 }

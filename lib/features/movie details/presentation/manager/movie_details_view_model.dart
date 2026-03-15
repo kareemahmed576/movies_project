@@ -11,16 +11,15 @@ class MovieDetailsViewModel extends Cubit<MovieDetailsStates> {
 
   MovieDetailsViewModel(this._getSimilarMoviesUseCase) : super(MovieDetailsInitialState());
 
-  void getSimilarMovies(List<String?> genres) async {
+  void getSimilarMovies(int movieId) async {
     emit(SimilarMoviesLoadingState());
 
-    final response = await _getSimilarMoviesUseCase.call(genres);
+    final response = await _getSimilarMoviesUseCase.call(movieId);
 
-    switch (response) {
-      case SuccessState<List<MovieDetailsEntity>>():
-        emit(SimilarMoviesSuccessState(response.response));
-      case ErrorState<List<MovieDetailsEntity>>():
-        emit(SimilarMoviesErrorState(response.error));
+    if (response is SuccessState<List<MovieDetailsEntity>>) {
+      emit(SimilarMoviesSuccessState(response.response));
+    } else if (response is ErrorState<List<MovieDetailsEntity>>) {
+      emit(SimilarMoviesErrorState(response.error));
     }
   }
 }

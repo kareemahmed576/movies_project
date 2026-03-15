@@ -78,9 +78,7 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(
             builder: (_) => BlocProvider(
               create: (context) => getIt<MovieDetailsViewModel>()
-                ..getSimilarMovies(
-                  List<String?>.from(movie.genres ?? []),
-                ),
+                ..getSimilarMovies(movie.id ?? 0), // التعديل هنا: بنبعت الـ ID بدل الـ genres
               child: MovieDetailsScreen(movie),
             ),
           );

@@ -22,9 +22,18 @@ class _MovieAvailable implements MovieAvailable {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<MovieAvalibaleModel> getAvailableMovies(int limit) async {
+  Future<MovieAvalibaleModel> getAvailableMovies(
+    int limit, {
+    String? sortBy,
+    String? orderBy,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'limit': limit};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'sort_by': sortBy,
+      r'order_by': orderBy,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MovieAvalibaleModel>(
@@ -49,9 +58,10 @@ class _MovieAvailable implements MovieAvailable {
   }
 
   @override
-  Future<MovieAvalibaleModel> getSectionsMovies(List<String?> genre) async {
+  Future<MovieAvalibaleModel> getSectionsMovies(String? genre) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'genre': genre};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MovieAvalibaleModel>(
@@ -59,6 +69,33 @@ class _MovieAvailable implements MovieAvailable {
           .compose(
             _dio.options,
             '/api/v2/list_movies.json',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MovieAvalibaleModel _value;
+    try {
+      _value = MovieAvalibaleModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<MovieAvalibaleModel> getSimilarMovies(int movieId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'movie_id': movieId};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<MovieAvalibaleModel>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/v2/movie_suggestions.json',
             queryParameters: queryParameters,
             data: _data,
           )

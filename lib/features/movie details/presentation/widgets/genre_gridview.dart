@@ -24,6 +24,8 @@ class GenreGridview extends StatelessWidget {
     return GridView.builder(
       padding: EdgeInsets.zero,
       itemCount: itemCount,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         mainAxisSpacing: mainAxisSpacing.h,
@@ -41,12 +43,22 @@ class GenreGridview extends StatelessWidget {
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16.r),
-            child: Image.network(
-              movies[index].imagePath ?? "",
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
-                color: Colors.grey[900],
-                child: const Icon(Icons.broken_image, color: Colors.white),
+            child: Container(
+              color: Colors.grey[900],
+              child: Image.network(
+                movies[index].imagePath ?? "",
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const Center(
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) => const Center(
+                  child: Icon(Icons.broken_image, color: Colors.white54),
+                ),
               ),
             ),
           ),

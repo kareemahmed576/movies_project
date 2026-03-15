@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/DI/di.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/reusable%20widget/movie_card.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/view%20model/movie_states.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/view%20model/movie_view_model.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/widget/custom_movie_card.dart';
-
 import '../../../../../core/resources/colors_manager.dart';
 
 class AvailablePageView extends StatefulWidget {
@@ -17,7 +15,6 @@ class AvailablePageView extends StatefulWidget {
 
 class _AvailablePageViewState extends State<AvailablePageView> {
   int selectedIndex = 0;
-
   PageController controller = PageController(viewportFraction: 0.7);
 
   @override
@@ -27,13 +24,14 @@ class _AvailablePageViewState extends State<AvailablePageView> {
       child: SafeArea(
         bottom: false,
         child: Container(
-          height: 655.h,
+          height: 700.h,
           child: Stack(
             children: [
               Image.asset(
                 AssetsManager.onboarding6,
                 fit: BoxFit.cover,
                 height: double.infinity,
+                width: double.infinity,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -48,14 +46,16 @@ class _AvailablePageViewState extends State<AvailablePageView> {
                   ),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(height: 10.h),
                     Image.asset(AssetsManager.availableNow),
+                    const Spacer(),
                     BlocBuilder<MovieViewModel, MovieStates>(
                       builder: (context, state) {
                         switch (state) {
                           case MovieSuccessState():
-                            var response=state.movieAvailableEntity.movies??[];
+                            var response = state.movieAvailableEntity.movies ?? [];
                             return SizedBox(
                               height: 380.h,
                               child: PageView.builder(
@@ -80,17 +80,24 @@ class _AvailablePageViewState extends State<AvailablePageView> {
                               ),
                             );
                           case MovieLoadingState():
-                           return Center(child: CircularProgressIndicator(),);
+                            return Container(
+                              height: 380.h,
+                              child: Center(child: CircularProgressIndicator()),
+                            );
                           case MovieErrorState():
-                            return Center(child: Text(state.error),);
+                            return Container(
+                              height: 380.h,
+                              child: Center(child: Text(state.error)),
+                            );
                         }
                       },
                     ),
-                    SizedBox(height: 21.h),
+                    const Spacer(),
                     Padding(
                       padding: REdgeInsets.symmetric(horizontal: 38),
                       child: Image.asset(AssetsManager.watchNow),
                     ),
+                    SizedBox(height: 20.h),
                   ],
                 ),
               ),

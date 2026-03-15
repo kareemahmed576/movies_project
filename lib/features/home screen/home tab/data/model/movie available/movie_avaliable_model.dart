@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entity.dart';
+import '../../../../../movie details/domain/entities/movie_details_entity.dart';
 
 part 'movie_avaliable_model.g.dart';
 
@@ -29,8 +30,10 @@ class MovieAvalibaleModel {
       _$MovieAvalibaleModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieAvalibaleModelToJson(this);
-  MovieAvailableEntity toEntity(){
-    return MovieAvailableEntity(data?.movies?.map((e) => e.toEntity()).toList());
+
+  MovieAvailableEntity toEntity() {
+    return MovieAvailableEntity(
+        data?.movies?.map((e) => e.toMovieDetailsEntity()).toList());
   }
 }
 
@@ -58,7 +61,6 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
   Map<String, dynamic> toJson() => _$DataToJson(this);
-
 }
 
 @JsonSerializable()
@@ -176,7 +178,24 @@ class Movies {
 
   MovieAvailableEntitiyReq toEntity() {
     return MovieAvailableEntitiyReq(
-        id: id, imagePath: largeCoverImage, urlImagePath: url,rating: rating,gense: genres);
+        id: id,
+        imagePath: largeCoverImage,
+        urlImagePath: url,
+        rating: rating,
+        gense: genres);
+  }
+
+  MovieDetailsEntity toMovieDetailsEntity() {
+    return MovieDetailsEntity(
+      id: id,
+      title: title,
+      year: year?.toString(),
+      rating: rating?.toString(),
+      runtime: runtime?.toString(),
+      genres: genres,
+      summary: descriptionFull ?? summary ?? "",
+      imagePath: largeCoverImage,
+    );
   }
 }
 

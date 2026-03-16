@@ -2,7 +2,8 @@ import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
 
 abstract class ConstantsManager {
-  static const String emailRegex = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+  static const String emailRegex =
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   static const String phoneRegex = r'^01[0125][0-9]{8}$';
   static const String nameRegex = r'^[a-zA-Z\s\u0600-\u06FF]+$';
 
@@ -39,10 +40,29 @@ abstract class ConstantsManager {
   ];
 
   static const List<String> genres = [
-    "Action",
-    "Adventure",
-    "Animation",
-    "Biography",
+    'Action',
+    'Adventure',
+    'Animation',
+    'Biography',
+    'Comedy',
+    'Crime',
+    'Documentary',
+    'Drama',
+    'Family',
+    'Fantasy',
+    'Film-Noir',
+    'History',
+    'Horror',
+    'Music',
+    'Musical',
+    'Mystery',
+    'Romance',
+    'Sci-Fi',
+    'Short',
+    'Sport',
+    'Thriller',
+    'War',
+    'Western',
   ];
   static const List<String> images = [
     AssetsManager.onboarding2,
@@ -52,5 +72,4 @@ abstract class ConstantsManager {
     AssetsManager.onboarding5,
     AssetsManager.onboarding6,
   ];
-
 }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/constants_manager.dart';
-import 'package:movies_project/core/reusable%20widget/movies_gridview.dart';
-import 'package:movies_project/features/home%20screen/explore%20tab/presentation/widgets/custom_tab.dart';
+import 'package:movies_project/core/di/di.dart';
+import '../manager/explore_cubit.dart';
+import '../widgets/custom_tab.dart';
+import '../widgets/explore_movies_grid.dart';
 
 class ExploreTab extends StatelessWidget {
+  const ExploreTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,50 +33,19 @@ class ExploreTab extends StatelessWidget {
                 labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                tabs: [
-                  CustomTab(index: 0),
-                  CustomTab(index: 1),
-                  CustomTab(index: 2),
-                  CustomTab(index: 3),
-                ],
+                tabs: ConstantsManager.genres.asMap().entries.map((entry) {
+                  return CustomTab(index: entry.key);
+                }).toList(),
               ),
               SizedBox(height: 24.h),
               Expanded(
                 child: TabBarView(
-                  children: [
-                    MoviesGridview(
-                      itemCount: ConstantsManager.movies.length,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 16,
-                      movieCardContainerWidth: 190,
-                      movieCardContainerHeight: 280,
-                    ),
-                    MoviesGridview(
-                      itemCount: ConstantsManager.movies.length,
-                      crossAxisCount: 1,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 16,
-                      movieCardContainerWidth: 190,
-                      movieCardContainerHeight: 280,
-                    ),
-                    MoviesGridview(
-                      itemCount: ConstantsManager.movies.length,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 16,
-                      movieCardContainerWidth: 190,
-                      movieCardContainerHeight: 280,
-                    ),
-                    MoviesGridview(
-                      itemCount: ConstantsManager.movies.length,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 16,
-                      movieCardContainerWidth: 190,
-                      movieCardContainerHeight: 280,
-                    ),
-                  ],
+                  children: ConstantsManager.genres.map((genre) {
+                    return BlocProvider(
+                      create: (context) => getIt<ExploreCubit>(),
+                      child: ExploreMoviesGrid(genre: genre),
+                    );
+                  }).toList(),
                 ),
               ),
             ],

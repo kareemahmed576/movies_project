@@ -49,8 +49,7 @@ class SectionsPart extends StatelessWidget {
                   return SizedBox(
                     height: 220.h,
                     child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+
                       padding: REdgeInsets.symmetric(horizontal: 16),
                       itemBuilder: (context, index) => CustomMovieCard(
                         movie: response[index],

@@ -31,13 +31,14 @@ class MovieDaoImpl implements MovieDao {
   @override
   Future<BaseResponse<MovieAvalibaleModel>> fetchSections(List<String?> gense) async {
     try {
-      var response = await movieAvailable.getSectionsMovies(gense.first);
+      var response = await movieAvailable.getSectionsMovies(gense.first, 1);
       return SuccessState(response);
     } catch (e) {
       return ErrorState(e.toString());
     }
   }
 
+  @override
   Future<BaseResponse<MovieAvalibaleModel>> fetchSimilarMovies(int movieId) async {
     try {
       var response = await movieAvailable.getSimilarMovies(movieId);

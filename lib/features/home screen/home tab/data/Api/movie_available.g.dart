@@ -12,7 +12,7 @@ part of 'movie_available.dart';
 
 class _MovieAvailable implements MovieAvailable {
   _MovieAvailable(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://movies-api.accel.li';
+    baseUrl ??= 'https://movies-api.accel.li/api/v2';
   }
 
   final Dio _dio;
@@ -26,12 +26,14 @@ class _MovieAvailable implements MovieAvailable {
     int limit, {
     String? sortBy,
     String? orderBy,
+    int page = 1,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'limit': limit,
       r'sort_by': sortBy,
       r'order_by': orderBy,
+      r'page': page,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
@@ -40,7 +42,7 @@ class _MovieAvailable implements MovieAvailable {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v2/list_movies.json',
+            '/list_movies.json',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -58,9 +60,9 @@ class _MovieAvailable implements MovieAvailable {
   }
 
   @override
-  Future<MovieAvalibaleModel> getSectionsMovies(String? genre) async {
+  Future<MovieAvalibaleModel> getSectionsMovies(String? genre, int page) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'genre': genre};
+    final queryParameters = <String, dynamic>{r'genre': genre, r'page': page};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
@@ -68,7 +70,7 @@ class _MovieAvailable implements MovieAvailable {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v2/list_movies.json',
+            '/list_movies.json',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -95,7 +97,7 @@ class _MovieAvailable implements MovieAvailable {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v2/movie_suggestions.json',
+            '/movie_suggestions.json',
             queryParameters: queryParameters,
             data: _data,
           )

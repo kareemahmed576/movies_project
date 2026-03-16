@@ -27,3 +27,15 @@ class SignUpUseCase {
     );
   }
 }
+
+@injectable
+class GoogleSignInUseCase {
+  final SignUpRepo repository;
+
+  @factoryMethod
+  GoogleSignInUseCase(this.repository);
+
+  Future<Result<UserEntity>> call() {
+    return repository.signInWithGoogle();
+  }
+}

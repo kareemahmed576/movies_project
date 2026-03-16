@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entity.dart';
+import '../../../../../movie details/domain/entities/movie_details_entity.dart';
 
 part 'movie_avaliable_model.g.dart';
 
@@ -18,19 +19,17 @@ class MovieAvalibaleModel {
   @JsonKey(name: "@meta")
   final Meta? meta;
 
-  MovieAvalibaleModel({
-    this.status,
-    this.statusMessage,
-    this.data,
-    this.meta,
-  });
+  MovieAvalibaleModel({this.status, this.statusMessage, this.data, this.meta});
 
   factory MovieAvalibaleModel.fromJson(Map<String, dynamic> json) =>
       _$MovieAvalibaleModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieAvalibaleModelToJson(this);
-  MovieAvailableEntity toEntity(){
-    return MovieAvailableEntity(data?.movies?.map((e) => e.toEntity()).toList());
+
+  MovieAvailableEntity toEntity() {
+    return MovieAvailableEntity(
+      data?.movies?.map((e) => e.toMovieDetailsEntity()).toList(),
+    );
   }
 }
 
@@ -48,17 +47,11 @@ class Data {
   @JsonKey(name: "movies")
   final List<Movies>? movies;
 
-  Data({
-    this.movieCount,
-    this.limit,
-    this.pageNumber,
-    this.movies,
-  });
+  Data({this.movieCount, this.limit, this.pageNumber, this.movies});
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
   Map<String, dynamic> toJson() => _$DataToJson(this);
-
 }
 
 @JsonSerializable()
@@ -176,7 +169,28 @@ class Movies {
 
   MovieAvailableEntitiyReq toEntity() {
     return MovieAvailableEntitiyReq(
-        id: id, imagePath: largeCoverImage, urlImagePath: url,rating: rating);
+      id: id,
+      imagePath: mediumCoverImage ?? largeCoverImage ?? backgroundImage,
+      urlImagePath: url,
+      rating: rating,
+      gense: genres,
+    );
+  }
+
+  MovieDetailsEntity toMovieDetailsEntity() {
+    return MovieDetailsEntity(
+      id: id,
+      title: title,
+      year: year?.toString(),
+      rating: rating?.toString(),
+      runtime: runtime?.toString(),
+      genres: genres,
+      summary: descriptionFull ?? summary ?? "",
+      imagePath: largeCoverImage ?? mediumCoverImage ?? backgroundImage ?? "",
+      trailerUrl: (ytTrailerCode != null && ytTrailerCode!.isNotEmpty)
+          ? "https://www.youtube.com/watch?v=$ytTrailerCode"
+          : null,
+    );
   }
 }
 
@@ -255,10 +269,7 @@ class Meta {
   @JsonKey(name: "execution_time")
   final String? executionTime;
 
-  Meta({
-    this.apiVersion,
-    this.executionTime,
-  });
+  Meta({this.apiVersion, this.executionTime});
 
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
 

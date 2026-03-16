@@ -7,9 +7,10 @@ import '../../domain/use case/use_case.dart';
 @injectable
 class SignupCubit extends Cubit<SignupState> {
   final SignUpUseCase signUpUseCase;
+  final GoogleSignInUseCase googleSignInUseCase;
 
   @factoryMethod
-  SignupCubit(this.signUpUseCase) : super(SignupInitial());
+  SignupCubit(this.signUpUseCase, this.googleSignInUseCase) : super(SignupInitial());
 
   Future<void> register({
     required String name,
@@ -28,6 +29,18 @@ class SignupCubit extends Cubit<SignupState> {
       avatar: avatar,
     );
 
+    _handleResult(result);
+  }
+
+  Future<void> signInWithGoogle() async {
+    emit(SignupLoading());
+
+    final result = await googleSignInUseCase.call();
+
+    _handleResult(result);
+  }
+
+  void _handleResult(Result result) {
     switch (result) {
       case Success(data: final user):
         emit(SignupSuccess(user));

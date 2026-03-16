@@ -6,25 +6,56 @@ import 'package:movies_project/features/home%20screen/home%20tab/data/model/movi
 import 'package:movies_project/features/home%20screen/home%20tab/data/source%20data/movie_dao.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entity.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/domain/repository/movie_repo.dart';
-@Injectable(as:MovieRepo )
-class MovieRepoImpl  implements MovieRepo{
-  MovieDao movieDao;
-  MovieRepoImpl(this.movieDao);
-  @override
-  Future<BaseResponse<MovieAvailableEntity>> fetchMovies() async{
-      bool isConnected= await InternetConnector.checkConnection();
-      if(isConnected){
-        var response= await movieDao.fetchMovies();
-        switch(response){
 
-          case SuccessState<MovieAvalibaleModel>():
-            return SuccessState(response.response.toEntity());
-          case ErrorState<MovieAvalibaleModel>():
-            return ErrorState(response.error);
-        }
-      }else{
-        return ErrorState(StringsManager.noInternet);
+@Injectable(as: MovieRepo)
+class MovieRepoImpl implements MovieRepo {
+  final MovieDao movieDao;
+
+  MovieRepoImpl(this.movieDao);
+
+  @override
+  Future<BaseResponse<MovieAvailableEntity>> fetchMovies() async {
+    bool isConnected = await InternetConnector.checkConnection();
+    if (isConnected) {
+      var response = await movieDao.fetchMovies(
+        limit: 20,
+        sortBy: 'download_count',
+        orderBy: 'desc',
+      );
+      if (response is SuccessState<MovieAvalibaleModel>) {
+        return SuccessState(response.response.toEntity());
+      } else if (response is ErrorState<MovieAvalibaleModel>) {
+        return ErrorState(response.error);
       }
+    }
+    return ErrorState(StringsManager.noInternet);
   }
 
+  @override
+  Future<BaseResponse<MovieAvailableEntity>> fetchSections(List<String?> gense) async {
+    bool isConnected = await InternetConnector.checkConnection();
+    if (isConnected) {
+      var response = await movieDao.fetchSections(gense);
+      if (response is SuccessState<MovieAvalibaleModel>) {
+        return SuccessState(response.response.toEntity());
+      } else if (response is ErrorState<MovieAvalibaleModel>) {
+        return ErrorState(response.error);
+      }
+    }
+    return ErrorState(StringsManager.noInternet);
+  }
+
+  @override
+  Future<BaseResponse<MovieAvailableEntity>> fetchSimilarMovies(int movieId) async {
+    bool isConnected = await InternetConnector.checkConnection();
+    if (isConnected) {
+      var response = await movieDao.fetchSimilarMovies(movieId);
+      if (response is SuccessState<MovieAvalibaleModel>) {
+        return SuccessState(response.response.toEntity());
+      } else if (response is ErrorState<MovieAvalibaleModel>) {
+        return ErrorState(response.error);
+      }
+    }
+    return ErrorState(StringsManager.noInternet);
+  }
 }

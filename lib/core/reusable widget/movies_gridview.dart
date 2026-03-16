@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/constants_manager.dart';
-import '../../../../../core/reusable widget/movie_card.dart';
+import 'movie_card.dart';
 
 class MoviesGridview extends StatelessWidget {
-  int itemCount;
-  int crossAxisCount;
-  int mainAxisSpacing;
-  int crossAxisSpacing;
-  int movieCardContainerWidth;
-  int movieCardContainerHeight;
-  ScrollPhysics? scrollPhysics;
+  final int itemCount;
+  final int crossAxisCount;
+  final double mainAxisSpacing;
+  final double crossAxisSpacing;
+  final double movieCardContainerWidth;
+  final double movieCardContainerHeight;
+  final ScrollPhysics? scrollPhysics;
 
-  MoviesGridview({
+  const MoviesGridview({
+    super.key,
     required this.itemCount,
     required this.crossAxisCount,
     required this.mainAxisSpacing,
@@ -31,7 +32,7 @@ class MoviesGridview extends StatelessWidget {
         crossAxisCount: crossAxisCount,
         mainAxisSpacing: mainAxisSpacing.h,
         crossAxisSpacing: crossAxisSpacing.w,
-        childAspectRatio: 0.8,
+        childAspectRatio: (movieCardContainerWidth / movieCardContainerHeight),
       ),
       physics: scrollPhysics,
       itemCount: itemCount,

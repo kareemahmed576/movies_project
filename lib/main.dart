@@ -10,22 +10,21 @@ import 'package:movies_project/features/home%20screen/home_screen.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/Cubit/profile_cubit.dart';
 import 'package:movies_project/features/movie%20details/presentation/screen/movie_details_screen.dart';
 import 'package:movies_project/features/onboarding/presentation/screen/onboarding_screen.dart';
+import 'core/reusable widget/my_bloc_observer.dart';
 import 'features/auth/forget_password_screen/forget_password_screen.dart';
 import 'core/DI/di.dart';
-import 'features/home screen/profile tab/model/movieModel.dart';
 import 'features/auth/login screen/presentation/screen/login_screen.dart';
-// import 'firebase_options.dart';
+import 'features/movie details/domain/entities/movie_details_entity.dart';
+import 'features/movie details/presentation/manager/movie_details_view_model.dart';
 import 'features/update_profile/Cubit/selected_avatar_cubit.dart';
 import 'features/update_profile/update_profile.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
   configureDependencies();
   await EasyLocalization.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
   runApp(EasyLocalization(
       supportedLocales: const [Locale("en"), Locale("ar")],
       path: 'assets/translations',
@@ -56,7 +55,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.darkTheme,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: (settings) => _generateRoute(settings),
-            initialRoute: RoutesManager.homeRoute,
+            initialRoute: RoutesManager.onBoardingRoute,
           ),
         );
       },
@@ -69,15 +68,19 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => ProfileCubit(),
-            child:  HomeScreen(),
+            child: HomeScreen(),
           ),
         );
 
       case RoutesManager.movieDetailsRoute:
         final movie = settings.arguments;
-        if (movie is MovieModel) {
+        if (movie is MovieDetailsEntity) {
           return MaterialPageRoute(
-            builder: (_) => MovieDetailsScreen(movie),
+            builder: (_) => BlocProvider(
+              create: (context) => getIt<MovieDetailsViewModel>()
+                ..getSimilarMovies(movie.id ?? 0), // التعديل هنا: بنبعت الـ ID بدل الـ genres
+              child: MovieDetailsScreen(movie),
+            ),
           );
         }
         return _errorRoute();
@@ -90,9 +93,9 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case RoutesManager.updateProfileRoute:
         return MaterialPageRoute(
-          builder: (_) =>  UpdateProfile(),
+          builder: (_) => UpdateProfile(),
         );
-        case RoutesManager.forgetPasswordRoute:
+      case RoutesManager.forgetPasswordRoute:
         return MaterialPageRoute(
           builder: (_) => const ForgetPasswordScreen(),
         );

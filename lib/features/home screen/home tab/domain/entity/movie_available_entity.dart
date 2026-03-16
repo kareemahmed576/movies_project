@@ -1,6 +1,6 @@
-import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
+import '../../../../movie details/domain/entities/movie_details_entity.dart';
 
 class MovieAvailableEntity {
-  List<MovieAvailableEntitiyReq>? movies;
+  final List<MovieDetailsEntity>? movies;
   MovieAvailableEntity(this.movies);
 }

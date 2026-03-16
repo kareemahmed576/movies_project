@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/core/resources/colors_manager.dart';
 import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
 
+import '../resources/colors_manager.dart';
 import '../resources/routes_manager.dart';
 
 class MovieCard extends StatelessWidget {
-  MovieModel movie;
-  int containerWidth;
-  int containerHeight;
+  final MovieModel movie;
+  final double containerWidth;
+  final double containerHeight;
 
-  MovieCard({
+  const MovieCard({
+    super.key,
     required this.movie,
     required this.containerWidth,
     required this.containerHeight,
@@ -21,19 +22,22 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.pushNamed(
           context,
           RoutesManager.movieDetailsRoute,
-          arguments: movie,
         );
       },
       child: Container(
         clipBehavior: Clip.antiAlias,
-
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
-          image: DecorationImage(image: AssetImage(movie.image),fit: BoxFit.cover),
+          image: DecorationImage(
+            image: movie.image != null && movie.image!.startsWith('http')
+                ? NetworkImage(movie.image!)
+                : AssetImage(movie.image ?? AssetsManager.onboarding4) as ImageProvider,
+            fit: BoxFit.cover,
+          ),
         ),
         width: containerWidth.w,
         height: containerHeight.h,
@@ -52,12 +56,16 @@ class MovieCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      movie.rate.toString(),
+                      movie.rate?.toString() ?? movie.rating?.toString() ?? "0.0",
                       style: Theme.of(
                         context,
                       ).textTheme.labelMedium!.copyWith(fontSize: 16),
                     ),
-                    SvgPicture.asset(AssetsManager.rateIcon , width: 14, height: 14,)
+                    SvgPicture.asset(
+                      AssetsManager.rateIcon,
+                      width: 14.w,
+                      height: 14.h,
+                    )
                   ],
                 ),
               ),

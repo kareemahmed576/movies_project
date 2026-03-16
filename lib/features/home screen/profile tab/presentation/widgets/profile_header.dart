@@ -8,6 +8,7 @@ import 'package:movies_project/features/home%20screen/profile%20tab/presentation
 
 import '../../../../../core/resources/assets_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/routes_manager.dart';
 
 class ProfileHeader extends StatelessWidget {
   ProfileHeader({super.key});

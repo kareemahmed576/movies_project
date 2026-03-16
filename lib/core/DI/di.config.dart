@@ -37,6 +37,18 @@ import '../../features/auth/sign_up_screen/domain/use%20case/use_case.dart'
     as _i564;
 import '../../features/auth/sign_up_screen/presentation/manager/signup_cubit.dart'
     as _i901;
+import '../../features/home%20screen/explore%20tab/data/api/api_manager.dart'
+    as _i285;
+import '../../features/home%20screen/explore%20tab/data/data%20sources/explore_remote_data_source.dart'
+    as _i1060;
+import '../../features/home%20screen/explore%20tab/data/repository/explore_repository_impl.dart'
+    as _i958;
+import '../../features/home%20screen/explore%20tab/domain/repository/explore_repository.dart'
+    as _i917;
+import '../../features/home%20screen/explore%20tab/domain/usecase/get_movies_by_genre_use_case.dart'
+    as _i367;
+import '../../features/home%20screen/explore%20tab/presentation/manager/explore_cubit.dart'
+    as _i628;
 import '../../features/home%20screen/home%20tab/data/Api/dio_impl.dart'
     as _i465;
 import '../../features/home%20screen/home%20tab/data/Api/movie_available.dart'
@@ -89,6 +101,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioImpl = _$DioImpl();
     gh.factory<_i361.Dio>(() => dioImpl.DioImplement());
+    gh.singleton<_i285.ApiManager>(() => _i285.ApiManager());
     gh.lazySingleton<_i603.ForgetPasswordRemoteDataSource>(
       () => _i1050.ForgetPasswordRemoteDataSourceImpl(),
     );
@@ -127,6 +140,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1063.ForgetPasswordUseCase>(
       () => _i1063.ForgetPasswordUseCase(gh<_i913.ForgetPasswordRepo>()),
     );
+    gh.factory<_i1060.ExploreRemoteDataSource>(
+      () => _i1060.ExploreRemoteDataSourceImpl(gh<_i25.MovieAvailable>()),
+    );
     gh.factory<_i221.SearchRepo>(
       () => _i223.SearchRepoImpl(gh<_i165.SearchDao>()),
     );
@@ -154,8 +170,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i564.GoogleSignInUseCase>(),
       ),
     );
+    gh.factory<_i917.ExploreRepository>(
+      () => _i958.ExploreRepositoryImpl(gh<_i1060.ExploreRemoteDataSource>()),
+    );
     gh.singleton<_i1008.SearchUseCase>(
       () => _i1008.SearchUseCase(gh<_i221.SearchRepo>()),
+    );
+    gh.factory<_i367.GetMoviesByGenreUseCase>(
+      () => _i367.GetMoviesByGenreUseCase(gh<_i917.ExploreRepository>()),
     );
     gh.factory<_i589.MovieViewModel>(
       () => _i589.MovieViewModel(gh<_i983.MovieAvailableUseCase>()),
@@ -165,6 +187,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i215.SearchViewModel>(
       () => _i215.SearchViewModel(gh<_i1008.SearchUseCase>()),
+    );
+    gh.factory<_i628.ExploreCubit>(
+      () => _i628.ExploreCubit(gh<_i367.GetMoviesByGenreUseCase>()),
     );
     return this;
   }

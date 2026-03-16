@@ -12,7 +12,7 @@ part of 'search_api.dart';
 
 class _SearchApi implements SearchApi {
   _SearchApi(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://movies-api.accel.li';
+    baseUrl ??= 'https://movies-api.accel.li/api/v2';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _SearchApi implements SearchApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v2/list_movies.json',
+            '/list_movies.json',
             queryParameters: queryParameters,
             data: _data,
           )

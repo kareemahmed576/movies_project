@@ -5,11 +5,11 @@ import 'package:movies_project/features/home%20screen/home%20tab/data/model/movi
 import 'package:retrofit/retrofit.dart';
 
 part 'search_api.g.dart';
-@RestApi(baseUrl: 'https://movies-api.accel.li')
+@RestApi(baseUrl: 'https://movies-api.accel.li/api/v2')
 @singleton
 abstract class SearchApi {
   @factoryMethod
   factory SearchApi(Dio dio) = _SearchApi;
-  @GET("/api/v2/list_movies.json")
+  @GET("/list_movies.json")
   Future<MovieAvalibaleModel> getSearchMovie(@Query("query_term") String search);
 }

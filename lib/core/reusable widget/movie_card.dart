@@ -26,7 +26,6 @@ class MovieCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           RoutesManager.movieDetailsRoute,
-          arguments: movie,
         );
       },
       child: Container(

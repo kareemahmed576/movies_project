@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
+import '../../features/movie details/domain/entities/movie_details_entity.dart';
 import '../resources/colors_manager.dart';
 import '../resources/routes_manager.dart';
 
 class MovieCard extends StatelessWidget {
-  final MovieModel movie;
+  final MovieDetailsEntity movie;
   final double containerWidth;
   final double containerHeight;
 
@@ -39,9 +39,9 @@ class MovieCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: movie.image != null && movie.image!.startsWith('http')
+              child: movie.imagePath != null && movie.imagePath!.startsWith('http')
                   ? CachedNetworkImage(
-                imageUrl: movie.image!,
+                imageUrl: movie.imagePath!,
                 httpHeaders: {
                   "User-Agent": "Mozilla/5.0",
                   "Referer": "https://yts.bz"
@@ -53,7 +53,7 @@ class MovieCard extends StatelessWidget {
                     Image.asset(AssetsManager.onboarding4, fit: BoxFit.cover),
               )
                   : Image.asset(
-                movie.image ?? AssetsManager.onboarding4,
+                movie.imagePath ?? AssetsManager.onboarding4,
                 fit: BoxFit.cover,
               ),
             ),
@@ -70,7 +70,7 @@ class MovieCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      movie.rate?.toString() ??
+                      movie.rating?.toString() ??
                           movie.rating?.toString() ??
                           "0.0",
                       style: Theme.of(context)

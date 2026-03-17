@@ -65,5 +65,6 @@
   "Action": "أكشن",
   "Adventure": "مغامرات",
   "Horror":"رعب",
-  "Drama": "دراما"
+  "Drama": "دراما",
+  "cancel": "الغاء"
 }

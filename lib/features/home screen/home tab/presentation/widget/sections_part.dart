@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/DI/di.dart';
-import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/view%20model/section_states.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/view%20model/section_view_model.dart';
 import 'package:movies_project/features/home%20screen/home%20tab/presentation/widget/custom_movie_card.dart';
 
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../../../core/resources/strings_manager.dart';
-import '../../../../../core/reusable widget/movie_card.dart';
 import '../../../../movie details/domain/entities/movie_details_entity.dart';
-import '../view model/movie_states.dart';
 
 class SectionsPart extends StatelessWidget {
-  MovieDetailsEntity? movie;
-  String? title;
-  SectionsPart({this.title,this.movie});
+  final MovieDetailsEntity? movie;
+  final String? title;
+  final Function(int)? onSeeMoreClick;
+
+  const SectionsPart({super.key, this.title, this.movie, this.onSeeMoreClick});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>getIt.get<SectionViewModel>()..getCategories(movie?.genres??[]),
+      create: (BuildContext context) =>
+      getIt.get<SectionViewModel>()..getCategories(movie?.genres ?? []),
       child: Column(
         children: [
           Padding(
@@ -30,9 +30,13 @@ class SectionsPart extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title??""),
+                Text(title ?? ""),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    int genreIndex = ConstantsManager.genres.indexOf(title ?? "");
+                    if (genreIndex == -1) genreIndex = 0;
+                    onSeeMoreClick?.call(genreIndex);
+                  },
                   child: Text(
                     StringsManager.seeMore.tr(),
                     style: Theme.of(context).textTheme.displaySmall,
@@ -43,34 +47,31 @@ class SectionsPart extends StatelessWidget {
           ),
           BlocBuilder<SectionViewModel, SectionStates>(
             builder: (BuildContext context, state) {
-              switch (state) {
-                case SectionSuccessState():
-                  var response= state.movieAvailableEntity.movies??[];
-                  return SizedBox(
-                    height: 220.h,
-                    child: ListView.separated(
-
-                      padding: REdgeInsets.symmetric(horizontal: 16),
-                      itemBuilder: (context, index) => CustomMovieCard(
-                        movie: response[index],
-                        containerWidth: 146,
-                        containerHeight: 220,
-                      ),
-                      separatorBuilder: (context, index) =>
-                          SizedBox(width: 16.w),
-                      itemCount: response.length,
-                      scrollDirection: Axis.horizontal,
+              if (state is SectionSuccessState) {
+                var response = state.movieAvailableEntity.movies ?? [];
+                return SizedBox(
+                  height: 220.h,
+                  child: ListView.separated(
+                    padding: REdgeInsets.symmetric(horizontal: 16),
+                    itemBuilder: (context, index) => CustomMovieCard(
+                      movie: response[index],
+                      containerWidth: 146,
+                      containerHeight: 220,
                     ),
-                  );
-                case SectionLoadingState():
-                  return Center(child: CircularProgressIndicator(),);
-                case SectionErrorState():
-                  return Center(child: Text(state.error),);
+                    separatorBuilder: (context, index) => SizedBox(width: 16.w),
+                    itemCount: response.length,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                );
+              } else if (state is SectionLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is SectionErrorState) {
+                return Center(child: Text(state.error));
               }
+              return const SizedBox();
             },
           ),
-          SizedBox(height: 12.h,),
-
+          SizedBox(height: 12.h),
         ],
       ),
     );

@@ -4,14 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
+import 'package:movies_project/core/resources/dialog_utils.dart';
 import 'package:movies_project/core/resources/strings_manager.dart';
 import 'package:movies_project/core/reusable%20widget/custom_button.dart';
+import 'package:movies_project/features/history_list/Cubit/history_list_cubit.dart';
+import 'package:movies_project/features/history_list/Cubit/history_list_state.dart';
 import 'package:movies_project/features/movie%20details/presentation/manager/movie_details_view_model.dart';
 import 'package:movies_project/features/movie%20details/presentation/manager/movie_details_states.dart';
 import 'package:movies_project/features/movie%20details/presentation/widgets/custom_container.dart';
 import 'package:movies_project/features/movie%20details/presentation/widgets/genre_gridview.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../home screen/home tab/domain/entity/movie_available_entitiy_req.dart';
+import '../../../watch_list/Cubit/watch_list_cubit.dart';
+import '../../../watch_list/Cubit/watch_list_state.dart';
 import '../../domain/entities/movie_details_entity.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
@@ -26,6 +31,18 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    final watchListState = context.watch<WatchListCubit>().state;
+    bool inWatchList = false;
+    if (watchListState is WatchListLoaded) {
+      inWatchList = watchListState.movies.any((m) => m.id == widget.movie.id);
+    }
+
+    final historyState = context.watch<HistoryCubit>().state;
+    bool inHistory = false;
+    if (historyState is HistoryLoaded) {
+      inHistory = historyState.movies.any((m) => m.id == widget.movie.id);
+    }
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -37,8 +54,23 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(AssetsManager.saveIcon),
+            onPressed: () {
+              final historyCubit = context.read<HistoryCubit>();
+              if (inHistory) {
+                historyCubit.removeMovie(widget.movie.id ?? 0);
+                DialogUtils.showSnackBar(context, "Removed from History", ColorManager.red);
+              } else {
+                historyCubit.addMovie(widget.movie);
+                DialogUtils.showSnackBar(context, "Added to History", ColorManager.green);
+              }
+            },
+            icon: SvgPicture.asset(
+              AssetsManager.saveIcon,
+              colorFilter: ColorFilter.mode(
+                inHistory ? ColorManager.gold : ColorManager.white,
+                BlendMode.srcIn,
+              ),
+            ),
           ),
         ],
       ),
@@ -96,9 +128,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       Padding(
                         padding: REdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          widget.movie.year.toString(),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.displayMedium
+                            widget.movie.year.toString(),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.displayMedium
                         ),
                       ),
                     ],
@@ -114,11 +146,20 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               children: [
                 CustomButton(
                   textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
+                    color: inWatchList ? ColorManager.darkBlack : ColorManager.white,
                   ),
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  title: StringsManager.watch.tr(),
-                  onClick: () {},
+                  color: inWatchList ? ColorManager.green : ColorManager.red,
+                  title: inWatchList ? "In Watchlist" : StringsManager.watch.tr(),
+                  onClick: () {
+                    final watchCubit = context.read<WatchListCubit>();
+                    if (inWatchList) {
+                      watchCubit.removeMovie(widget.movie.id ?? 0);
+                      DialogUtils.showSnackBar(context, "Removed from WatchList", ColorManager.red);
+                    } else {
+                      watchCubit.addMovie(widget.movie);
+                      DialogUtils.showSnackBar(context, "Added to WatchList", ColorManager.green);
+                    }
+                  },
                   prefixIcon: null,
                 ),
                 SizedBox(height: 24.h),
@@ -182,19 +223,15 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       ),
     );
   }
+
   Future<void> _launchTrailer(String? url) async {
     if (url == null || url.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Trailer not available")),
-      );
+      DialogUtils.showSnackBar(context, "Trailer not available", ColorManager.red);
       return;
     }
-
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Could not launch trailer")),
-      );
+      DialogUtils.showSnackBar(context, "Could not launch trailer", ColorManager.red);
     }
   }
 }

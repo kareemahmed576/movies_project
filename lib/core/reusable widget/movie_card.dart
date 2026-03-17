@@ -1,14 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import '../../features/movie details/domain/entities/movie_details_entity.dart';
-import '../resources/colors_manager.dart';
-import '../resources/routes_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
+import 'package:movies_project/core/resources/routes_manager.dart';
+import 'package:movies_project/features/movie%20details/domain/entities/movie_details_entity.dart';
 
 class MovieCard extends StatelessWidget {
-  final MovieDetailsEntity movie;
+  final MovieDetailsEntity? movie;
   final double containerWidth;
   final double containerHeight;
 
@@ -31,32 +30,20 @@ class MovieCard extends StatelessWidget {
       },
       child: Container(
         clipBehavior: Clip.antiAlias,
-        width: containerWidth.w,
-        height: containerHeight.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
+          image: DecorationImage(
+            image: movie?.imagePath != null &&
+                movie!.imagePath!.startsWith('http')
+                ? NetworkImage(movie!.imagePath!)
+                : AssetImage(AssetsManager.onboarding4) as ImageProvider,
+            fit: BoxFit.cover,
+          ),
         ),
+        width: containerWidth.w,
+        height: containerHeight.h,
         child: Stack(
           children: [
-            Positioned.fill(
-              child: movie.imagePath != null && movie.imagePath!.startsWith('http')
-                  ? CachedNetworkImage(
-                imageUrl: movie.imagePath!,
-                httpHeaders: {
-                  "User-Agent": "Mozilla/5.0",
-                  "Referer": "https://yts.bz"
-                },
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) =>
-                    Image.asset(AssetsManager.onboarding4, fit: BoxFit.cover),
-              )
-                  : Image.asset(
-                movie.imagePath ?? AssetsManager.onboarding4,
-                fit: BoxFit.cover,
-              ),
-            ),
             Padding(
               padding: REdgeInsets.only(left: 8, top: 12),
               child: Container(
@@ -70,9 +57,7 @@ class MovieCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      movie.rating?.toString() ??
-                          movie.rating?.toString() ??
-                          "0.0",
+                      movie?.rating ?? "0.0",
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium!

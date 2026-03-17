@@ -8,7 +8,9 @@ import '../widgets/custom_tab.dart';
 import '../widgets/explore_movies_grid.dart';
 
 class ExploreTab extends StatelessWidget {
-  const ExploreTab({super.key});
+  final int initialIndex;
+
+  const ExploreTab({super.key, this.initialIndex = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,9 @@ class ExploreTab extends StatelessWidget {
       child: Padding(
         padding: REdgeInsets.all(16),
         child: DefaultTabController(
+          key: ValueKey(initialIndex),
           length: ConstantsManager.genres.length,
+          initialIndex: initialIndex,
           child: Column(
             children: [
               TabBar(

@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
 import 'package:movies_project/core/resources/colors_manager.dart';
-
-import '../../../core/resources/colors_manager.dart';
-import '../Cubit/selected_avatar_cubit.dart';
+import '../manager/selected_avatar_cubit.dart';
 import 'bottom_sheet_item.dart';
 
 class BottomSheetContainer extends StatefulWidget {
@@ -52,16 +50,11 @@ class _BottomSheetContainerState extends State<BottomSheetContainer> {
                     crossAxisSpacing: 18,
                   ),
                   itemBuilder: (context, index) {
-                    bool isSelected = selectedIndex == index;
+                    bool isSelected = state == avatars[index];
 
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                          context.read<SelectedAvatarCubit>().selectAvatar(
-                              avatars[index]);
-                          Navigator.pop(context);
-                        });
+                          context.read<SelectedAvatarCubit>().selectAvatar(avatars[index]);
                       },
                       child: BottomSheetItem(
                         isSelected: isSelected,

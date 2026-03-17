@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../core/resources/result.dart';
 import '../manager/signup_state.dart';
@@ -33,19 +34,27 @@ class SignupCubit extends Cubit<SignupState> {
   }
 
   Future<void> signInWithGoogle() async {
-    emit(SignupLoading());
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      if (await googleSignIn.isSignedIn()) {
+        await googleSignIn.signOut();
+      }
 
-    final result = await googleSignInUseCase.call();
+      emit(SignupLoading());
 
-    _handleResult(result);
+      final result = await googleSignInUseCase.call();
+
+      _handleResult(result);
+    } catch (e) {
+      emit(SignupError(e.toString()));
+    }
   }
 
   void _handleResult(Result result) {
-    switch (result) {
-      case Success(data: final user):
-        emit(SignupSuccess(user));
-      case Failure(exception: final message):
-        emit(SignupError(message));
+    if (result is Success) {
+      emit(SignupSuccess(result.data));
+    } else if (result is Failure) {
+      emit(SignupError(result.exception));
     }
   }
 }

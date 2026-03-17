@@ -66,5 +66,6 @@
   "Action": "Action",
   "Adventure": "Adventure",
   "Horror":"Horror",
-  "Drama": "Drama"
+  "Drama": "Drama",
+  "cancel": "Cancel"
 }

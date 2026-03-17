@@ -65,11 +65,11 @@ class _SignupScreenState extends State<SignupScreen> {
             if (state is SignupLoading) {
               DialogUtils.showLoadingDialog(context: context);
             } else if (state is SignupSuccess) {
-              Navigator.of(context, rootNavigator: true).pop();
-              DialogUtils.showToast(context: context, message: "Success", color: ColorManager.green);
+              DialogUtils.hideDialog(context);
+              DialogUtils.showToast(message: "Success", color: ColorManager.green);
               Navigator.pushReplacementNamed(context, RoutesManager.loginsRoute);
             } else if (state is SignupError) {
-              Navigator.of(context, rootNavigator: true).pop();
+              DialogUtils.hideDialog(context);
               DialogUtils.showMessageDialog(context: context, message: state.message);
             }
           },
@@ -137,7 +137,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               : () {
                             if (formKey.currentState!.validate()) {
                               if (selectedAvatar.isEmpty) {
-                                DialogUtils.showToast(context: context, message: "Please select an avatar", color: ColorManager.red);
+                                DialogUtils.showToast(message: "Please select an avatar", color: ColorManager.red);
                                 return;
                               }
                               context.read<SignupCubit>().register(
@@ -167,22 +167,22 @@ class _SignupScreenState extends State<SignupScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Expanded(child: Divider()),
+                            const Expanded(child: Divider()),
                             Padding(
-                              padding: REdgeInsets.symmetric(vertical: 10),
+                              padding: REdgeInsets.symmetric(vertical: 10, horizontal: 10),
                               child: Text(
                                 StringsManager.or.tr(),
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.displaySmall?.copyWith(fontSize: 15),
+                                style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 15),
                               ),
                             ),
-                            Expanded(child: Divider()),
+                            const Expanded(child: Divider()),
                           ],
                         ),
                         CustomButton(
-                          title: StringsManager.signWithGoogle.tr(),
-                          onClick: () {},
+                          title: StringsManager.signupWithGoogle.tr(),
+                          onClick: () {
+                            context.read<SignupCubit>().signInWithGoogle();
+                          },
                           color: Theme.of(context).colorScheme.tertiary,
                           prefixIcon: AssetsManager.googleLogo,
                           textStyle: Theme.of(context).textTheme.titleMedium!,

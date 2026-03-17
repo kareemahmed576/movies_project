@@ -17,6 +17,8 @@ import '../../../../../core/reusable widget/custom_text_form_field.dart';
 import '../../../sign_up_screen/presentation/manager/signup_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -24,8 +26,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
-
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -36,169 +37,170 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-  create: (context) => getIt.get<SignupCubit>(),
-        child: BlocListener<SignupCubit, SignupState>(
-          listener: (context, state) {
-            if (state is SignupLoading){}
-
-            if (state is SignupSuccess) {
-              Navigator.pushReplacementNamed(context, RoutesManager.homeRoute);
-            }
-            if (state is SignupError) {
-              DialogUtils.showToast(
-                context: context,
-                message: state.message,
-                color: ColorManager.darkBlack,
-              );
-            }
-          },
-  child: Builder(
-    builder: (context) {
-      return Scaffold(
-          body: Padding(
-            padding: REdgeInsets.all(18.0),
-            child: SafeArea(
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        AssetsManager.moviesLogo,
-                        height: 118.h,
-                        fit: BoxFit.fitHeight,
-                      ),
-                      SizedBox(height: 69.h),
-                      CustomTextFormField(
-                        controller: emailController,
-                        hintText: StringsManager.email.tr(),
-                        iconPath: AssetsManager.emailIcon,
-                        validator: Validations.validateEmail,
-
-                      ),
-                      SizedBox(height: 22.h),
-                      CustomTextFormField(
-                        controller: passwordController,
-                        hintText: StringsManager.password.tr(),
-                        iconPath: AssetsManager.passwordIcon,
-                        isPassword: true,
-                        validator: Validations.validatePassword,
-                      ),
-                      SizedBox(height: 17.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+      create: (context) => getIt.get<SignupCubit>(),
+      child: Builder(
+        builder: (innerContext) {
+          return BlocListener<SignupCubit, SignupState>(
+            listener: (context, state) {
+              if (state is SignupLoading) {
+                DialogUtils.showLoadingDialog(context: context);
+              } else if (state is SignupSuccess) {
+                DialogUtils.hideDialog(context);
+                Navigator.pushReplacementNamed(context, RoutesManager.homeRoute);
+              } else if (state is SignupError) {
+                DialogUtils.hideDialog(context);
+                DialogUtils.showMessageDialog(context: context, message: state.message);
+              }
+            },
+            child: Scaffold(
+              body: Padding(
+                padding: REdgeInsets.all(18.0),
+                child: SafeArea(
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: formKey,
+                      child: Column(
                         children: [
-                          InkWell(
-                            onTap: () {
-                               Navigator.pushNamed(context, RoutesManager.forgetPasswordRoute);
-                            },
-                            child: Text(
-                              StringsManager.forgetPassword.tr(),
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
+                          Image.asset(
+                            AssetsManager.moviesLogo,
+                            height: 118.h,
+                            fit: BoxFit.fitHeight,
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 33.h),
-                      CustomButton(
-                        title: StringsManager.login,
-                        onClick: ()async{
-                          if(formKey.currentState?.validate()??false){
-                            try {
-                              DialogUtils.showLoadingDialog(context: context);
-                              UserCredential credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                                email: emailController.text.trim(),
-                                password: passwordController.text,
-                              );
-                              Navigator.pop(context);
-                              Navigator.pushReplacementNamed(context, RoutesManager.homeRoute);
-                            } on FirebaseAuthException catch (e) {
-                              Navigator.pop(context);
-                              if (e.code == 'user-not-found') {
-                                DialogUtils.showMessageDialog(context: context, message: 'No user found for that email.');
-                                print(e.code);
-                              } else if (e.code == 'wrong-password') {
-                                DialogUtils.showMessageDialog(context: context, message:'Wrong password provided for that user.');
-                                print(e.code);
+                          SizedBox(height: 69.h),
+                          CustomTextFormField(
+                            controller: emailController,
+                            hintText: StringsManager.email.tr(),
+                            iconPath: AssetsManager.emailIcon,
+                            validator: Validations.validateEmail,
+                          ),
+                          SizedBox(height: 22.h),
+                          CustomTextFormField(
+                            controller: passwordController,
+                            hintText: StringsManager.password.tr(),
+                            iconPath: AssetsManager.passwordIcon,
+                            isPassword: true,
+                            validator: Validations.validatePassword,
+                          ),
+                          SizedBox(height: 17.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, RoutesManager.forgetPasswordRoute);
+                                },
+                                child: Text(
+                                  StringsManager.forgetPassword.tr(),
+                                  style: Theme.of(context).textTheme.displaySmall,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 33.h),
+                          CustomButton(
+                            title: StringsManager.login.tr(),
+                            onClick: () async {
+                              if (formKey.currentState?.validate() ?? false) {
+                                try {
+                                  DialogUtils.showLoadingDialog(context: context);
+                                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text,
+                                  );
+                                  if (mounted) {
+                                    DialogUtils.hideDialog(context);
+                                    Navigator.pushReplacementNamed(context, RoutesManager.homeRoute);
+                                  }
+                                } on FirebaseAuthException catch (e) {
+                                  if (mounted) {
+                                    DialogUtils.hideDialog(context);
+                                    String errorMessage = 'An error occurred';
+                                    if (e.code == 'user-not-found') {
+                                      errorMessage = 'No user found for that email.';
+                                    } else if (e.code == 'wrong-password') {
+                                      errorMessage = 'Wrong password provided.';
+                                    } else if (e.code == 'invalid-credential') {
+                                      errorMessage = 'Invalid email or password.';
+                                    }
+                                    DialogUtils.showMessageDialog(context: context, message: errorMessage);
+                                  }
+                                } catch (e) {
+                                  if (mounted) {
+                                    DialogUtils.hideDialog(context);
+                                    DialogUtils.showMessageDialog(context: context, message: e.toString());
+                                  }
+                                }
                               }
-                            } catch (e) {
-                              Navigator.pop(context);
-                              DialogUtils.showMessageDialog(context: context, message: e.toString());
-                            }
-                          }
-                        },
-                        color: Theme.of(context).colorScheme.tertiary,
-                        textStyle: Theme.of(context).textTheme.titleMedium!,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            StringsManager.doNotHaveAccount.tr(),
-                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
+                            },
+                            color: Theme.of(context).colorScheme.tertiary,
+                            textStyle: Theme.of(context).textTheme.titleMedium!,
                           ),
-                          TextButton(
-                            onPressed: () => Navigator.pushNamed(
-                              context,
-                              RoutesManager.signupRoute,
-                            ),
-                            child: Text(
-                              StringsManager.createOne.tr(),
-                              style: Theme.of(context).textTheme.titleSmall
-                                  ?.copyWith(color: ColorManager.gold),
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                StringsManager.doNotHaveAccount.tr(),
+                                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pushNamed(
+                                  context,
+                                  RoutesManager.signupRoute,
+                                ),
+                                child: Text(
+                                  StringsManager.createOne.tr(),
+                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(color: ColorManager.gold),
+                                ),
+                              ),
+                            ],
                           ),
+                          SizedBox(height: 27.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Expanded(child: Divider()),
+                              Padding(
+                                padding: REdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                child: Text(
+                                  StringsManager.or.tr(),
+                                  style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 15),
+                                ),
+                              ),
+                              const Expanded(child: Divider()),
+                            ],
+                          ),
+                          SizedBox(height: 28.h),
+                          CustomButton(
+                            title: StringsManager.loginWithGoogle.tr(),
+                            onClick: () {
+                              innerContext.read<SignupCubit>().signInWithGoogle();
+                            },
+                            color: Theme.of(context).colorScheme.tertiary,
+                            prefixIcon: AssetsManager.googleLogo,
+                            textStyle: Theme.of(context).textTheme.titleMedium!,
+                          ),
+                          SizedBox(height: 33.h),
+                          LanguageSwitch(context.locale.languageCode),
                         ],
                       ),
-                      SizedBox(height: 27.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(child: Divider()),
-                          Padding(
-                            padding: REdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              StringsManager.or.tr(),
-                              style: Theme.of(
-                                context,
-                              ).textTheme.displaySmall?.copyWith(fontSize: 15),
-                            ),
-                          ),
-                          Expanded(child: Divider()),
-                        ],
-                      ),
-                      SizedBox(height: 28.h),
-                     CustomButton(
-                          title: StringsManager.loginWithGoogle,
-                          onClick: ()   {
-                               BlocProvider.of<SignupCubit>(context).signInWithGoogle();
-                          },
-                          color: Theme.of(context).colorScheme.tertiary,
-                          prefixIcon: AssetsManager.googleLogo,
-                          textStyle: Theme.of(context).textTheme.titleMedium!,
-                        ),
-                      SizedBox(height: 33.h),
-                      LanguageSwitch(context.locale.languageCode),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        );
-    }
-  ),
-)
+          );
+        },
+      ),
     );
   }
 }

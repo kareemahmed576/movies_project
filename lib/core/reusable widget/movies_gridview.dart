@@ -4,31 +4,36 @@ import '../../features/movie details/domain/entities/movie_details_entity.dart';
 import 'movie_card.dart';
 
 class MoviesGridview extends StatelessWidget {
-  final List<MovieDetailsEntity> movies;
   final int itemCount;
   final int crossAxisCount;
   final double mainAxisSpacing;
   final double crossAxisSpacing;
   final double movieCardContainerWidth;
   final double movieCardContainerHeight;
-  final ScrollPhysics? scrollPhysics;
+  final ScrollPhysics? physics;
+  final bool shrinkWrap;
+  final List<MovieDetailsEntity>? movies;
+  final ScrollController? controller;
 
   const MoviesGridview({
     super.key,
-    required this.movies,
     required this.itemCount,
     required this.crossAxisCount,
     required this.mainAxisSpacing,
     required this.crossAxisSpacing,
     required this.movieCardContainerWidth,
     required this.movieCardContainerHeight,
-    this.scrollPhysics,
+    this.physics,
+    this.shrinkWrap = false,
+    this.movies,
+    this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      shrinkWrap: true,
+      controller: controller,
+      shrinkWrap: shrinkWrap,
       padding: EdgeInsets.zero,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
@@ -36,10 +41,10 @@ class MoviesGridview extends StatelessWidget {
         crossAxisSpacing: crossAxisSpacing.w,
         childAspectRatio: (movieCardContainerWidth / movieCardContainerHeight),
       ),
-      physics: scrollPhysics,
+      physics: physics,
       itemCount: itemCount,
       itemBuilder: (context, index) => MovieCard(
-        movie: movies[index],
+        movie: movies![index],
         containerWidth: movieCardContainerWidth,
         containerHeight: movieCardContainerHeight,
       ),

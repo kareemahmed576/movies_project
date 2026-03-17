@@ -15,12 +15,17 @@ class BottomSheetItem extends StatelessWidget {
       width: 108.w,
       height: 108.h,
       decoration: BoxDecoration(
-        color: isSelected ? ColorManager.gold : ColorManager.lightBlack,
+        color: isSelected
+            ? ColorManager.gold.withOpacity(0.2)
+            : ColorManager.lightBlack,
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: ColorManager.gold, width: 1),
+        border: Border.all(
+          color: isSelected ? ColorManager.gold : Colors.transparent,
+          width: 2,
+        ),
       ),
       child: Padding(
-        padding:  REdgeInsets.all(10),
+        padding: REdgeInsets.all(10),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: Image.asset(

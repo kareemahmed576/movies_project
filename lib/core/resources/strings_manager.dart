@@ -28,7 +28,7 @@ abstract final class StringsManager {
   static const String createOne = 'createOne';
   static const String createAccount = 'createAccount';
   static const String loginWithGoogle = 'loginWithGoogle';
-  static const String signWithGoogle = 'signWithGoogle';
+  static const String signupWithGoogle = 'signupWithGoogle';
   static const String register = 'register';
   static const String avatar = 'avatar';
   static const String or = 'or';
@@ -68,5 +68,6 @@ abstract final class StringsManager {
   static const String Adventure = 'Adventure';
   static const String Horror = 'Horror';
   static const String Drama = 'Drama';
-  static const String tryAgain = 'try again';
+  static const String tryAgain = 'Try Again';
+  static const String cancel = 'cancel';
 }

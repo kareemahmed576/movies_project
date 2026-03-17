@@ -64,9 +64,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             } else if (state is ForgetPasswordSuccess) {
               DialogUtils.hideDialog(context);
               DialogUtils.showSuccessDialog(
-                context,
-                StringsManager.success.tr(),
-                StringsManager.resetEmailSent.tr(),
+                context: context,
+                title: StringsManager.success.tr(),
+                message: StringsManager.resetEmailSent.tr(),
               ).then((_) {
                 if (mounted) {
                   Navigator.pop(context);
@@ -75,9 +75,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             } else if (state is ForgetPasswordError) {
               DialogUtils.hideDialog(context);
               DialogUtils.showErrorDialog(
-                context,
-                StringsManager.error.tr(),
-                state.message,
+                context: context,
+                title: StringsManager.error.tr(),
+                message: state.message,
               );
             }
           },
@@ -87,29 +87,31 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             ),
             child: Form(
               key: formKey,
-              child: Column(
-                children: [
-                  Image.asset(AssetsManager.forgotPassword),
-                  CustomTextFormField(
-                    controller: emailController,
-                    hintText: StringsManager.email.tr(),
-                    iconPath: AssetsManager.emailIcon,
-                    validator: (value) => Validations.validateEmail(value),
-                  ),
-                  SizedBox(height: 24.h,),
-                  CustomButton(
-                    title: StringsManager.sendResetLink.tr(),
-                    onClick: () {
-                      if (formKey.currentState!.validate()) {
-                        forgetPasswordCubit.sendResetEmail(
-                          email: emailController.text.trim(),
-                        );
-                      }
-                    },
-                    color: ColorManager.gold,
-                    textStyle: Theme.of(context).textTheme.titleMedium!
-                  )
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Image.asset(AssetsManager.forgotPassword),
+                    CustomTextFormField(
+                      controller: emailController,
+                      hintText: StringsManager.email.tr(),
+                      iconPath: AssetsManager.emailIcon,
+                      validator: (value) => Validations.validateEmail(value),
+                    ),
+                    SizedBox(height: 24.h),
+                    CustomButton(
+                      title: StringsManager.sendResetLink.tr(),
+                      onClick: () {
+                        if (formKey.currentState!.validate()) {
+                          forgetPasswordCubit.sendResetEmail(
+                            email: emailController.text.trim(),
+                          );
+                        }
+                      },
+                      color: ColorManager.gold,
+                      textStyle: Theme.of(context).textTheme.titleMedium!,
+                    )
+                  ],
+                ),
               ),
             ),
           ),

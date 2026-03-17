@@ -37,6 +37,8 @@ import '../../features/auth/sign_up_screen/domain/use%20case/use_case.dart'
     as _i564;
 import '../../features/auth/sign_up_screen/presentation/manager/signup_cubit.dart'
     as _i901;
+import '../../features/history_list/Cubit/history_list_cubit.dart' as _i900;
+import '../../features/history_list/data/history_list_repository.dart' as _i616;
 import '../../features/home%20screen/explore%20tab/data/api/api_manager.dart'
     as _i285;
 import '../../features/home%20screen/explore%20tab/data/data%20sources/explore_remote_data_source.dart'
@@ -91,6 +93,8 @@ import '../../features/movie%20details/domain/use%20case/get_similar_movies_use_
     as _i161;
 import '../../features/movie%20details/presentation/manager/movie_details_view_model.dart'
     as _i958;
+import '../../features/watch_list/Cubit/watch_list_cubit.dart' as _i344;
+import '../../features/watch_list/data/watch_list_repository.dart' as _i86;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -118,6 +122,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i165.SearchDao>(
       () => _i510.SearchApiImpl(gh<_i89.SearchApi>()),
     );
+    gh.factory<_i616.HistoryRepository>(
+      () => _i616.HistoryRepository(gh<_i11.SignUpRemoteDataSource>()),
+    );
     gh.lazySingleton<_i312.SignUpRepo>(
       () => _i911.SignUpRepoImpl(
         remoteDataSource: gh<_i11.SignUpRemoteDataSource>(),
@@ -125,6 +132,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i725.MovieDetailsRepo>(
       () => _i257.MovieDetailsRepoImpl(gh<_i344.MovieDao>()),
+    );
+    gh.lazySingleton<_i86.WatchListRepository>(
+      () => _i86.WatchListRepository(gh<_i11.SignUpRemoteDataSource>()),
     );
     gh.factory<_i161.GetSimilarMoviesUseCase>(
       () => _i161.GetSimilarMoviesUseCase(gh<_i725.MovieDetailsRepo>()),
@@ -145,6 +155,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i221.SearchRepo>(
       () => _i223.SearchRepoImpl(gh<_i165.SearchDao>()),
+    );
+    gh.factory<_i900.HistoryCubit>(
+      () => _i900.HistoryCubit(gh<_i616.HistoryRepository>()),
+    );
+    gh.factory<_i344.WatchListCubit>(
+      () => _i344.WatchListCubit(gh<_i86.WatchListRepository>()),
     );
     gh.factory<_i958.MovieDetailsViewModel>(
       () => _i958.MovieDetailsViewModel(gh<_i161.GetSimilarMoviesUseCase>()),

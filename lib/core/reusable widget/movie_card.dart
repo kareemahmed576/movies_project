@@ -36,7 +36,7 @@ class MovieCard extends StatelessWidget {
             image: movie?.imagePath != null &&
                 movie!.imagePath!.startsWith('http')
                 ? NetworkImage(movie!.imagePath!)
-                : AssetImage(AssetsManager.onboarding4) as ImageProvider,
+                : const AssetImage(AssetsManager.onboarding4) as ImageProvider,
             fit: BoxFit.cover,
           ),
         ),
@@ -47,22 +47,22 @@ class MovieCard extends StatelessWidget {
             Padding(
               padding: REdgeInsets.only(left: 8, top: 12),
               child: Container(
-                width: 56.w,
-                height: 27.h,
+                padding: REdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
                   color: ColorManager.darkBlack.withAlpha(150),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       movie?.rating ?? "0.0",
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium!
-                          .copyWith(fontSize: 16),
+                          .copyWith(fontSize: 14.sp),
                     ),
+                    SizedBox(width: 4.w),
                     SvgPicture.asset(
                       AssetsManager.rateIcon,
                       width: 14.w,

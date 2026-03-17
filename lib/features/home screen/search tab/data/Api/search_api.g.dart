@@ -12,7 +12,7 @@ part of 'search_api.dart';
 
 class _SearchApi implements SearchApi {
   _SearchApi(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://movies-api.accel.li/api/v2';
+    baseUrl ??= 'https://api.themoviedb.org/3';
   }
 
   final Dio _dio;
@@ -22,16 +22,28 @@ class _SearchApi implements SearchApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<MovieAvalibaleModel> getSearchMovie(String search) async {
+  Future<MovieAvalibaleModel> getSearchMovie(
+    String search, {
+    bool includeAdult = false,
+    String apiKey = "40366ca32dca84024cc72b48de9484ad",
+    String language = "en-US",
+    int page = 1,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'query_term': search};
+    final queryParameters = <String, dynamic>{
+      r'query': search,
+      r'include_adult': includeAdult,
+      r'api_key': apiKey,
+      r'language': language,
+      r'page': page,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MovieAvalibaleModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/list_movies.json',
+            '/search/movie',
             queryParameters: queryParameters,
             data: _data,
           )

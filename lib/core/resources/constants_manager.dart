@@ -19,31 +19,21 @@ abstract class ConstantsManager {
     AssetsManager.avatar9,
   ];
 
-  static const List<String> genres = [
-    'Action',
-    'Adventure',
-    'Animation',
-    'Biography',
-    'Comedy',
-    'Crime',
-    'Documentary',
-    'Drama',
-    'Family',
-    'Fantasy',
-    'Film-Noir',
-    'History',
-    'Horror',
-    'Music',
-    'Musical',
-    'Mystery',
-    'Romance',
-    'Sci-Fi',
-    'Short',
-    'Sport',
-    'Thriller',
-    'War',
-    'Western',
+  static const List<String> genreNames = [
+    "Action", "Adventure", "Animation", "Comedy", "Crime", "Drama", "Family", "Fantasy", "Horror"
   ];
+
+  static const Map<String, String> genres = {
+    "Action": "28",
+    "Adventure": "12",
+    "Animation": "16",
+    "Comedy": "35",
+    "Crime": "80",
+    "Drama": "18",
+    "Family": "10751",
+    "Fantasy": "14",
+    "Horror": "27",
+  };
   static const List<String> images = [
     AssetsManager.onboarding2,
     AssetsManager.onboarding2,

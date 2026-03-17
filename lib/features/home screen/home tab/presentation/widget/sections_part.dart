@@ -21,8 +21,13 @@ class SectionsPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-      getIt.get<SectionViewModel>()..getCategories(movie?.genres ?? []),
+      create: (BuildContext context) {
+        String? genreId;
+        if (title != null && ConstantsManager.genres.containsKey(title!)) {
+          genreId = ConstantsManager.genres[title!];
+        }
+        return getIt.get<SectionViewModel>()..getCategories(genreId != null ? [genreId] : []);
+      },
       child: Column(
         children: [
           Padding(
@@ -33,7 +38,8 @@ class SectionsPart extends StatelessWidget {
                 Text(title ?? ""),
                 TextButton(
                   onPressed: () {
-                    int genreIndex = ConstantsManager.genres.indexOf(title ?? "");
+                    final genreNames = ConstantsManager.genres.keys.toList();
+                    int genreIndex = genreNames.indexOf(title ?? "");
                     if (genreIndex == -1) genreIndex = 0;
                     onSeeMoreClick?.call(genreIndex);
                   },

@@ -136,6 +136,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i86.WatchListRepository>(
       () => _i86.WatchListRepository(gh<_i11.SignUpRemoteDataSource>()),
     );
+    gh.factory<_i221.SearchRepo>(
+      () => _i223.SearchRepositoryImpl(gh<_i165.SearchDao>()),
+    );
     gh.factory<_i161.GetSimilarMoviesUseCase>(
       () => _i161.GetSimilarMoviesUseCase(gh<_i725.MovieDetailsRepo>()),
     );
@@ -150,20 +153,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1063.ForgetPasswordUseCase>(
       () => _i1063.ForgetPasswordUseCase(gh<_i913.ForgetPasswordRepo>()),
     );
+    gh.factory<_i1008.SearchUseCase>(
+      () => _i1008.SearchUseCase(gh<_i221.SearchRepo>()),
+    );
     gh.factory<_i1060.ExploreRemoteDataSource>(
       () => _i1060.ExploreRemoteDataSourceImpl(gh<_i25.MovieAvailable>()),
-    );
-    gh.factory<_i221.SearchRepo>(
-      () => _i223.SearchRepoImpl(gh<_i165.SearchDao>()),
     );
     gh.factory<_i900.HistoryCubit>(
       () => _i900.HistoryCubit(gh<_i616.HistoryRepository>()),
     );
+    gh.factory<_i958.MovieDetailsViewModel>(
+      () => _i958.MovieDetailsViewModel(
+        gh<_i161.GetSimilarMoviesUseCase>(),
+        gh<_i1013.MovieRepo>(),
+      ),
+    );
     gh.factory<_i344.WatchListCubit>(
       () => _i344.WatchListCubit(gh<_i86.WatchListRepository>()),
     );
-    gh.factory<_i958.MovieDetailsViewModel>(
-      () => _i958.MovieDetailsViewModel(gh<_i161.GetSimilarMoviesUseCase>()),
+    gh.factory<_i215.SearchViewModel>(
+      () => _i215.SearchViewModel(gh<_i1008.SearchUseCase>()),
     );
     gh.factory<_i564.SignUpUseCase>(
       () => _i564.SignUpUseCase(gh<_i312.SignUpRepo>()),
@@ -189,9 +198,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i917.ExploreRepository>(
       () => _i958.ExploreRepositoryImpl(gh<_i1060.ExploreRemoteDataSource>()),
     );
-    gh.singleton<_i1008.SearchUseCase>(
-      () => _i1008.SearchUseCase(gh<_i221.SearchRepo>()),
-    );
     gh.factory<_i367.GetMoviesByGenreUseCase>(
       () => _i367.GetMoviesByGenreUseCase(gh<_i917.ExploreRepository>()),
     );
@@ -200,9 +206,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i33.SectionViewModel>(
       () => _i33.SectionViewModel(gh<_i968.SectionUseCase>()),
-    );
-    gh.factory<_i215.SearchViewModel>(
-      () => _i215.SearchViewModel(gh<_i1008.SearchUseCase>()),
     );
     gh.factory<_i628.ExploreCubit>(
       () => _i628.ExploreCubit(gh<_i367.GetMoviesByGenreUseCase>()),

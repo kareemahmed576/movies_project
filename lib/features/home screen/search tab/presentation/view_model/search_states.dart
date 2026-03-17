@@ -2,12 +2,13 @@ import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/m
 
 sealed class SearchStates {}
 
-class SearchSuccessState extends SearchStates{
-  MovieAvailableEntity response;
+class SearchInitialState extends SearchStates {}
+class SearchLoadingState extends SearchStates {}
+class SearchSuccessState extends SearchStates {
+  final MovieAvailableEntity response;
   SearchSuccessState(this.response);
 }
-class SearchLoadingState extends SearchStates{}
-class SearchErrorState extends SearchStates{
-  String error;
+class SearchErrorState extends SearchStates {
+  final String error;
   SearchErrorState(this.error);
 }

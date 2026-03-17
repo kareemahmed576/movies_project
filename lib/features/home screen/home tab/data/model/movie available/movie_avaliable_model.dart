@@ -7,13 +7,18 @@ part 'movie_avaliable_model.g.dart';
 
 @JsonSerializable()
 class MovieAvalibaleModel {
+  @JsonKey(name: "status_message")
   final String? status;
+
+  @JsonKey(name: "data")
   final Data? data;
 
   MovieAvalibaleModel({this.status, this.data});
 
   factory MovieAvalibaleModel.fromJson(Map<String, dynamic> json) =>
       _$MovieAvalibaleModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MovieAvalibaleModelToJson(this);
 
   MovieAvailableEntity toEntity() {
     return MovieAvailableEntity(
@@ -24,10 +29,12 @@ class MovieAvalibaleModel {
 
 @JsonSerializable()
 class Data {
+  @JsonKey(name: "movies")
   final List<Movies>? movies;
   Data({this.movies});
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 }
 
 @JsonSerializable()
@@ -137,7 +144,7 @@ class Movies {
 
   factory Movies.fromJson(Map<String, dynamic> json) => _$MoviesFromJson(json);
 
-
+  Map<String, dynamic> toJson() => _$MoviesToJson(this);
   MovieAvailableEntitiyReq toEntity() {
     return MovieAvailableEntitiyReq(
       id: id,

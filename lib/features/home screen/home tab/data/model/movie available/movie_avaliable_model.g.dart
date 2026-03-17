@@ -8,7 +8,7 @@ part of 'movie_avaliable_model.dart';
 
 MovieAvalibaleModel _$MovieAvalibaleModelFromJson(Map<String, dynamic> json) =>
     MovieAvalibaleModel(
-      status: json['status'] as String?,
+      status: json['status_message'] as String?,
       data: json['data'] == null
           ? null
           : Data.fromJson(json['data'] as Map<String, dynamic>),
@@ -16,7 +16,10 @@ MovieAvalibaleModel _$MovieAvalibaleModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MovieAvalibaleModelToJson(
   MovieAvalibaleModel instance,
-) => <String, dynamic>{'status': instance.status, 'data': instance.data};
+) => <String, dynamic>{
+  'status_message': instance.status,
+  'data': instance.data,
+};
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
   movies: (json['movies'] as List<dynamic>?)

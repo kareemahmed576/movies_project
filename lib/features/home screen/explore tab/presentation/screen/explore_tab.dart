@@ -14,12 +14,15 @@ class ExploreTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> genreNames = ConstantsManager.genres.keys.toList();
+    final List<String> genreIds = ConstantsManager.genres.values.toList();
+
     return SafeArea(
       child: Padding(
         padding: REdgeInsets.all(16),
         child: DefaultTabController(
           key: ValueKey(initialIndex),
-          length: ConstantsManager.genres.length,
+          length: genreNames.length,
           initialIndex: initialIndex,
           child: Column(
             children: [
@@ -37,17 +40,17 @@ class ExploreTab extends StatelessWidget {
                 labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                tabs: ConstantsManager.genres.asMap().entries.map((entry) {
+                tabs: genreNames.asMap().entries.map((entry) {
                   return CustomTab(index: entry.key);
                 }).toList(),
               ),
               SizedBox(height: 24.h),
               Expanded(
                 child: TabBarView(
-                  children: ConstantsManager.genres.map((genre) {
+                  children: genreIds.map((id) {
                     return BlocProvider(
                       create: (context) => getIt<ExploreCubit>(),
-                      child: ExploreMoviesGrid(genre: genre),
+                      child: ExploreMoviesGrid(genre: id),
                     );
                   }).toList(),
                 ),

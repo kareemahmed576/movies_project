@@ -8,27 +8,17 @@ part of 'movie_avaliable_model.dart';
 
 MovieAvalibaleModel _$MovieAvalibaleModelFromJson(Map<String, dynamic> json) =>
     MovieAvalibaleModel(
-      status: json['status_message'] as String?,
-      data: json['data'] == null
-          ? null
-          : Data.fromJson(json['data'] as Map<String, dynamic>),
+      moviesList: (json['results'] as List<dynamic>?)
+          ?.map((e) => Movies.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      totalPages: (json['total_pages'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$MovieAvalibaleModelToJson(
   MovieAvalibaleModel instance,
 ) => <String, dynamic>{
-  'status_message': instance.status,
-  'data': instance.data,
-};
-
-Data _$DataFromJson(Map<String, dynamic> json) => Data(
-  movies: (json['movies'] as List<dynamic>?)
-      ?.map((e) => Movies.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
-
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
-  'movies': instance.movies,
+  'results': instance.moviesList,
+  'total_pages': instance.totalPages,
 };
 
 Movies _$MoviesFromJson(Map<String, dynamic> json) => Movies(
@@ -36,27 +26,11 @@ Movies _$MoviesFromJson(Map<String, dynamic> json) => Movies(
   url: json['url'] as String?,
   imdbCode: json['imdb_code'] as String?,
   title: json['title'] as String?,
-  titleEnglish: json['title_english'] as String?,
-  titleLong: json['title_long'] as String?,
-  slug: json['slug'] as String?,
-  year: (json['year'] as num?)?.toInt(),
-  rating: (json['rating'] as num?)?.toDouble(),
-  runtime: (json['runtime'] as num?)?.toInt(),
-  genres: (json['genres'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  summary: json['summary'] as String?,
-  descriptionFull: json['description_full'] as String?,
-  synopsis: json['synopsis'] as String?,
-  ytTrailerCode: json['yt_trailer_code'] as String?,
-  language: json['language'] as String?,
-  mpaRating: json['mpa_rating'] as String?,
-  backgroundImage: json['background_image'] as String?,
-  backgroundImageOriginal: json['background_image_original'] as String?,
-  smallCoverImage: json['small_cover_image'] as String?,
-  mediumCoverImage: json['medium_cover_image'] as String?,
-  largeCoverImage: json['large_cover_image'] as String?,
-  state: json['state'] as String?,
-  dateUploaded: json['date_uploaded'] as String?,
-  dateUploadedUnix: (json['date_uploaded_unix'] as num?)?.toInt(),
+  releaseDate: json['release_date'] as String?,
+  rating: (json['vote_average'] as num?)?.toDouble(),
+  summary: json['overview'] as String?,
+  posterPath: json['poster_path'] as String?,
+  background: json['backdrop_path'] as String?,
 );
 
 Map<String, dynamic> _$MoviesToJson(Movies instance) => <String, dynamic>{
@@ -64,25 +38,9 @@ Map<String, dynamic> _$MoviesToJson(Movies instance) => <String, dynamic>{
   'url': instance.url,
   'imdb_code': instance.imdbCode,
   'title': instance.title,
-  'title_english': instance.titleEnglish,
-  'title_long': instance.titleLong,
-  'slug': instance.slug,
-  'year': instance.year,
-  'rating': instance.rating,
-  'runtime': instance.runtime,
-  'genres': instance.genres,
-  'summary': instance.summary,
-  'description_full': instance.descriptionFull,
-  'synopsis': instance.synopsis,
-  'yt_trailer_code': instance.ytTrailerCode,
-  'language': instance.language,
-  'mpa_rating': instance.mpaRating,
-  'background_image': instance.backgroundImage,
-  'background_image_original': instance.backgroundImageOriginal,
-  'small_cover_image': instance.smallCoverImage,
-  'medium_cover_image': instance.mediumCoverImage,
-  'large_cover_image': instance.largeCoverImage,
-  'state': instance.state,
-  'date_uploaded': instance.dateUploaded,
-  'date_uploaded_unix': instance.dateUploadedUnix,
+  'release_date': instance.releaseDate,
+  'vote_average': instance.rating,
+  'overview': instance.summary,
+  'poster_path': instance.posterPath,
+  'backdrop_path': instance.background,
 };

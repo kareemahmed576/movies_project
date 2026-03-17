@@ -1,19 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entitiy_req.dart';
-import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entity.dart';
 import '../../../../../movie details/domain/entities/movie_details_entity.dart';
+import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/movie_available_entity.dart';
 
 part 'movie_avaliable_model.g.dart';
 
 @JsonSerializable()
 class MovieAvalibaleModel {
-  @JsonKey(name: "status_message")
-  final String? status;
+  @JsonKey(name: 'results')
+  final List<Movies>? moviesList;
+  @JsonKey(name: 'total_pages')
+  final int? totalPages;
 
-  @JsonKey(name: "data")
-  final Data? data;
-
-  MovieAvalibaleModel({this.status, this.data});
+  MovieAvalibaleModel({this.moviesList, this.totalPages});
 
   factory MovieAvalibaleModel.fromJson(Map<String, dynamic> json) =>
       _$MovieAvalibaleModelFromJson(json);
@@ -22,19 +20,9 @@ class MovieAvalibaleModel {
 
   MovieAvailableEntity toEntity() {
     return MovieAvailableEntity(
-      data?.movies?.map((e) => e.toMovieDetailsEntity()).toList() ?? [],
+      moviesList?.map((e) => e.toMovieDetailsEntity()).toList() ?? [],
     );
   }
-}
-
-@JsonSerializable()
-class Data {
-  @JsonKey(name: "movies")
-  final List<Movies>? movies;
-  Data({this.movies});
-
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
-  Map<String, dynamic> toJson() => _$DataToJson(this);
 }
 
 @JsonSerializable()
@@ -50,123 +38,44 @@ class Movies {
 
   @JsonKey(name: "title")
   final String? title;
-
-  @JsonKey(name: "title_english")
-  final String? titleEnglish;
-
-  @JsonKey(name: "title_long")
-  final String? titleLong;
-
-  @JsonKey(name: "slug")
-  final String? slug;
-
-  @JsonKey(name: "year")
-  final int? year;
-
-  @JsonKey(name: "rating")
+  @JsonKey(name: 'release_date')
+  final String? releaseDate;
+  @JsonKey(name: 'vote_average')
   final double? rating;
-
-  @JsonKey(name: "runtime")
-  final int? runtime;
-
-  @JsonKey(name: "genres")
-  final List<String>? genres;
-
-  @JsonKey(name: "summary")
+  @JsonKey(name: 'overview')
   final String? summary;
-
-  @JsonKey(name: "description_full")
-  final String? descriptionFull;
-
-  @JsonKey(name: "synopsis")
-  final String? synopsis;
-
-  @JsonKey(name: "yt_trailer_code")
-  final String? ytTrailerCode;
-
-  @JsonKey(name: "language")
-  final String? language;
-
-  @JsonKey(name: "mpa_rating")
-  final String? mpaRating;
-
-  @JsonKey(name: "background_image")
-  final String? backgroundImage;
-
-  @JsonKey(name: "background_image_original")
-  final String? backgroundImageOriginal;
-
-  @JsonKey(name: "small_cover_image")
-  final String? smallCoverImage;
-
-  @JsonKey(name: "medium_cover_image")
-  final String? mediumCoverImage;
-
-  @JsonKey(name: "large_cover_image")
-  final String? largeCoverImage;
-
-  @JsonKey(name: "state")
-  final String? state;
-
-  @JsonKey(name: "date_uploaded")
-  final String? dateUploaded;
-
-  @JsonKey(name: "date_uploaded_unix")
-  final int? dateUploadedUnix;
+  @JsonKey(name: "poster_path")
+  final String? posterPath;
+  @JsonKey(name: "backdrop_path")
+  final String? background;
 
   Movies({
     this.id,
-    this.url,
-    this.imdbCode,
     this.title,
-    this.titleEnglish,
-    this.titleLong,
-    this.slug,
-    this.year,
+    this.releaseDate,
     this.rating,
-    this.runtime,
-    this.genres,
     this.summary,
-    this.descriptionFull,
-    this.synopsis,
-    this.ytTrailerCode,
-    this.language,
-    this.mpaRating,
-    this.backgroundImage,
-    this.backgroundImageOriginal,
-    this.smallCoverImage,
-    this.mediumCoverImage,
-    this.largeCoverImage,
-    this.state,
-    this.dateUploaded,
-    this.dateUploadedUnix,
+    this.posterPath,
+    this.background,
   });
 
   factory Movies.fromJson(Map<String, dynamic> json) => _$MoviesFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MoviesToJson(this);
-  MovieAvailableEntitiyReq toEntity() {
-    return MovieAvailableEntitiyReq(
-      id: id,
-      imagePath: largeCoverImage,
-      rating: rating,
-      gense: genres,
-    );
-  }
 
   MovieDetailsEntity toMovieDetailsEntity() {
     return MovieDetailsEntity(
       id: id,
       title: title ?? "Unknown",
-      year: year?.toString() ?? "",
-      rating: rating?.toString() ?? "0.0",
-      runtime: "${runtime ?? 0} min",
-      genres: genres ?? [],
+      year: (releaseDate != null && releaseDate!.isNotEmpty)
+          ? releaseDate!.split('-')[0]
+          : "",
+      rating: rating?.toStringAsFixed(1) ?? "0.0",
+      runtime: "N/A",
+      genres: [],
       summary: summary ?? "",
-      imagePath:  largeCoverImage,
-      trailerUrl: (ytTrailerCode != null && ytTrailerCode!.isNotEmpty)
-          ? "https://www.youtube.com/watch?v=$ytTrailerCode"
-          : null,
+      imagePath: posterPath != null
+          ? 'https://image.tmdb.org/t/p/w500$posterPath'
+          : 'https://image.tmdb.org/t/p/w500$background',
+      trailerUrl: null,
     );
   }
 }

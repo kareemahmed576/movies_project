@@ -30,6 +30,15 @@ class MovieDetailsScreen extends StatefulWidget {
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
+  void initState() {
+    super.initState();
+    // نداء البيانات عند فتح الشاشة
+    final viewModel = context.read<MovieDetailsViewModel>();
+    viewModel.getMovieTrailer(widget.movie.id!);
+    viewModel.getSimilarMovies(widget.movie.id!);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final watchListState = context.watch<WatchListCubit>().state;
     bool inWatchList = false;
@@ -106,9 +115,15 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   ),
                 ),
                 Center(
-                  child: GestureDetector(
-                    onTap: () => _launchTrailer(widget.movie.trailerUrl),
-                    child: Image.asset(AssetsManager.playIcon),
+                  child: BlocBuilder<MovieDetailsViewModel, MovieDetailsState>(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: () => _launchTrailer(state.trailerUrl),
+                        child: state.isTrailerLoading
+                            ? const CircularProgressIndicator(color: Colors.white)
+                            : Image.asset(AssetsManager.playIcon),
+                      );
+                    },
                   ),
                 ),
                 Positioned(
@@ -197,16 +212,16 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: 16.h),
-                BlocBuilder<MovieDetailsViewModel, MovieDetailsStates>(
+                BlocBuilder<MovieDetailsViewModel, MovieDetailsState>(
                   builder: (context, state) {
-                    if (state is SimilarMoviesLoadingState) {
+                    if (state.isSimilarLoading) {
                       return const Center(child: CircularProgressIndicator());
-                    } else if (state is SimilarMoviesErrorState) {
-                      return Center(child: Text(state.message));
-                    } else if (state is SimilarMoviesSuccessState) {
+                    } else if (state.errorMessage != null) {
+                      return Center(child: Text(state.errorMessage!));
+                    } else if (state.similarMovies != null) {
                       return GenreGridview(
-                        movies: state.similarMovies,
-                        itemCount: state.similarMovies.length,
+                        movies: state.similarMovies!,
+                        itemCount: state.similarMovies!.length,
                         crossAxisCount: 3,
                         mainAxisSpacing: 11,
                         crossAxisSpacing: 16,

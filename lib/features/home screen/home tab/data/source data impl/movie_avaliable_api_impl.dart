@@ -11,17 +11,9 @@ class MovieDaoImpl implements MovieDao {
   MovieDaoImpl(this.movieAvailable);
 
   @override
-  Future<BaseResponse<MovieAvalibaleModel>> fetchMovies({
-    int limit = 20,
-    String? sortBy,
-    String? orderBy,
-  }) async {
+  Future<BaseResponse<MovieAvalibaleModel>> fetchMovies({int page = 1}) async {
     try {
-      var response = await movieAvailable.getAvailableMovies(
-        limit,
-        sortBy: sortBy,
-        orderBy: orderBy,
-      );
+      var response = await movieAvailable.getAvailableMovies(page);
       return SuccessState(response);
     } catch (e) {
       return ErrorState(e.toString());
@@ -31,7 +23,10 @@ class MovieDaoImpl implements MovieDao {
   @override
   Future<BaseResponse<MovieAvalibaleModel>> fetchSections(List<String?> gense) async {
     try {
-      var response = await movieAvailable.getSectionsMovies(gense.first, 1);
+      var response = await movieAvailable.getSectionsMovies(
+        gense.first ?? "",
+        1,
+      );
       return SuccessState(response);
     } catch (e) {
       return ErrorState(e.toString());
@@ -42,6 +37,16 @@ class MovieDaoImpl implements MovieDao {
   Future<BaseResponse<MovieAvalibaleModel>> fetchSimilarMovies(int movieId) async {
     try {
       var response = await movieAvailable.getSimilarMovies(movieId);
+      return SuccessState(response);
+    } catch (e) {
+      return ErrorState(e.toString());
+    }
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> getMovieVideos(int movieId) async {
+    try {
+      var response = await movieAvailable.getMovieVideos(movieId);
       return SuccessState(response);
     } catch (e) {
       return ErrorState(e.toString());

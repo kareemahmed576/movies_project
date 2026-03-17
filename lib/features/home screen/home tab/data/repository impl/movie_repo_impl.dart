@@ -17,11 +17,7 @@ class MovieRepoImpl implements MovieRepo {
   Future<BaseResponse<MovieAvailableEntity>> fetchMovies() async {
     bool isConnected = await InternetConnector.checkConnection();
     if (isConnected) {
-      var response = await movieDao.fetchMovies(
-        limit: 20,
-        sortBy: 'download_count',
-        orderBy: 'desc',
-      );
+      var response = await movieDao.fetchMovies(page: 1);
       if (response is SuccessState<MovieAvalibaleModel>) {
         return SuccessState(response.response.toEntity());
       } else if (response is ErrorState<MovieAvalibaleModel>) {
@@ -32,10 +28,10 @@ class MovieRepoImpl implements MovieRepo {
   }
 
   @override
-  Future<BaseResponse<MovieAvailableEntity>> fetchSections(List<String?> gense) async {
+  Future<BaseResponse<MovieAvailableEntity>> fetchSections(List<String?> genres) async {
     bool isConnected = await InternetConnector.checkConnection();
     if (isConnected) {
-      var response = await movieDao.fetchSections(gense);
+      var response = await movieDao.fetchSections(genres);
       if (response is SuccessState<MovieAvalibaleModel>) {
         return SuccessState(response.response.toEntity());
       } else if (response is ErrorState<MovieAvalibaleModel>) {
@@ -53,6 +49,28 @@ class MovieRepoImpl implements MovieRepo {
       if (response is SuccessState<MovieAvalibaleModel>) {
         return SuccessState(response.response.toEntity());
       } else if (response is ErrorState<MovieAvalibaleModel>) {
+        return ErrorState(response.error);
+      }
+    }
+    return ErrorState(StringsManager.noInternet);
+  }
+
+  @override
+  Future<BaseResponse<String>> fetchTrailer(int movieId) async {
+    bool isConnected = await InternetConnector.checkConnection();
+    if (isConnected) {
+      var response = await movieDao.getMovieVideos(movieId);
+      if (response is SuccessState<dynamic>) {
+        List results = response.response['results'];
+        var trailer = results.firstWhere(
+              (v) => v['type'] == 'Trailer' && v['site'] == 'YouTube',
+          orElse: () => results.isNotEmpty ? results.first : null,
+        );
+        if (trailer != null) {
+          return SuccessState("https://www.youtube.com/watch?v=${trailer['key']}");
+        }
+        return ErrorState("No trailer available");
+      } else if (response is ErrorState<dynamic>) {
         return ErrorState(response.error);
       }
     }

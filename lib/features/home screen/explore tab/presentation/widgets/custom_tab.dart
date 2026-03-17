@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/resources/constants_manager.dart';
 
 class CustomTab extends StatelessWidget {
-  int index;
-  CustomTab({required this.index});
+  final int index;
+  const CustomTab({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final String genreName = ConstantsManager.genres.keys.toList()[index];
+
     return Tab(
       child: Container(
         decoration: BoxDecoration(
@@ -22,7 +24,7 @@ class CustomTab extends StatelessWidget {
           horizontal: 20,
           vertical: 10,
         ),
-        child: Text(ConstantsManager.genres[index]),
+        child: Text(genreName),
       ),
     );
   }

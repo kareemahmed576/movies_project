@@ -11,6 +11,7 @@ class ExploreRepositoryImpl implements ExploreRepository {
   @override
   Future<List<MovieDetailsEntity>> getMoviesByGenre(String genre, int page) async {
     final model = await _remoteDataSource.getMoviesByGenre(genre, page);
-    return model.data?.movies?.map((m) => m.toMovieDetailsEntity()).toList() ?? [];
+
+    return model.moviesList?.map((m) => m.toMovieDetailsEntity()).toList() ?? [];
   }
 }

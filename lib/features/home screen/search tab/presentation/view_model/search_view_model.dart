@@ -5,19 +5,26 @@ import 'package:movies_project/features/home%20screen/home%20tab/domain/entity/m
 import 'package:movies_project/features/home%20screen/search%20tab/domain/use_case/search_use_case.dart';
 import 'package:movies_project/features/home%20screen/search%20tab/presentation/view_model/search_states.dart';
 @injectable
-class SearchViewModel extends Cubit<SearchStates>{
-  SearchUseCase searchUseCase;
-  SearchViewModel(this.searchUseCase):super(SearchLoadingState());
+class SearchViewModel extends Cubit<SearchStates> {
+  final SearchUseCase searchUseCase;
+  SearchViewModel(this.searchUseCase) : super(SearchInitialState()); // البداية Initial
 
-  getSoruces(String search)async{
+  getSources(String search) async {
+    if (search.trim().isEmpty) {
+      emit(SearchInitialState());
+      return;
+    }
+
     emit(SearchLoadingState());
-    var response=await searchUseCase.call(search);
-    switch(response){
+    var response = await searchUseCase.call(search);
 
+    if (isClosed) return;
+
+    switch (response) {
       case SuccessState<MovieAvailableEntity>():
-        return emit(SearchSuccessState(response.response));
+        emit(SearchSuccessState(response.response));
       case ErrorState<MovieAvailableEntity>():
-       return emit(SearchErrorState(response.error));
+        emit(SearchErrorState(response.error));
     }
   }
 }

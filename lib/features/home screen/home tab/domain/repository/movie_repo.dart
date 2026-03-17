@@ -6,4 +6,5 @@ abstract interface class MovieRepo {
   Future<BaseResponse<MovieAvailableEntity>> fetchMovies();
   Future<BaseResponse<MovieAvailableEntity>> fetchSections(List<String?> gense);
   Future<BaseResponse<MovieAvailableEntity>> fetchSimilarMovies(int movieId);
+  Future<BaseResponse<String>> fetchTrailer(int movieId);
 }

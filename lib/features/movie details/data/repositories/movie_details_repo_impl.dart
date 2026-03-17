@@ -20,7 +20,7 @@ class MovieDetailsRepoImpl implements MovieDetailsRepo {
       var response = await movieDao.fetchSimilarMovies(movieId);
 
       if (response is SuccessState<MovieAvalibaleModel>) {
-        var detailsList = response.response.data?.movies
+        var detailsList = response.response.moviesList
             ?.map((m) => m.toMovieDetailsEntity())
             .toList() ?? [];
         return SuccessState(detailsList);

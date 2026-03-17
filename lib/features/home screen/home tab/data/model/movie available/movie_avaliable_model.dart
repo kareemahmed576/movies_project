@@ -38,19 +38,26 @@ class Movies {
 
   @JsonKey(name: "title")
   final String? title;
+
   @JsonKey(name: 'release_date')
   final String? releaseDate;
+
   @JsonKey(name: 'vote_average')
   final double? rating;
+
   @JsonKey(name: 'overview')
   final String? summary;
+
   @JsonKey(name: "poster_path")
   final String? posterPath;
+
   @JsonKey(name: "backdrop_path")
   final String? background;
 
   Movies({
     this.id,
+    this.url,
+    this.imdbCode,
     this.title,
     this.releaseDate,
     this.rating,

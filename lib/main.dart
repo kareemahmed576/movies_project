@@ -18,6 +18,7 @@ import 'features/movie details/domain/entities/movie_details_entity.dart';
 import 'features/movie details/presentation/manager/movie_details_view_model.dart';
 import 'features/update_profile/Cubit/selected_avatar_cubit.dart';
 import 'features/update_profile/update_profile.dart';
+import 'features/watch_list/Cubit/watch_list_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,8 +67,11 @@ class MyApp extends StatelessWidget {
     switch (settings.name) {
       case RoutesManager.homeRoute:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => ProfileCubit(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt<WatchListCubit>()),
+              BlocProvider(create: (context) => ProfileCubit()),
+            ],
             child: HomeScreen(),
           ),
         );

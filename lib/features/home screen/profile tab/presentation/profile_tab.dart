@@ -19,7 +19,7 @@ class ProfileTab extends StatelessWidget {
             children: [
               ProfileHeader(),
               state is WatchListState
-                  ? SizedBox(height: 0.5.sh, child: WatchListScreen())
+                  ? WatchListScreen()
                   : Padding(
                       padding: REdgeInsets.only(top: 24, left: 16, right: 16),
                       child: MoviesGridview(

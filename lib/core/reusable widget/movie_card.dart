@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_project/core/resources/assets_manager.dart';
-import 'package:movies_project/features/home%20screen/profile%20tab/model/movieModel.dart';
-
-import '../resources/colors_manager.dart';
-import '../resources/routes_manager.dart';
+import 'package:movies_project/core/resources/colors_manager.dart';
+import 'package:movies_project/core/resources/routes_manager.dart';
+import 'package:movies_project/features/movie%20details/domain/entities/movie_details_entity.dart';
 
 class MovieCard extends StatelessWidget {
-  final MovieModel movie;
+  final MovieDetailsEntity? movie;
   final double containerWidth;
   final double containerHeight;
 
@@ -26,6 +25,7 @@ class MovieCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           RoutesManager.movieDetailsRoute,
+          arguments: movie, // مهم علشان تبعت الداتا
         );
       },
       child: Container(
@@ -33,9 +33,10 @@ class MovieCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
           image: DecorationImage(
-            image: movie.image != null && movie.image!.startsWith('http')
-                ? NetworkImage(movie.image!)
-                : AssetImage(movie.image ?? AssetsManager.onboarding4) as ImageProvider,
+            image: movie?.imagePath != null &&
+                movie!.imagePath!.startsWith('http')
+                ? NetworkImage(movie!.imagePath!)
+                : AssetImage(AssetsManager.onboarding4) as ImageProvider,
             fit: BoxFit.cover,
           ),
         ),
@@ -56,10 +57,11 @@ class MovieCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      movie.rate?.toString() ?? movie.rating?.toString() ?? "0.0",
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelMedium!.copyWith(fontSize: 16),
+                      movie?.rating ?? "0.0",
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(fontSize: 16),
                     ),
                     SvgPicture.asset(
                       AssetsManager.rateIcon,

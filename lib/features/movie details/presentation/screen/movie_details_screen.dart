@@ -11,7 +11,9 @@ import 'package:movies_project/features/movie%20details/presentation/manager/mov
 import 'package:movies_project/features/movie%20details/presentation/widgets/custom_container.dart';
 import 'package:movies_project/features/movie%20details/presentation/widgets/genre_gridview.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../auth/sign_up_screen/data/data sources/remote/sign_up_remote_data_source_impl.dart';
 import '../../../home screen/home tab/domain/entity/movie_available_entitiy_req.dart';
+import '../../../watch_list/Cubit/watch_list_cubit.dart';
 import '../../domain/entities/movie_details_entity.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
@@ -37,7 +39,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // Handle save icon press
+              // when press on it add to watched list
+              context.read<WatchListCubit>().addMovie(widget.movie);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Added to WatchList")),
+              );
+            },
             icon: SvgPicture.asset(AssetsManager.saveIcon),
           ),
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_project/core/resources/constants_manager.dart';
+import '../../features/home screen/home tab/data/model/movie available/movie_avaliable_model.dart';
+import '../../features/movie details/domain/entities/movie_details_entity.dart';
 import 'movie_card.dart';
 
 class MoviesGridview extends StatelessWidget {
@@ -11,6 +13,8 @@ class MoviesGridview extends StatelessWidget {
   final double movieCardContainerWidth;
   final double movieCardContainerHeight;
   final ScrollPhysics? scrollPhysics;
+  final List<MovieDetailsEntity>? movies;
+
 
   const MoviesGridview({
     super.key,
@@ -21,6 +25,7 @@ class MoviesGridview extends StatelessWidget {
     required this.movieCardContainerWidth,
     required this.movieCardContainerHeight,
     this.scrollPhysics,
+    this.movies,
   });
 
   @override
@@ -37,7 +42,7 @@ class MoviesGridview extends StatelessWidget {
       physics: scrollPhysics,
       itemCount: itemCount,
       itemBuilder: (context, index) => MovieCard(
-        movie: ConstantsManager.movies[index],
+        movie: movies![index] ,
         containerWidth: movieCardContainerWidth,
         containerHeight: movieCardContainerHeight,
       ),

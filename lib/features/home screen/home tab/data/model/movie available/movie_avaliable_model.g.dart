@@ -23,6 +23,8 @@ Map<String, dynamic> _$MovieAvalibaleModelToJson(
 
 Movies _$MoviesFromJson(Map<String, dynamic> json) => Movies(
   id: (json['id'] as num?)?.toInt(),
+  url: json['url'] as String?,
+  imdbCode: json['imdb_code'] as String?,
   title: json['title'] as String?,
   releaseDate: json['release_date'] as String?,
   rating: (json['vote_average'] as num?)?.toDouble(),
@@ -33,6 +35,8 @@ Movies _$MoviesFromJson(Map<String, dynamic> json) => Movies(
 
 Map<String, dynamic> _$MoviesToJson(Movies instance) => <String, dynamic>{
   'id': instance.id,
+  'url': instance.url,
+  'imdb_code': instance.imdbCode,
   'title': instance.title,
   'release_date': instance.releaseDate,
   'vote_average': instance.rating,

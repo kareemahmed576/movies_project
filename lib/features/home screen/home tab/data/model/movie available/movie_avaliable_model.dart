@@ -16,6 +16,8 @@ class MovieAvalibaleModel {
   factory MovieAvalibaleModel.fromJson(Map<String, dynamic> json) =>
       _$MovieAvalibaleModelFromJson(json);
 
+  Map<String, dynamic> toJson() => _$MovieAvalibaleModelToJson(this);
+
   MovieAvailableEntity toEntity() {
     return MovieAvailableEntity(
       moviesList?.map((e) => e.toMovieDetailsEntity()).toList() ?? [],
@@ -25,7 +27,16 @@ class MovieAvalibaleModel {
 
 @JsonSerializable()
 class Movies {
+  @JsonKey(name: "id")
   final int? id;
+
+  @JsonKey(name: "url")
+  final String? url;
+
+  @JsonKey(name: "imdb_code")
+  final String? imdbCode;
+
+  @JsonKey(name: "title")
   final String? title;
   @JsonKey(name: 'release_date')
   final String? releaseDate;

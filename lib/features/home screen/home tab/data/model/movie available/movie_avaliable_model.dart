@@ -32,26 +32,107 @@ class Data {
 
 @JsonSerializable()
 class Movies {
+  @JsonKey(name: "id")
   final int? id;
+
+  @JsonKey(name: "url")
+  final String? url;
+
+  @JsonKey(name: "imdb_code")
+  final String? imdbCode;
+
+  @JsonKey(name: "title")
   final String? title;
+
+  @JsonKey(name: "title_english")
+  final String? titleEnglish;
+
+  @JsonKey(name: "title_long")
+  final String? titleLong;
+
+  @JsonKey(name: "slug")
+  final String? slug;
+
+  @JsonKey(name: "year")
   final int? year;
+
+  @JsonKey(name: "rating")
   final double? rating;
+
+  @JsonKey(name: "runtime")
   final int? runtime;
+
+  @JsonKey(name: "genres")
   final List<String>? genres;
+
+  @JsonKey(name: "summary")
   final String? summary;
-  @JsonKey(name: "large_cover_image")
-  final String? largeCover;
-  @JsonKey(name: "medium_cover_image")
-  final String? mediumCover;
-  @JsonKey(name: "background_image")
-  final String? background;
+
+  @JsonKey(name: "description_full")
+  final String? descriptionFull;
+
+  @JsonKey(name: "synopsis")
+  final String? synopsis;
+
   @JsonKey(name: "yt_trailer_code")
-  final String? trailerCode;
+  final String? ytTrailerCode;
+
+  @JsonKey(name: "language")
+  final String? language;
+
+  @JsonKey(name: "mpa_rating")
+  final String? mpaRating;
+
+  @JsonKey(name: "background_image")
+  final String? backgroundImage;
+
+  @JsonKey(name: "background_image_original")
+  final String? backgroundImageOriginal;
+
+  @JsonKey(name: "small_cover_image")
+  final String? smallCoverImage;
+
+  @JsonKey(name: "medium_cover_image")
+  final String? mediumCoverImage;
+
+  @JsonKey(name: "large_cover_image")
+  final String? largeCoverImage;
+
+  @JsonKey(name: "state")
+  final String? state;
+
+  @JsonKey(name: "date_uploaded")
+  final String? dateUploaded;
+
+  @JsonKey(name: "date_uploaded_unix")
+  final int? dateUploadedUnix;
 
   Movies({
-    this.id, this.title, this.year, this.rating, this.runtime,
-    this.genres, this.summary, this.largeCover, this.mediumCover,
-    this.background, this.trailerCode,
+    this.id,
+    this.url,
+    this.imdbCode,
+    this.title,
+    this.titleEnglish,
+    this.titleLong,
+    this.slug,
+    this.year,
+    this.rating,
+    this.runtime,
+    this.genres,
+    this.summary,
+    this.descriptionFull,
+    this.synopsis,
+    this.ytTrailerCode,
+    this.language,
+    this.mpaRating,
+    this.backgroundImage,
+    this.backgroundImageOriginal,
+    this.smallCoverImage,
+    this.mediumCoverImage,
+    this.largeCoverImage,
+    this.state,
+    this.dateUploaded,
+    this.dateUploadedUnix,
   });
 
   factory Movies.fromJson(Map<String, dynamic> json) => _$MoviesFromJson(json);
@@ -60,7 +141,7 @@ class Movies {
   MovieAvailableEntitiyReq toEntity() {
     return MovieAvailableEntitiyReq(
       id: id,
-      imagePath: mediumCover ?? largeCover ?? background,
+      imagePath: largeCoverImage,
       rating: rating,
       gense: genres,
     );
@@ -75,9 +156,9 @@ class Movies {
       runtime: "${runtime ?? 0} min",
       genres: genres ?? [],
       summary: summary ?? "",
-      imagePath: largeCover ?? mediumCover ?? background,
-      trailerUrl: (trailerCode != null && trailerCode!.isNotEmpty)
-          ? "https://www.youtube.com/watch?v=$trailerCode"
+      imagePath:  largeCoverImage,
+      trailerUrl: (ytTrailerCode != null && ytTrailerCode!.isNotEmpty)
+          ? "https://www.youtube.com/watch?v=$ytTrailerCode"
           : null,
     );
   }
